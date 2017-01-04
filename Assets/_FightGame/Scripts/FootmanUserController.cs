@@ -57,6 +57,17 @@ namespace FightDemo.ThirdPerson
             _character.RotateCamera(_cameraRotationX);
         }
 
+        void Update()
+        {
+            //放到github上后出现了，点按钮没反应，改了按钮的名字解决了
+            if (UltimateButton.GetButtonDown("TriggerButton") || Input.GetButtonDown("Jump"))
+            {
+                _character.isTrigger = true;
+                _character.HandleJumpMovement();
+                //Debug.Log("按下喽");
+            }
+        }
+
     }
 }
 

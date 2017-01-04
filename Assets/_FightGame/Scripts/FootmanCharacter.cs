@@ -24,22 +24,23 @@ namespace FightDemo.ThirdPerson
         [SerializeField]
         private float groundCheckDistance = 0.1f;//人物是否离地的偏移值
         [SerializeField]
+        private float jumpPower = 5.0f;//人物跳起来的力
+        [SerializeField]
         private bool _isLive = true;
         public bool isLive
         {
-            get
-            {
-                return _isLive;
-            }
-            set
-            {
-                _isLive = value;
-            }
+            get{return _isLive;}
+            set{_isLive = value;}
         }
         private int _stayState = 0;
         private int _onceActionType = 0;
         private float _speed = 0.0f;
         private bool _isTrigger = false;
+        public bool isTrigger
+        {
+            get{return _isTrigger;}
+            set{_isTrigger = value;}
+        }
         private bool _isJump = false;
 
         private Vector3 _moveVelocity = Vector3.zero;
@@ -76,9 +77,13 @@ namespace FightDemo.ThirdPerson
 
         public void Move(float h,float v,int onceActionType)
         {
+            if (!isLive)
+            {
+                Debug.Log("人物死亡！");
+                return;
+            }
             CheckGroundStatus();
-            //Debug.Log("h: " + h.ToString() + "v: " + v.ToString());
-            //菜逼bug：应该从一开始就用绝对值啊！
+
             float tmpH = Mathf.Abs(h);
             float tmpV = Mathf.Abs(v);
             //区分静止还是移动
@@ -103,23 +108,29 @@ namespace FightDemo.ThirdPerson
             {
                 _isJump = false;
             }
-            //HandleJumpMovement(isJump);
+            //HandleJumpMovement(_isJump);
 
             UpdateAnimation();
         }
 
-        private void HandleJumpMovement(bool isJump)
+        public void HandleJumpMovement()
         {
-            //Debug.Log("isJump->" + isJump + "  isGrounded->" + isGrounded);
-            if (isJump && _isGrounded)
+            //Debug.Log("isJump->" + _isJump + "  isGrounded->" + _isGrounded);
+            //隐患1：
+            //直接对物体在某个轴上施加一个绝对大小的力，可能会被今后施加的其他力所影响
+            //从而导致不能保证达到目前跳跃效果
+            //问题2：没有判断是否处于完跳跃状态
+            if (_isJump && _isGrounded)// && _animation.GetCurrentAnimatorStateInfo(0).IsName("OnceAction")
             {
-                //_rigidbody.AddForce(Vector3.up * 10);
-                Debug.Log("jump");
-                _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 5, _rigidbody.velocity.z);
+                //AnimatorStateInfo a = _animation.get;
+                //Debug.Log(a.IsName("Jump"));
+                //Debug.Log("jump");
+                _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, jumpPower, _rigidbody.velocity.z);
                 _isGrounded = false;
                 _animation.applyRootMotion = false;
                 groundCheckDistance = 0.1f;
             }
+            UpdateAnimation();
         }
 
         public void Die()
@@ -158,16 +169,16 @@ namespace FightDemo.ThirdPerson
             PerformRotation();
         }
 
-        void Update()
-        {
-            if (UltimateButton.GetButtonDown("OnceAction") || Input.GetButtonDown("Jump"))
-            {
-                _isTrigger = true;
-                HandleJumpMovement(_isJump);
-                //Debug.Log("按下喽");
-            }
-            UpdateAnimation();
-        }
+        //void Update()
+        //{
+        //    if (UltimateButton.GetButtonDown("OnceAction") || Input.GetButtonDown("Jump"))
+        //    {
+        //        _isTrigger = true;
+        //        HandleJumpMovement();
+        //        Debug.Log("按下喽");
+        //    }
+        //    UpdateAnimation();
+        //}
 
         private void PerformMovement()
         {
