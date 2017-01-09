@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 
 namespace FightDemo.ThirdPerson
 {
@@ -7,6 +8,11 @@ namespace FightDemo.ThirdPerson
     [RequireComponent(typeof(Animator))]
     public class FootmanCharacter : MonoBehaviour
     {
+        [SerializeField]
+        private Transform groundObject;
+        [SerializeField]
+        private float heightOffsetOnGround;
+        private bool isGrounded;
         //为什么这些数值要放在Character里？
         //因为这是每个角色自身带的属性，每个角色都不一样，所以千万不能放到controller里
         [SerializeField]
@@ -29,8 +35,8 @@ namespace FightDemo.ThirdPerson
         private bool _isLive = true;
         public bool isLive
         {
-            get{return _isLive;}
-            set{_isLive = value;}
+            get { return _isLive; }
+            set { _isLive = value; }
         }
         private int _stayState = 0;
         private int _onceActionType = 0;
@@ -38,10 +44,11 @@ namespace FightDemo.ThirdPerson
         private bool _isTrigger = false;
         public bool isTrigger
         {
-            get{return _isTrigger;}
-            set{_isTrigger = value;}
+            get { return _isTrigger; }
+            set { _isTrigger = value; }
         }
         private bool _isJump = false;
+        private bool _inState = false;//是不是在动作进行中
 
         private Vector3 _moveVelocity = Vector3.zero;
         private Vector3 _rotation = Vector3.zero;
@@ -55,7 +62,6 @@ namespace FightDemo.ThirdPerson
 
         private static int IDLE = 0;
 
-        
         void Start()
         {
             _animation = GetComponent<Animator>();
@@ -63,6 +69,9 @@ namespace FightDemo.ThirdPerson
 
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             _currentCameraRotationX = _cam.transform.localEulerAngles.x;
+
+            NotificationCenter.DefaultCenter.AddObserver(this, "OnOnceActionStateBegin");
+            NotificationCenter.DefaultCenter.AddObserver(this, "OnOnceActionStateEnd");
         }
 
         public void Rotate(Vector3 rotation)
@@ -75,7 +84,7 @@ namespace FightDemo.ThirdPerson
             _cameraRotationX = cameraRotationX;
         }
 
-        public void Move(float h,float v,int onceActionType)
+        public void Move(float h, float v, int onceActionType)
         {
             if (!isLive)
             {
@@ -99,32 +108,20 @@ namespace FightDemo.ThirdPerson
             }
 
             _onceActionType = onceActionType;
-            //暂时这么写
-            if (_onceActionType == 0)//还有一种跳起来攻击的，要再特例一下
-            {
-                _isJump = true;
-            }
-            else
-            {
-                _isJump = false;
-            }
-            //HandleJumpMovement(_isJump);
 
             UpdateAnimation();
         }
 
         public void HandleJumpMovement()
         {
-            //Debug.Log("isJump->" + _isJump + "  isGrounded->" + _isGrounded);
+            Debug.Log("isJump->" + _isJump + "  isGrounded->" + _isGrounded + " inState->" + _inState);
             //隐患1：
             //直接对物体在某个轴上施加一个绝对大小的力，可能会被今后施加的其他力所影响
             //从而导致不能保证达到目前跳跃效果
             //问题2：没有判断是否处于完跳跃状态
-            if (_isJump && _isGrounded)// && _animation.GetCurrentAnimatorStateInfo(0).IsName("OnceAction")
+            if (_isJump && _isGrounded && _inState)
             {
-                //AnimatorStateInfo a = _animation.get;
-                //Debug.Log(a.IsName("Jump"));
-                //Debug.Log("jump");
+                Debug.Log("jump");
                 _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, jumpPower, _rigidbody.velocity.z);
                 _isGrounded = false;
                 _animation.applyRootMotion = false;
@@ -152,7 +149,7 @@ namespace FightDemo.ThirdPerson
                 _isTrigger = false;
             }
         }
-    
+
 
         private void MakeLive()
         {
@@ -168,17 +165,6 @@ namespace FightDemo.ThirdPerson
             PerformMovement();
             PerformRotation();
         }
-
-        //void Update()
-        //{
-        //    if (UltimateButton.GetButtonDown("OnceAction") || Input.GetButtonDown("Jump"))
-        //    {
-        //        _isTrigger = true;
-        //        HandleJumpMovement();
-        //        Debug.Log("按下喽");
-        //    }
-        //    UpdateAnimation();
-        //}
 
         private void PerformMovement()
         {
@@ -218,16 +204,55 @@ namespace FightDemo.ThirdPerson
             if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, groundCheckDistance))
             {
                 _isGrounded = true;
+                //Debug.Log("在地面上");
                 _animation.applyRootMotion = true;
             }
             else
             {
                 _isGrounded = false;
+                //Debug.Log("不在地面上");
                 _animation.applyRootMotion = false;
             }
         }
 
+        void OnOnceActionStateBegin(NotificationCenter.Notification notification)
+        {
+            int stateType = Convert.ToInt32(notification.data);
+            Debug.Log("OnOnceActionStateBegin: stateType->" + stateType);
+            if (stateType == 0)
+            {
+                _isJump = true;
+            }
+            else
+            {
+                _isJump = false;
+            }
+            _inState = true;
+            HandleJumpMovement();
+        }
 
+        void OnOnceActionStateEnd(NotificationCenter.Notification notification)
+        {
+            //Debug.Log("OnOnceActionStateEnd");
+            _isJump = false;
+            _inState = false;
+        }
+
+        void OnCollisionStay(Collision collisionInfo)
+        {
+            bool isChild = collisionInfo.transform.IsChildOf(this.groundObject);
+            if (isChild)
+            {
+                float otherObjectHeight = collisionInfo.transform.position.y;
+                float thisObjectHeight = this.transform.position.y;
+                if (thisObjectHeight - heightOffsetOnGround >= otherObjectHeight)
+                {
+                    this.isGrounded = true;
+                    return;
+                }
+            }
+            this.isGrounded = false;
+        }
     }
 }
 

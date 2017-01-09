@@ -1,28 +1,33 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class CheckOnceAction : StateMachineBehaviour {
-
-    public delegate void OnStateChanged(State state);
-
+    
     public enum State { None, Start, End };
 
     private State _actionState = State.None;
 
+    public string stateBegin = "OnOnceActionStateBegin";
+    public string stateEnd = "OnOnceActionStateEnd";
+    //外部链接的prefab
+    //public GameObject contact;
+    ////将上面的prefab实例化
+    ////private GameObject contactObj;
+    //private ContactNotices contactNotices;
 
     void Awake()
     {
-        //将订阅者加进去
-        //可是这里没法直接取到订阅者
-        //所以要走消息中心分发消息模式
+        //GameObject contactObj = Instantiate(contact, Vector3.zero, Quaternion.identity) as GameObject;
+        //contactNotices = contactObj.GetComponent<ContactNotices>();
     }
-
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _actionState = State.Start;
-        Debug.Log("Action Start");
-        //NotificationCenter.DefaultCenter.PostNotification(this, "start");
+        int onceActionType = animator.GetInteger("onceActionType");
+        NotificationCenter.Notification message = new NotificationCenter.Notification(animator, stateBegin, onceActionType);
+        NotificationCenter.DefaultCenter.PostNotification(message);
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -33,8 +38,7 @@ public class CheckOnceAction : StateMachineBehaviour {
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _actionState = State.End;
-        Debug.Log("Action End");
+        NotificationCenter.DefaultCenter.PostNotification(animator, stateEnd, stateInfo);
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine

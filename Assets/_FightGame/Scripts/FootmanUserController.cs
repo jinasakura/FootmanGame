@@ -63,7 +63,7 @@ namespace FightDemo.ThirdPerson
             if (UltimateButton.GetButtonDown("TriggerButton") || Input.GetButtonDown("Jump"))
             {
                 _character.isTrigger = true;
-                _character.HandleJumpMovement();
+                //_character.HandleJumpMovement();
                 //Debug.Log("按下喽");
             }
         }

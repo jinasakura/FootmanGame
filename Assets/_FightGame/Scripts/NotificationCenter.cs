@@ -74,7 +74,7 @@ public class NotificationCenter : MonoBehaviour
     // A notification can either be posted with a notification object or by just sending the individual components.
 
     public void PostNotification(Component aSender, string aName) { PostNotification(aSender, aName, null); }
-    public void PostNotification(Component aSender, string aName, Hashtable aData) { PostNotification(new Notification(aSender, aName, aData)); }
+    public void PostNotification(Component aSender, string aName, object aData) { PostNotification(new Notification(aSender, aName, aData)); }
     public void PostNotification(Notification aNotification)
     {
         // First make sure that the name of the notification is valid.
@@ -127,9 +127,9 @@ public class NotificationCenter : MonoBehaviour
 
         public Component sender;
         public string name;
-        public Hashtable data;
+        public object data;
         public Notification(Component aSender, string aName) { sender = aSender; name = aName; data = null; }
-        public Notification(Component aSender, string aName, Hashtable aData) { sender = aSender; name = aName; data = aData; }
+        public Notification(Component aSender, string aName, object aData) { sender = aSender; name = aName; data = aData; }
 
 
     }
