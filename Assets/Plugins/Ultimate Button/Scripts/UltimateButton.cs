@@ -637,10 +637,14 @@ public class UltimateButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 	/// <param name="buttonName">The name of the targeted Ultimate Button.</param>
 	public static bool GetButtonDown ( string buttonName )
 	{
-		if( !ButtonConfirmed( buttonName ) )
-			return false;
-		
-		return UltimateButtons[ buttonName ].getButtonDown;
+		if( !ButtonConfirmed( buttonName ))
+        {
+            //Debug.Log("找不到" + buttonName);
+            return false;
+        }
+
+        //Debug.Log("找到" + buttonName);
+        return UltimateButtons[ buttonName ].getButtonDown;
 	}
 
 	/// <summary>

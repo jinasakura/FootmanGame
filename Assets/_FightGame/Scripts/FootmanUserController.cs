@@ -6,10 +6,9 @@ namespace FightDemo.ThirdPerson
     [RequireComponent(typeof(FootmanCharacter))]
     public class FootmanUserController : MonoBehaviour
     {
-        //枚举被绑定到一种职业上了
-        public enum OnceActionType { Jump=0, Attack01, Attack02, DoubleAttack, JumpAttack, CastSpell, TakeDamage};
-        [SerializeField]
-        private OnceActionType onceActionType = OnceActionType.Jump;
+        
+        //[SerializeField]
+        //private OnceActionType onceActionType = OnceActionType.Attack01;
 
         private FootmanCharacter _character; // A reference to the ThirdPersonCharacter on the object
         private Transform _cam;                  // A reference to the main camera in the scenes transform
@@ -52,7 +51,7 @@ namespace FightDemo.ThirdPerson
             float _cameraRotationX = _xRot;
 
             // pass all parameters to the character control script
-            _character.Move(h,v,(int)onceActionType);
+            _character.Move(h, v);
             _character.Rotate(_moveRotation);
             _character.RotateCamera(_cameraRotationX);
         }
@@ -60,12 +59,29 @@ namespace FightDemo.ThirdPerson
         void Update()
         {
             //放到github上后出现了，点按钮没反应，改了按钮的名字解决了
-            if (UltimateButton.GetButtonDown("TriggerButton") || Input.GetButtonDown("Jump"))
-            {
-                _character.isTrigger = true;
-                //_character.HandleJumpMovement();
-                //Debug.Log("按下喽");
-            }
+            //按钮回头要改成根据职业变化，自动获取技能数据产生对应技能按钮
+            //还要将代码和按钮关联起来
+            //if (UltimateButton.GetButtonDown("Attack01Button")/* || Input.GetButtonDown("Jump")*/)
+            //{
+            //    _character.onceActionType = (int)OnceActionType.Attack01;
+            //    _character.isTrigger = true;
+            //    Debug.Log("Attack01Button");
+            //}
+            //if (UltimateButton.GetButtonDown("Attack02Button"))
+            //{
+            //    _character.onceActionType = (int)OnceActionType.Attack02;
+            //    _character.isTrigger = true;
+            //}
+            //if (UltimateButton.GetButtonDown("DoubleAttackButton"))
+            //{
+            //    _character.onceActionType = (int)OnceActionType.DoubleAttack;
+            //    _character.isTrigger = true;
+            //}
+            //if (UltimateButton.GetButtonDown("CastSpellButton"))
+            //{
+            //    _character.onceActionType = (int)OnceActionType.CastSpell;
+            //    _character.isTrigger = true;
+            //}
         }
 
     }

@@ -29,8 +29,8 @@ namespace FightDemo.ThirdPerson
         private float _stillOffset = 0.001f;//区分站立和走的偏移值
         [SerializeField]
         private float groundCheckDistance = 0.1f;//人物是否离地的偏移值
-        [SerializeField]
-        private float jumpPower = 5.0f;//人物跳起来的力
+        //[SerializeField]
+        //private float jumpPower = 5.0f;//人物跳起来的力
         [SerializeField]
         private bool _isLive = true;
         public bool isLive
@@ -39,7 +39,14 @@ namespace FightDemo.ThirdPerson
             set { _isLive = value; }
         }
         private int _stayState = 0;
-        private int _onceActionType = 0;
+
+        private int _onceActionType = 1;
+        public int onceActionType
+        {
+            get { return _onceActionType; }
+            set { _onceActionType = value; }
+        }
+
         private float _speed = 0.0f;
         private bool _isTrigger = false;
         public bool isTrigger
@@ -70,8 +77,10 @@ namespace FightDemo.ThirdPerson
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             _currentCameraRotationX = _cam.transform.localEulerAngles.x;
 
-            NotificationCenter.DefaultCenter.AddObserver(this, "OnOnceActionStateBegin");
-            NotificationCenter.DefaultCenter.AddObserver(this, "OnOnceActionStateEnd");
+            //NotificationCenter.DefaultCenter.AddObserver(this, "OnOnceActionStateBegin");
+            //NotificationCenter.DefaultCenter.AddObserver(this, "OnOnceActionStateEnd");
+
+            //initSkillButtons();
         }
 
         public void Rotate(Vector3 rotation)
@@ -84,7 +93,7 @@ namespace FightDemo.ThirdPerson
             _cameraRotationX = cameraRotationX;
         }
 
-        public void Move(float h, float v, int onceActionType)
+        public void Move(float h, float v)
         {
             if (!isLive)
             {
@@ -107,28 +116,28 @@ namespace FightDemo.ThirdPerson
                 _speed = Mathf.Max(tmpH, tmpV);
             }
 
-            _onceActionType = onceActionType;
+            //_onceActionType = onceActionType;
 
             UpdateAnimation();
         }
 
-        public void HandleJumpMovement()
-        {
-            Debug.Log("isJump->" + _isJump + "  isGrounded->" + _isGrounded + " inState->" + _inState);
-            //隐患1：
-            //直接对物体在某个轴上施加一个绝对大小的力，可能会被今后施加的其他力所影响
-            //从而导致不能保证达到目前跳跃效果
-            //问题2：没有判断是否处于完跳跃状态
-            if (_isJump && _isGrounded && _inState)
-            {
-                Debug.Log("jump");
-                _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, jumpPower, _rigidbody.velocity.z);
-                _isGrounded = false;
-                _animation.applyRootMotion = false;
-                groundCheckDistance = 0.1f;
-            }
-            UpdateAnimation();
-        }
+        //public void HandleJumpMovement()
+        //{
+        //    Debug.Log("isJump->" + _isJump + "  isGrounded->" + _isGrounded + " inState->" + _inState);
+        //    //隐患1：
+        //    //直接对物体在某个轴上施加一个绝对大小的力，可能会被今后施加的其他力所影响
+        //    //从而导致不能保证达到目前跳跃效果
+        //    //问题2：没有判断是否处于完跳跃状态
+        //    if (_isJump && _isGrounded && _inState)
+        //    {
+        //        Debug.Log("jump");
+        //        _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, jumpPower, _rigidbody.velocity.z);
+        //        _isGrounded = false;
+        //        _animation.applyRootMotion = false;
+        //        groundCheckDistance = 0.1f;
+        //    }
+        //    UpdateAnimation();
+        //}
 
         public void Die()
         {
@@ -218,23 +227,23 @@ namespace FightDemo.ThirdPerson
         void OnOnceActionStateBegin(NotificationCenter.Notification notification)
         {
             int stateType = Convert.ToInt32(notification.data);
-            Debug.Log("OnOnceActionStateBegin: stateType->" + stateType);
-            if (stateType == 0)
-            {
-                _isJump = true;
-            }
-            else
-            {
-                _isJump = false;
-            }
+            //Debug.Log("OnOnceActionStateBegin: stateType->" + stateType);
+            //if (stateType == 0)
+            //{
+            //    _isJump = true;
+            //}
+            //else
+            //{
+            //    _isJump = false;
+            //}
             _inState = true;
-            HandleJumpMovement();
+            //HandleJumpMovement();
         }
 
         void OnOnceActionStateEnd(NotificationCenter.Notification notification)
         {
             //Debug.Log("OnOnceActionStateEnd");
-            _isJump = false;
+            //_isJump = false;
             _inState = false;
         }
 
@@ -252,6 +261,19 @@ namespace FightDemo.ThirdPerson
                 }
             }
             this.isGrounded = false;
+        }
+
+        void initSkillButtons()
+        {
+            GameObject[] btns = GameObject.FindGameObjectsWithTag("SkillButton");
+            int i = 0;
+            foreach (GameObject btn in btns)
+            {
+                SkillTextButton textBtn = btn.GetComponent<SkillTextButton>();
+                textBtn.btnName = Career.kightSkills[i].skillName;
+                textBtn.onceActionType = Career.kightSkills[i].skillType;
+                textBtn.character = this;
+            }
         }
     }
 }
