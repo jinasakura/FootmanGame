@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<info>
+    <career>
+        <id>1</id>
+        <name>Knight</name>
+        <skills>
+            <skill>
+                <id>1</id>
+                <name>Attack 01</name>
+            </skill>
+            <skill>
+                <id>2</id>
+                <name>Attack 02</name>
+            </skill>
+            <skill>
+                <id>3</id>
+                <name>Double Attack</name>
+            </skill>
+            <skill>
+                <id>4</id>
+                <name>Cast Spell</name>
+            </skill>
+        </skills>
+    </career>
+    <career>
+        <id>2</id>
+        <name>Wizard</name>
+        <skills>
+            <skill>
+                <id>1</id>
+                <name>Melee Attack</name>
+            </skill>
+            <skill>
+                <id>2</id>
+                <name>Attack 02</name>
+            </skill>
+            <skill>
+                <id>3</id>
+                <name>Double Attack</name>
+            </skill>
+            <skill>
+                <id>4</id>
+                <name>Cast Spell</name>
+            </skill>
+        </skills>
+    </career>
+</info>
