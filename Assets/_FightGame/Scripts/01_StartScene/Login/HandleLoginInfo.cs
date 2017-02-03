@@ -14,11 +14,10 @@ public class HandleLoginInfo : MonoBehaviour {
     [SerializeField]
     private Transform careerBtnPanel;
     [SerializeField]
-    private Text displayCareerTxt;//显示选择了哪个职业的文本框
-    [SerializeField]
     private Button confirmBtn;
 
-    // Use this for initialization
+    private CareerToggleBtn[] careerBtns;
+
     void Awake()
     {
         NotificationCenter.DefaultCenter.AddObserver(this, LoginEvent.DataIsReady);
@@ -36,48 +35,57 @@ public class HandleLoginInfo : MonoBehaviour {
     {
         //Debug.Log("数据已准备好");
         //初始化对的职业按钮
+        careerBtns = new CareerToggleBtn[CareerInfoModel.careers.Length];
+        int i = 0;
         foreach (CareerItem item in CareerInfoModel.careers)
         {
             GameObject cbtn = Instantiate(careerBtn, Vector3.zero, Quaternion.identity, careerBtnPanel) as GameObject;
-            CareerButton carBtn = cbtn.GetComponent<CareerButton>();
+            CareerToggleBtn carBtn = cbtn.GetComponent<CareerToggleBtn>();
+            if (i == 0)
+            {
+                carBtn.defaultSelectedState = true;
+                LoginUserInfo.userCareer = item;
+            }
+            else { carBtn.defaultSelectedState = false; }
             carBtn.btnCareerInfo = item;
+            careerBtns[i] = carBtn;
+            i++;
         }
+
+        LoginUserInfo.userName = "Test";
     }
 
     void SelectedCareer(NotificationCenter.Notification careerInfo)
     {
         LoginUserInfo.userCareer = careerInfo.data as CareerItem;
-        displayCareerTxt.text = "你选择的职业是：" + LoginUserInfo.userCareer.careerName;
+        foreach (CareerToggleBtn item in careerBtns)
+        {
+            if(item.btnCareerInfo.careerId != LoginUserInfo.userCareer.careerId) { item.setToggleOff(); }
+        }
     }
 
     void EnterGame()
     {
-        //测试用代码
-        LoginUserInfo.userName = "Test";
-        LoginUserInfo.userCareer = CareerInfoModel.careers[0];
-        SceneManager.LoadScene("MainScene");
-
-        //if (LoginUserInfo.userName != "")
-        //{
-        //    if (LoginUserInfo.userCareer != null)
-        //    {
-        //        SceneManager.LoadScene("MainScene");
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning("请选择职业");
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("请填入姓名");
-        //}
+        if (LoginUserInfo.userName != "")
+        {
+            if (LoginUserInfo.userCareer != null)
+            {
+                SceneManager.LoadScene("MainScene");
+            }
+            else
+            {
+                Debug.LogWarning("请选择职业");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("请填入姓名");
+        }
 
     }
 
     void InputNameCheck()
     {
-        //Debug.Log(inputName.text);
         LoginUserInfo.userName = inputName.text;
     }
 }

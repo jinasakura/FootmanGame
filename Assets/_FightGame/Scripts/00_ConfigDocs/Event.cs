@@ -6,6 +6,7 @@ public class LoginEvent  {
     public static string DataIsReady = "DataIsReady";
 
     public static string SelectedCareer = "SelectedCareer";
+
 }
 
 public class MainSceneEvent

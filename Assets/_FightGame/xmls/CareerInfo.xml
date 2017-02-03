@@ -3,6 +3,7 @@
     <career>
         <id>1</id>
         <name>Knight</name>
+        <modelName>PlayerKnight</modelName>
         <skills>
             <skill>
                 <id>1</id>
@@ -25,6 +26,7 @@
     <career>
         <id>2</id>
         <name>Wizard</name>
+        <modelName>PlayerWizard</modelName>
         <skills>
             <skill>
                 <id>1</id>
@@ -32,15 +34,19 @@
             </skill>
             <skill>
                 <id>2</id>
-                <name>Attack 02</name>
+                <name>Projectile Attack</name>
             </skill>
             <skill>
                 <id>3</id>
-                <name>Double Attack</name>
+                <name>Cast Spell 02</name>
             </skill>
             <skill>
                 <id>4</id>
-                <name>Cast Spell</name>
+                <name>Channeling</name>
+            </skill>
+            <skill>
+                <id>5</id>
+                <name>Shockwave Attack</name>
             </skill>
         </skills>
     </career>

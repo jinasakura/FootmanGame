@@ -5,28 +5,23 @@ using System.Collections;
 namespace FightDemo.ThirdPerson
 {
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(Animator))]
     public class FootmanCharacter : MonoBehaviour
     {
-        [SerializeField]
-        private Transform groundObject;
-        [SerializeField]
-        private float heightOffsetOnGround;
-        private bool isGrounded;
+        //[SerializeField]
+        //private Transform groundObject;
+        //[SerializeField]
+        //private float heightOffsetOnGround;
+        //private bool isGrounded;
         //为什么这些数值要放在Character里？
         //因为这是每个角色自身带的属性，每个角色都不一样，所以千万不能放到controller里
         [SerializeField]
-        private float _moveWalkSpeedMultiplier = 1f;
+        private float moveWalkSpeedMultiplier = 1f;
         [SerializeField]
-        private float _moveRunSpeedMultiplier = 1.5f;
+        private float moveRunSpeedMultiplier = 1.5f;
+        
+        
         [SerializeField]
-        private Camera _cam;
-        [SerializeField]
-        private float _cameraRotationLimit = 90f;//最终的数值由外面决定
-        [SerializeField]
-        private float _lookSensitivity = 3f;//镜头上下旋转的系数
-        [SerializeField]
-        private float _stillOffset = 0.001f;//区分站立和走的偏移值
+        private float stillOffset = 0.001f;//区分站立和走的偏移值
         [SerializeField]
         private float groundCheckDistance = 0.1f;//人物是否离地的偏移值
         //[SerializeField]
@@ -47,48 +42,34 @@ namespace FightDemo.ThirdPerson
             set { _onceActionType = value; }
         }
 
-        private float _speed = 0.0f;
+        private float speed = 0.0f;
         private bool _isTrigger = false;
         public bool isTrigger
         {
             get { return _isTrigger; }
             set { _isTrigger = value; }
         }
-        private bool _isJump = false;
-        private bool _inState = false;//是不是在动作进行中
+        //private bool isJump = false;
+        //private bool inState = false;//是不是在动作进行中
 
-        private Vector3 _moveVelocity = Vector3.zero;
-        private Vector3 _rotation = Vector3.zero;
-        private float _cameraRotationX = 0f;
-        private float _currentCameraRotationX = 0f;
+        private Vector3 moveVelocity = Vector3.zero;
 
         private bool _isGrounded;//人物是否在地面上
 
-        private Rigidbody _rigidbody;
-        private Animator _animation;
+        private Rigidbody rb;
+        private Animator animator;
 
         private static int IDLE = 0;
 
         void Start()
         {
-            _animation = GetComponent<Animator>();
-            _rigidbody = GetComponent<Rigidbody>();
+            animator = GetComponentInChildren<Animator>();
+            rb = GetComponent<Rigidbody>();
 
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            _currentCameraRotationX = _cam.transform.localEulerAngles.x;
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
 
-        }
-
-        public void Rotate(Vector3 rotation)
-        {
-            _rotation = rotation;
-        }
-
-        public void RotateCamera(float cameraRotationX)
-        {
-            _cameraRotationX = cameraRotationX;
         }
 
         public void Move(float h, float v)
@@ -98,23 +79,21 @@ namespace FightDemo.ThirdPerson
                 Debug.Log("人物死亡！");
                 return;
             }
-            CheckGroundStatus();
+            //CheckGroundStatus();
 
             float tmpH = Mathf.Abs(h);
             float tmpV = Mathf.Abs(v);
             //区分静止还是移动
-            if (tmpH <= _stillOffset && tmpV <= _stillOffset)
+            if (tmpH <= stillOffset && tmpV <= stillOffset)
             {
                 _stayState = IDLE;
-                _speed = 0;
+                speed = 0;
             }
             else
             {
-                _moveVelocity = transform.right * h + transform.forward * v;
-                _speed = Mathf.Max(tmpH, tmpV);
+                moveVelocity = transform.right * h + transform.forward * v;
+                speed = Mathf.Max(tmpH, tmpV);
             }
-
-            //_onceActionType = onceActionType;
 
             UpdateAnimation();
         }
@@ -146,13 +125,13 @@ namespace FightDemo.ThirdPerson
 
         private void UpdateAnimation()
         {
-            _animation.SetBool("isLive", _isLive);
-            _animation.SetInteger("stayState", _stayState);
-            _animation.SetFloat("speed", _speed);
-            _animation.SetInteger("onceActionType", _onceActionType);
+            animator.SetBool("isLive", _isLive);
+            animator.SetInteger("stayState", _stayState);
+            animator.SetFloat("speed", speed);
+            animator.SetInteger("onceActionType", _onceActionType);
             if (isTrigger)
             {
-                _animation.SetTrigger("triggerOnceAction");
+                animator.SetTrigger("triggerOnceAction");
                 isTrigger = false;
             }
         }
@@ -163,41 +142,24 @@ namespace FightDemo.ThirdPerson
             if (!isLive)
             {
                 isLive = true;
-                _animation.SetBool("isLive", isLive);
+                animator.SetBool("isLive", isLive);
             }
         }
 
         void FixedUpdate()
         {
             PerformMovement();
-            PerformRotation();
         }
 
         private void PerformMovement()
         {
-            if (_moveVelocity != Vector3.zero)
+            if (moveVelocity != Vector3.zero)
             {
-                _rigidbody.MovePosition(_rigidbody.position + _moveVelocity * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
             }
         }
 
-        private void PerformRotation()
-        {
-            Quaternion q = _rigidbody.rotation * Quaternion.Euler(_rotation);
-            _rigidbody.MoveRotation(q);
-            if (_cam != null)
-            {
-                _currentCameraRotationX -= _cameraRotationX;
-                _currentCameraRotationX = Mathf.Clamp(_currentCameraRotationX, -_cameraRotationLimit, _cameraRotationLimit);
 
-                _cam.transform.localEulerAngles = new Vector3(_currentCameraRotationX, 0f, 0f);
-            }
-            else
-            {
-                Debug.LogWarning(
-                    "Warning: no Player camera found.");
-            }
-        }
 
         void CheckGroundStatus()
         {
@@ -212,13 +174,13 @@ namespace FightDemo.ThirdPerson
             {
                 _isGrounded = true;
                 //Debug.Log("在地面上");
-                _animation.applyRootMotion = true;
+                animator.applyRootMotion = true;
             }
             else
             {
                 _isGrounded = false;
                 //Debug.Log("不在地面上");
-                _animation.applyRootMotion = false;
+                animator.applyRootMotion = false;
             }
         }
 
@@ -229,21 +191,21 @@ namespace FightDemo.ThirdPerson
             isTrigger = true;
         }
 
-        void OnCollisionStay(Collision collisionInfo)
-        {
-            bool isChild = collisionInfo.transform.IsChildOf(this.groundObject);
-            if (isChild)
-            {
-                float otherObjectHeight = collisionInfo.transform.position.y;
-                float thisObjectHeight = this.transform.position.y;
-                if (thisObjectHeight - heightOffsetOnGround >= otherObjectHeight)
-                {
-                    this.isGrounded = true;
-                    return;
-                }
-            }
-            this.isGrounded = false;
-        }
+        //void OnCollisionStay(Collision collisionInfo)
+        //{
+        //    bool isChild = collisionInfo.transform.IsChildOf(this.groundObject);
+        //    if (isChild)
+        //    {
+        //        float otherObjectHeight = collisionInfo.transform.position.y;
+        //        float thisObjectHeight = this.transform.position.y;
+        //        if (thisObjectHeight - heightOffsetOnGround >= otherObjectHeight)
+        //        {
+        //            this.isGrounded = true;
+        //            return;
+        //        }
+        //    }
+        //    this.isGrounded = false;
+        //}
 
     }
 }

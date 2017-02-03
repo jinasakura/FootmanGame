@@ -2,6 +2,6 @@
 
     public int careerId;
     public string careerName;
-    public CareerInfoModel.Type careerType;
+    public string modelName;
     public SkillItem[] skills;
 }

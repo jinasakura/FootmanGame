@@ -10,14 +10,16 @@ using System.Collections.Generic;
 /// </summary>
 public class CareerInfoModel : MonoBehaviour {
 
-    //枚举不和读取的数据做关联，但是两边的数据应一致
-    public enum Type { Knight=1, Barbarian, Archer, Wizard };
-
-    public enum KightSkillType { Attack01=1,Attack02,DoubleAttack,CastSpell };
 
     public string carrerXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/Xml/CareerInfo.xml";
 
     public static CareerItem[] careers;
+
+    //将模型名和模型对应起来
+    public static Dictionary<string, GameObject> modelDict;
+
+    [SerializeField]
+    private GameObject[] models;
 
     void Start()
     {
@@ -37,21 +39,33 @@ public class CareerInfoModel : MonoBehaviour {
             careers[i] = new CareerItem();
             careers[i].careerId = Int32.Parse(nodeChild.Item(0).InnerText);
             careers[i].careerName = nodeChild.Item(1).InnerText;
+            careers[i].modelName = nodeChild.Item(2).InnerText;
 
-            XmlNodeList skillNodeList = nodeChild.Item(2).ChildNodes;
-            careers[i].skills = new SkillItem[skillNodeList.Count];
-            int j = 0;
-            foreach (XmlNode skill in skillNodeList)
+            if (nodeChild.Item(3).HasChildNodes)
             {
-                careers[i].skills[j] = new SkillItem();
-                careers[i].skills[j].skillId = Int32.Parse(skill.ChildNodes.Item(0).InnerText);
-                careers[i].skills[j].skillName = skill.ChildNodes.Item(1).InnerText;
-                j++;
+                XmlNodeList skillNodeList = nodeChild.Item(3).ChildNodes;
+                careers[i].skills = new SkillItem[skillNodeList.Count];
+                int j = 0;
+                foreach (XmlNode skill in skillNodeList)
+                {
+                    careers[i].skills[j] = new SkillItem();
+                    careers[i].skills[j].skillId = Int32.Parse(skill.ChildNodes.Item(0).InnerText);
+                    careers[i].skills[j].skillName = skill.ChildNodes.Item(1).InnerText;
+                    j++;
+                }
             }
+            
             i++;
         }
 
         NotificationCenter.DefaultCenter.PostNotification(this, LoginEvent.DataIsReady);
+
+        //初始化模型数据
+        modelDict = new Dictionary<string, GameObject>();
+        foreach (GameObject item in models)
+        {
+            modelDict[item.name] = item;
+        }
     }
 
 }
