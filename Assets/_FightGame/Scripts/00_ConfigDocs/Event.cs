@@ -12,6 +12,15 @@ public class LoginEvent  {
 public class MainSceneEvent
 {
     public static string TriggerSkill = "TriggerSkill";
+
+    public static string CharacterLive = "CharacterLive";
+}
+
+public class StateMachineEvent
+{
+    public static string HandleParamers = "HandleParamers";
+
+    public static string RecoverTrigger = "RecoverTrigger";
 }
 
 
