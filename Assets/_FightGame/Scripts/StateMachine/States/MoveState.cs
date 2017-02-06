@@ -3,10 +3,35 @@
 public class MoveState : State {
 
     private Animator animator;
-    public MoveState(Animator ani)
+
+    [SerializeField]
+    private float speedMultiplier = 2f;
+
+    private Rigidbody rb;
+    private StateMachineParams stateParams;
+
+
+    void Awake()
     {
-        animator = ani;
-        AddListeners();
+        animator = GetComponentInChildren<Animator>();
+
+        rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+        this.name = "MoveState";
+    }
+
+    void FixedUpdate()
+    {
+        PerformMovement();
+    }
+
+    private void PerformMovement()
+    {
+        if (stateParams.speed > CharacterInfo.stayOffset)
+        {
+            rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
+        }
     }
 
     protected override void AddListeners()
@@ -21,8 +46,16 @@ public class MoveState : State {
 
     void HandleParamers(NotificationCenter.Notification info)
     {
-        StateMachineParams data = (StateMachineParams)info.data;
-        animator.SetBool("isLive", data.isLive);
-        animator.SetFloat("speed", data.speed);
+        stateParams = (StateMachineParams)info.data;
+        animator.SetBool("isLive", stateParams.isLive);
+        animator.SetFloat("speed", stateParams.speed);
+        //Debug.Log("moveSpeed"+stateParams.speed);
     }
+
+    //public override void UpdateInfo(object info)
+    //{
+    //    StateMachineParams data = (StateMachineParams)info;
+    //    animator.SetBool("isLive", data.isLive);
+    //    animator.SetFloat("speed", data.speed);
+    //}
 }

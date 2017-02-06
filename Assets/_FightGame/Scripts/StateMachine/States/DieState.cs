@@ -3,10 +3,12 @@
 public class DieState : State
 {
     private Animator animator;
-    public DieState(Animator ani)
+
+    void Awake()
     {
-        animator = ani;
-        AddListeners();
+        animator = GetComponentInChildren<Animator>();
+
+        this.name = "DieState";
     }
 
     protected override void AddListeners()
@@ -24,4 +26,6 @@ public class DieState : State
         StateMachineParams data = (StateMachineParams)info.data;
         animator.SetBool("isLive", data.isLive);
     }
+
+
 }

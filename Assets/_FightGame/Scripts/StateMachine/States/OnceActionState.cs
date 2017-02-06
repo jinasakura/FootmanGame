@@ -4,10 +4,12 @@ using System.Collections;
 public class OnceActionState : State {
 
     private Animator animator;
-    public OnceActionState(Animator ani)
+
+    void Awake()
     {
-        animator = ani;
-        AddListeners();
+        animator = GetComponentInChildren<Animator>();
+
+        this.name = "OnceActionState";
     }
 
     protected override void AddListeners()
@@ -28,10 +30,9 @@ public class OnceActionState : State {
         if (data.triggerOnceAction)
         {
             animator.SetTrigger("triggerOnceAction");
-
-            //data.triggerOnceAction = false;
-            //object recoverData = data;
-            //NotificationCenter.DefaultCenter.PostNotification(this, StateMachineEvent.HandleParamers, recoverData);
+            data.triggerOnceAction = false;
         }
     }
+
+
 }

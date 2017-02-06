@@ -1,11 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-
-
-/// <summary>
+﻿/// <summary>
 /// 全局用户信息存储
 /// </summary>
-public class LoginUserInfo : MonoBehaviour {
+public class LoginUserInfo  {
 
     public static string userName = "";
 

@@ -4,10 +4,12 @@ using System.Collections;
 public class StayState : State {
 
     private Animator animator;
-    public StayState(Animator ani)
+
+    void Awake()
     {
-        animator = ani;
-        AddListeners();
+        animator = GetComponentInChildren<Animator>();
+
+        this.name = "StayState";
     }
 
     protected override void AddListeners()
@@ -26,5 +28,6 @@ public class StayState : State {
         animator.SetBool("isLive", data.isLive);
         animator.SetInteger("stayState", data.stayState);
     }
+
 
 }

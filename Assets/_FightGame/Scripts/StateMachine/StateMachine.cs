@@ -9,7 +9,7 @@ public class StateMachine : MonoBehaviour {
         set { Transition(value); }
     }
     protected State _currentState;
-    protected bool _inTransition;
+    protected bool _inTransition = false;
 
     public virtual T GetState<T>() where T : State
     {

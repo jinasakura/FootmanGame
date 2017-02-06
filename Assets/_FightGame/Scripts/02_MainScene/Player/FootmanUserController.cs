@@ -10,7 +10,7 @@ public class FootmanUserController : MonoBehaviour
 {
 
     private FootmanCharacter character; // A reference to the ThirdPersonCharacter on the object
-    private Transform mainCameraTrans;                  // A reference to the main camera in the scenes transform
+    //private Transform mainCameraTrans;                  // A reference to the main camera in the scenes transform
     private Rigidbody rb;
     private float currentCameraRotationX = 0f;
 
@@ -26,15 +26,15 @@ public class FootmanUserController : MonoBehaviour
     void Start()
     {
         //不是很懂这里为什么要一个全局摄像机
-        if (Camera.main != null)
-        {
-            mainCameraTrans = Camera.main.transform;
-        }
-        else
-        {
-            Debug.LogWarning(
-                "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.");
-        }
+        //if (Camera.main != null)
+        //{
+        //    mainCameraTrans = Camera.main.transform;
+        //}
+        //else
+        //{
+        //    Debug.LogWarning(
+        //        "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.");
+        //}
 
         character = GetComponent<FootmanCharacter>();
         rb = GetComponent<Rigidbody>();
