@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class CharacterStateMachine : StateMachine {
+
+    public enum StayStateType { Idle,Victory,Upset,Defend };
 
     private StateMachineParams _stateParams;
     public StateMachineParams stateParams
@@ -35,7 +38,7 @@ public class CharacterStateMachine : StateMachine {
     {
         if (stateParams.isLive)
         {
-            if (stateParams.triggerOnceAction)
+            if (stateParams.triggerOnceAction && stateParams.notMove)
             {
                 currentState = GetState<OnceActionState>();
             }
@@ -43,7 +46,7 @@ public class CharacterStateMachine : StateMachine {
             {
                 currentState = GetState<MoveState>();
             }
-            else
+            else if(!stateParams.canMove() || !stateParams.notMove)//需要先静止
             {
                 currentState = GetState<StayState>();
             }

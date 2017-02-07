@@ -100,6 +100,15 @@ public class FootmanCharacter : MonoBehaviour
         SkillItem skill = (SkillItem)skillInfo.data;
         stateMachine.stateParams.onceActionType = skill.skillId;
         stateMachine.stateParams.triggerOnceAction = true;
+        if(stateMachine.stateParams.speed > CharacterInfo.stayOffset)
+        {
+            stateMachine.stateParams.speed = 0;
+            stateMachine.stateParams.notMove = false;
+        }
+        else
+        {
+            stateMachine.stateParams.notMove = true;
+        }
     }
 
     void CharacterLive(NotificationCenter.Notification liveInfo)

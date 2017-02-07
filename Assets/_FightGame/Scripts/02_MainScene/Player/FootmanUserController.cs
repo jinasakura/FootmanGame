@@ -45,11 +45,9 @@ public class FootmanUserController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //float h = CrossPlatformInputManager.GetAxis( "Horizontal" );
+        //float h = Input.GetAxis("Vertical");
         float h = UltimateJoystick.GetHorizontalAxis("Move");
-        //float v = CrossPlatformInputManager.GetAxis( "Vertical" );
         float v = UltimateJoystick.GetVerticalAxis("Move");
-
 
         float yRot = UltimateJoystick.GetHorizontalAxis("Look") * rotationSensitivity;
 
@@ -62,11 +60,11 @@ public class FootmanUserController : MonoBehaviour
 
     private void PerformRotation(float bodyRotation, float cameraRotationX)
     {
-        //旋转rigidbody
+        //左右旋转rigidbody
         Vector3 moveRotation = new Vector3(0f, bodyRotation, 0f);
         Quaternion q = rb.rotation * Quaternion.Euler(moveRotation);
         rb.MoveRotation(q);
-        //旋转镜头
+        //上下旋转镜头
         if (PlayerCamera != null)
         {
             currentCameraRotationX -= cameraRotationX;

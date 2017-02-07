@@ -47,15 +47,9 @@ public class MoveState : State {
     void HandleParamers(NotificationCenter.Notification info)
     {
         stateParams = (StateMachineParams)info.data;
-        animator.SetBool("isLive", stateParams.isLive);
         animator.SetFloat("speed", stateParams.speed);
+        
         //Debug.Log("moveSpeed"+stateParams.speed);
     }
 
-    //public override void UpdateInfo(object info)
-    //{
-    //    StateMachineParams data = (StateMachineParams)info;
-    //    animator.SetBool("isLive", data.isLive);
-    //    animator.SetFloat("speed", data.speed);
-    //}
 }
