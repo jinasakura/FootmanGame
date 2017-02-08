@@ -38,7 +38,7 @@ public class CharacterStateMachine : StateMachine {
     {
         if (stateParams.isLive)
         {
-            if (stateParams.triggerOnceAction && stateParams.notMove)
+            if (stateParams.triggerOnceAction)// && stateParams.notMove
             {
                 currentState = GetState<OnceActionState>();
             }
@@ -46,7 +46,7 @@ public class CharacterStateMachine : StateMachine {
             {
                 currentState = GetState<MoveState>();
             }
-            else if(!stateParams.canMove() || !stateParams.notMove)//需要先静止
+            else//技能需要先静止  if(!stateParams.canMove() || !stateParams.notMove)
             {
                 currentState = GetState<StayState>();
             }

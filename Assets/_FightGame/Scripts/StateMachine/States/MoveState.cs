@@ -9,7 +9,7 @@ public class MoveState : State {
 
     private Rigidbody rb;
     private StateMachineParams stateParams;
-
+    private bool canMove = false;
 
     void Awake()
     {
@@ -23,7 +23,11 @@ public class MoveState : State {
 
     void FixedUpdate()
     {
-        PerformMovement();
+        if (canMove)
+        {
+            PerformMovement();
+        }
+        
     }
 
     private void PerformMovement()
@@ -31,17 +35,22 @@ public class MoveState : State {
         if (stateParams.speed > CharacterInfo.stayOffset)
         {
             rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
+            Debug.Log("确实移动 speed->"+ stateParams.speed);
         }
     }
 
     protected override void AddListeners()
     {
         NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
+        canMove = true;
+        Debug.Log("可以移动");
     }
 
     protected override void RemoveListeners()
     {
         NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
+        canMove = false;
+        Debug.Log("不能移动");
     }
 
     void HandleParamers(NotificationCenter.Notification info)

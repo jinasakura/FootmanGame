@@ -25,17 +25,6 @@ public class FootmanUserController : MonoBehaviour
 
     void Start()
     {
-        //不是很懂这里为什么要一个全局摄像机
-        //if (Camera.main != null)
-        //{
-        //    mainCameraTrans = Camera.main.transform;
-        //}
-        //else
-        //{
-        //    Debug.LogWarning(
-        //        "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.");
-        //}
-
         character = GetComponent<FootmanCharacter>();
         rb = GetComponent<Rigidbody>();
 
@@ -43,28 +32,59 @@ public class FootmanUserController : MonoBehaviour
         currentCameraRotationX = PlayerCamera.transform.localEulerAngles.x;
     }
 
+    private float lastRotation = 0;
+    private float offsetRotation = 0;
+    private bool canRotate = false;
+
     private void FixedUpdate()
     {
         //float h = Input.GetAxis("Vertical");
         float h = UltimateJoystick.GetHorizontalAxis("Move");
         float v = UltimateJoystick.GetVerticalAxis("Move");
-
-        float yRot = UltimateJoystick.GetHorizontalAxis("Look") * rotationSensitivity;
-
-        float xRot = UltimateJoystick.GetVerticalAxis("Look") * lookSensitivity;
-
         character.Move(h, v);
-        PerformRotation(yRot, xRot);
+
+        float cameraRot = UltimateJoystick.GetVerticalAxis("Look") * lookSensitivity;
+        //PerformCameraRotation(cameraRot);
+
+        float bodyRot = UltimateJoystick.GetHorizontalAxis("Look") * rotationSensitivity;
+        offsetRotation = lastRotation - bodyRot;
+        Debug.Log("上一次：" + lastRotation + "---这一次：" + bodyRot);
+        lastRotation = bodyRot;
+        if (offsetRotation != 0)
+        {
+            canRotate = true;
+        }
+        else canRotate = false;
+        PerformBodyRotation(offsetRotation);
+
     }
 
-
-    private void PerformRotation(float bodyRotation, float cameraRotationX)
+    private Vector3 lastVecRotation = Vector3.zero;
+    private Vector3 curVecRotation = Vector3.zero;
+    //左右旋转rigidbody
+    private void PerformBodyRotation(float offsetRot)
     {
-        //左右旋转rigidbody
-        Vector3 moveRotation = new Vector3(0f, bodyRotation, 0f);
-        Quaternion q = rb.rotation * Quaternion.Euler(moveRotation);
-        rb.MoveRotation(q);
-        //上下旋转镜头
+        if (canRotate)
+        {
+            Debug.Log("帧旋转差：" + offsetRot);
+            Vector3 offset = new Vector3(0f, offsetRot, 0f);
+            curVecRotation += offset;
+            Quaternion q = rb.rotation * Quaternion.Euler(curVecRotation);
+            rb.MoveRotation(q);
+            //if (curVecRotation != lastVecRotation)
+            //{
+            //    Quaternion q = rb.rotation * Quaternion.Euler(curVecRotation);
+            //    rb.MoveRotation(q);
+            //    lastVecRotation = curVecRotation;
+            //}
+        }
+
+
+    }
+
+    //上下旋转镜头
+    private void PerformCameraRotation(float cameraRotationX)
+    {
         if (PlayerCamera != null)
         {
             currentCameraRotationX -= cameraRotationX;

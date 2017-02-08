@@ -20,7 +20,11 @@ public class StateMachineEvent
 {
     public static string HandleParamers = "HandleParamers";
 
-    public static string RecoverTrigger = "RecoverTrigger";
+    public static string OnceActionBegain = "OnceActionBegain";
+
+    public static string OnceActionEnd = "OnceActionEnd";
+
+    public static string OnceActionChange = "OnceActionChange";
 }
 
 

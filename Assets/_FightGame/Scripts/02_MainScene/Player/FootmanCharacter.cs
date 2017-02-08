@@ -6,7 +6,7 @@ public class FootmanCharacter : MonoBehaviour
 {
 
     private CharacterStateMachine stateMachine;
-
+    private bool onceActionBegain = false;
 
     private bool _isLive = true;
     public bool isLive
@@ -75,21 +75,34 @@ public class FootmanCharacter : MonoBehaviour
 
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterLive);
+        //这个究竟要不要放这里？状态切换
+        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
 
     }
 
     public void Move(float h, float v)
     {
-        float tmpH = Mathf.Abs(h);
-        float tmpV = Mathf.Abs(v);
-        if (tmpH <= CharacterInfo.stayOffset && tmpV <= CharacterInfo.stayOffset)
+        //时刻记得释放技能和移动是冲突的
+        if (onceActionBegain)
         {
             stateMachine.stateParams.speed = 0;
+            stateMachine.stateParams.moveVelocity = Vector3.zero;
+            stateMachine.stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
+            //stateMachine.stateParams.notMove = false;
         }
         else
         {
-            stateMachine.stateParams.moveVelocity = transform.right * h + transform.forward * v;
-            stateMachine.stateParams.speed = Mathf.Max(tmpH, tmpV);
+            float tmpH = Mathf.Abs(h);
+            float tmpV = Mathf.Abs(v);
+            if (tmpH <= CharacterInfo.stayOffset && tmpV <= CharacterInfo.stayOffset)
+            {
+                stateMachine.stateParams.speed = 0;
+            }
+            else
+            {
+                stateMachine.stateParams.moveVelocity = transform.right * h + transform.forward * v;
+                stateMachine.stateParams.speed = Mathf.Max(tmpH, tmpV);
+            }
         }
 
     }
@@ -97,18 +110,12 @@ public class FootmanCharacter : MonoBehaviour
 
     void TriggerSkill(NotificationCenter.Notification skillInfo)
     {
+        if (onceActionBegain) return;
+
         SkillItem skill = (SkillItem)skillInfo.data;
         stateMachine.stateParams.onceActionType = skill.skillId;
         stateMachine.stateParams.triggerOnceAction = true;
-        if(stateMachine.stateParams.speed > CharacterInfo.stayOffset)
-        {
-            stateMachine.stateParams.speed = 0;
-            stateMachine.stateParams.notMove = false;
-        }
-        else
-        {
-            stateMachine.stateParams.notMove = true;
-        }
+        
     }
 
     void CharacterLive(NotificationCenter.Notification liveInfo)
@@ -118,6 +125,10 @@ public class FootmanCharacter : MonoBehaviour
         //UpdateAnimation();
     }
 
+    void OnceActionChange(NotificationCenter.Notification info)
+    {
+        onceActionBegain = Convert.ToBoolean(info.data);
+    }
 
 }
 
