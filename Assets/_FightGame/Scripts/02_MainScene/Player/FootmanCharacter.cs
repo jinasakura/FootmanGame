@@ -94,7 +94,7 @@ public class FootmanCharacter : MonoBehaviour
         {
             float tmpH = Mathf.Abs(h);
             float tmpV = Mathf.Abs(v);
-            if (tmpH <= CharacterInfo.stayOffset && tmpV <= CharacterInfo.stayOffset)
+            if (tmpH <= CharacterInfo.StayOffset && tmpV <= CharacterInfo.StayOffset)
             {
                 stateMachine.stateParams.speed = 0;
             }

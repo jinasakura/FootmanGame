@@ -4,6 +4,8 @@
 /// </summary>
 public class CharacterInfo  {
 
-    public static float stayOffset = 0.001f;//区分站立和走的临界数
+    public static float StayOffset = 0.001f;//区分站立和走的临界数
+
+    public static float TurnOffset = 0.001f;
 
 }

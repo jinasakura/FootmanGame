@@ -7,12 +7,12 @@ public class StateMachineParams  {
     public int stayState = 0;
     public bool triggerOnceAction = false;
     //释放技能时，需要先利用这个变量把可能的移动转为静止
-    public bool notMove = true;
+    //public bool notMove = true;
     public int onceActionType = 1;
 
     public bool canMove()
     {
-        if (speed > CharacterInfo.stayOffset)
+        if (speed > CharacterInfo.StayOffset)
         {
             return true;
         }

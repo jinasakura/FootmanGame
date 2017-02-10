@@ -26,11 +26,11 @@ public class StayState : State {
     {
         StateMachineParams data = (StateMachineParams)info.data;
         animator.SetInteger("stayState", data.stayState);
-        if (!data.notMove)
-        {
-            data.notMove = true;
-            //Debug.Log("转换到了staty");
-        }
+        //if (!data.notMove)
+        //{
+        //    data.notMove = true;
+        //    //Debug.Log("转换到了staty");
+        //}
     }
 
 

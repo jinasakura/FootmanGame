@@ -32,7 +32,7 @@ public class MoveState : State {
 
     private void PerformMovement()
     {
-        if (stateParams.speed > CharacterInfo.stayOffset)
+        if (stateParams.speed > CharacterInfo.StayOffset)
         {
             rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
             Debug.Log("确实移动 speed->"+ stateParams.speed);
