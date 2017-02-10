@@ -25,25 +25,25 @@ public class FootmanUserController : MonoBehaviour
     [SerializeField]
     private Camera PlayerCamera;
 
+    //private float lastRotation = 0;
+    //private float lastCamRotation = 0;
+
+    //private float offsetRotation = 0;
+    //private float offsetCamRotation = 0;
+    //private bool canRotate = false;
+
+    //private bool mouseDown = false;
+    private Vector2 lastMousePosition;
+
     void Start()
     {
         character = GetComponent<FootmanCharacter>();
         rb = GetComponent<Rigidbody>();
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        currentCameraRotationX = PlayerCamera.transform.localEulerAngles.x;
+        //currentCameraRotationX = lastMousePosition.y = PlayerCamera.transform.localEulerAngles.x;
         //mouseDown = Input.GetMouseButton(0);
     }
-
-    private float lastRotation = 0;
-    private float lastCamRotation = 0;
-
-    private float offsetRotation = 0;
-    private float offsetCamRotation = 0;
-    private bool canRotate = false;
-
-
-    //private bool mouseDown = false;
 
     private void FixedUpdate()
     {
@@ -52,50 +52,28 @@ public class FootmanUserController : MonoBehaviour
         //float v = UltimateJoystick.GetVerticalAxis("Move");
         character.Move(h, v);
 
-        //float cameraRot = UltimateJoystick.GetVerticalAxis("Look") * lookSensitivity;
-        //PerformCameraRotation(cameraRot);
-
-        if (Input.GetMouseButton(0))
+        bool currentMouseButtonDown = Input.GetMouseButton(0);
+        if (currentMouseButtonDown)
         {
-            //Debug.Log("开始旋转");
-            //if (!mouseDown)
-            //{
+            // 处于长按状态
+            Vector2 currentMousePosition = Input.mousePosition;
 
-            //}
-            offsetRotation = 0;
-            offsetCamRotation = 0;
-            canRotate = true;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            //Debug.Log("结束旋转");
-            canRotate = false;
-        }
-        if (canRotate)
-        {
-            float bodyRot = Input.mousePosition.x * rotationSensitivity;
-            //float bodyRot = UltimateJoystick.GetHorizontalAxis("Turn") * rotationSensitivity;
-            offsetRotation = bodyRot - lastRotation;
-            if (offsetRotation != 0)
+            float offSetX = currentMousePosition.x - lastMousePosition.x;
+            if (offSetX > 365)//初始值太大，上一次结果为0，差值是一个很大的数，造成一开始镜头晃动
             {
-                //Debug.Log("当前值：" + bodyRot + "---上一次值：" + lastRotation + "---差值：" + offsetRotation);
-                PerformBodyRotation(offsetRotation);
+                offSetX = 0;
             }
-            lastRotation = bodyRot;
-
-            float cameraRot = Input.mousePosition.y * lookSensitivity;
-            //float bodyRot = UltimateJoystick.GetHorizontalAxis("Turn") * rotationSensitivity;
-            offsetCamRotation = cameraRot - lastCamRotation;
-            if (offsetCamRotation != 0)
+            PerformBodyRotation(offSetX * rotationSensitivity);
+            //Debug.Log("镜头当前乘系数：" + currentMousePosition.x+"----上一次："+lastMousePosition.x);
+            float offSetY = currentMousePosition.y - lastMousePosition.y;
+            if (offSetY > cameraUpperLimit - cameraLowerLimit)//没想到更好的之前先这么做吧
             {
-                //Debug.Log("当前值：" + cameraRot + "---上一次值：" + lastCamRotation + "---差值：" + offsetCamRotation);
-                //PerformCameraRotation(offsetCamRotation);
+                offSetY = 0;
             }
-            lastCamRotation = cameraRot;
+            //Debug.Log(offSetX);
+            PerformCameraRotation(offSetY * lookSensitivity);
+            lastMousePosition = currentMousePosition;
         }
-
-
     }
 
     private Vector3 lastVecRotation = Vector3.zero;
@@ -103,20 +81,21 @@ public class FootmanUserController : MonoBehaviour
     //左右旋转rigidbody
     private void PerformBodyRotation(float offsetRot)
     {
-        //Debug.Log("帧旋转差：" + offsetRot);
-        //Vector3 curVec = rb.rotation.eulerAngles;
         Vector3 offset = new Vector3(0f, offsetRot, 0f);
-        //curVec += offset;
+        //四元数相乘代表什么？
         Quaternion q = rb.rotation * Quaternion.Euler(offset);
         rb.MoveRotation(q);
     }
 
     //上下旋转镜头
-    private void PerformCameraRotation(float cameraRotationX)
+    private void PerformCameraRotation(float offsetY)
     {
-        currentCameraRotationX -= cameraRotationX;
+        Debug.Log("当前镜头：" + currentCameraRotationX + "---需要旋转：" + offsetY);
+        currentCameraRotationX -= offsetY;
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, cameraLowerLimit, cameraUpperLimit);
-        //Debug.Log("镜头：" + currentCameraRotationX);
+        //float curCamera = PlayerCamera.transform.localEulerAngles.x - offsetY;
+        //float after = Mathf.Clamp(curCamera, cameraLowerLimit, cameraUpperLimit);
+        //Debug.Log("旋转后："+currentCameraRotationX);
         PlayerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
     }
 }
