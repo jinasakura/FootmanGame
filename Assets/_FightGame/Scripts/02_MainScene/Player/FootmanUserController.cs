@@ -46,7 +46,7 @@ public class FootmanUserController : MonoBehaviour
         character.Move(h, v);
 
         bool currentMouseButtonDown = Input.GetMouseButton(0);
-        if (currentMouseButtonDown)
+        if (currentMouseButtonDown && UltimateJoystick.GetVerticalAxis("Turn") != 0)
         {
             float offsetX = Input.GetAxis("Mouse X");
             PerformBodyRotation(offsetX * rotationSensitivity);
