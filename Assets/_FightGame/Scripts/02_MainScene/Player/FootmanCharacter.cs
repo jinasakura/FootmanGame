@@ -15,7 +15,6 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _isLive = value;
-            //改变状态机
             stateMachine.stateParams.isLive = _isLive;
         }
     }
@@ -27,7 +26,6 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _stayState = value;
-            //改变状态机
             stateMachine.stateParams.stayState = _stayState;
         }
     }
@@ -39,7 +37,6 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _onceActionType = value;
-            //改变状态机
             stateMachine.stateParams.onceActionType = _onceActionType;
         }
     }
@@ -51,22 +48,20 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _speed = value;
-            //改变状态机
             stateMachine.stateParams.speed = _speed;
         }
     }
 
-    private bool _triggerOnceAction = false;
-    public bool triggerOnceAction
-    {
-        get { return _triggerOnceAction; }
-        set
-        {
-            _triggerOnceAction = value;
-            //改变状态机
-            stateMachine.stateParams.triggerOnceAction = _triggerOnceAction;
-        }
-    }
+    //private bool _triggerOnceAction = false;
+    //public bool triggerOnceAction
+    //{
+    //    get { return _triggerOnceAction; }
+    //    set
+    //    {
+    //        _triggerOnceAction = value;
+    //        stateMachine.stateParams.triggerOnceAction = _triggerOnceAction;
+    //    }
+    //}
 
 
     void Awake()
@@ -75,7 +70,6 @@ public class FootmanCharacter : MonoBehaviour
 
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterLive);
-        //这个究竟要不要放这里？状态切换
         NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
 
     }

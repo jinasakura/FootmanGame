@@ -25,6 +25,7 @@ public class OnceActionState : State {
     void HandleParamers(NotificationCenter.Notification info)
     {
         StateMachineParams data = (StateMachineParams)info.data;
+        animator.SetBool("isLive", data.isLive);
         animator.SetInteger("onceActionType", data.onceActionType);
         if (data.triggerOnceAction)
         {

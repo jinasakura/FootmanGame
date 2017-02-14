@@ -35,7 +35,7 @@ public class MoveState : State {
         if (stateParams.speed > CharacterInfo.StayOffset)
         {
             rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
-            Debug.Log("确实移动 speed->"+ stateParams.speed);
+            //Debug.Log("确实移动 speed->" + stateParams.speed);
         }
     }
 
@@ -43,19 +43,20 @@ public class MoveState : State {
     {
         NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
         canMove = true;
-        Debug.Log("可以移动");
+        //Debug.Log("可以移动");
     }
 
     protected override void RemoveListeners()
     {
         NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
         canMove = false;
-        Debug.Log("不能移动");
+        //Debug.Log("不能移动");
     }
 
     void HandleParamers(NotificationCenter.Notification info)
     {
         stateParams = (StateMachineParams)info.data;
+        animator.SetBool("isLive", stateParams.isLive);
         animator.SetFloat("speed", stateParams.speed);
         
         //Debug.Log("moveSpeed"+stateParams.speed);
