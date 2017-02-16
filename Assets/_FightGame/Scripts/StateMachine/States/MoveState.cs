@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class MoveState : State {
+public class MoveState : State
+{
 
     private Animator animator;
 
@@ -19,6 +20,7 @@ public class MoveState : State {
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         this.name = "MoveState";
+        //Debug.Log(this.name);
     }
 
     void FixedUpdate()
@@ -27,12 +29,12 @@ public class MoveState : State {
         {
             PerformMovement();
         }
-        
+
     }
 
     private void PerformMovement()
     {
-        if (stateParams.speed > CharacterInfo.StayOffset)
+        if (stateParams.speed > PlayerDetail.StayOffset)
         {
             rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
             //Debug.Log("确实移动 speed->" + stateParams.speed);
@@ -58,8 +60,9 @@ public class MoveState : State {
         stateParams = (StateMachineParams)info.data;
         animator.SetBool("isLive", stateParams.isLive);
         animator.SetFloat("speed", stateParams.speed);
-        
-        //Debug.Log("moveSpeed"+stateParams.speed);
+
+        if (stateParams.playerId == 0)
+            Debug.Log("===speed->" + stateParams.speed);//"---MoveState---playerId->" + stateParams.playerId + 
     }
 
 }

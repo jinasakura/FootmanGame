@@ -15,7 +15,7 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _isLive = value;
-            stateMachine.stateParams.isLive = _isLive;
+            stateParams.isLive = _isLive;
         }
     }
 
@@ -26,7 +26,7 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _stayState = value;
-            stateMachine.stateParams.stayState = _stayState;
+            stateParams.stayState = _stayState;
         }
     }
 
@@ -37,7 +37,7 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _onceActionType = value;
-            stateMachine.stateParams.onceActionType = _onceActionType;
+            stateParams.onceActionType = _onceActionType;
         }
     }
 
@@ -48,30 +48,38 @@ public class FootmanCharacter : MonoBehaviour
         set
         {
             _speed = value;
-            stateMachine.stateParams.speed = _speed;
+            stateParams.speed = _speed;
         }
     }
 
-    //private bool _triggerOnceAction = false;
-    //public bool triggerOnceAction
-    //{
-    //    get { return _triggerOnceAction; }
-    //    set
-    //    {
-    //        _triggerOnceAction = value;
-    //        stateMachine.stateParams.triggerOnceAction = _triggerOnceAction;
-    //    }
-    //}
+    //private bool _isUserControl;
+    //public bool isUserControl { set; get; }
 
+    //private int _playerId;
+    //public int playerId { set; get; }
 
-    void Awake()
+    //private string _playerName;
+    //public string playerName { set; get; }
+    private PlayerInfo _playerInfo;
+    public PlayerInfo playerInfo { set; get; }
+
+    private StateMachineParams stateParams;
+
+    void Start()
     {
-        stateMachine = GetComponent<CharacterStateMachine>();
+        if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
+        {
+            NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
+            NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterLive);
+            NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
+            
+        }
 
-        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
-        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterLive);
-        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
-
+        //stateMachine = GetComponent<CharacterStateMachine>();
+        stateParams = GetComponent<StateMachineParams>();
+        stateParams.playerId = playerInfo.playerId;
+        stateParams.playerName = playerInfo.playerName;
+        //Debug.Log("character init playerId->"+playerInfo.playerId+"------live->"+stateParams.isLive);
     }
 
     public void Move(float h, float v)
@@ -79,24 +87,25 @@ public class FootmanCharacter : MonoBehaviour
         //时刻记得释放技能和移动是冲突的
         if (onceActionBegain)
         {
-            stateMachine.stateParams.speed = 0;
-            stateMachine.stateParams.moveVelocity = Vector3.zero;
-            stateMachine.stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
+            stateParams.speed = 0;
+            stateParams.moveVelocity = Vector3.zero;
+            stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
             //stateMachine.stateParams.notMove = false;
         }
         else
         {
             float tmpH = Mathf.Abs(h);
             float tmpV = Mathf.Abs(v);
-            if (tmpH <= CharacterInfo.StayOffset && tmpV <= CharacterInfo.StayOffset)
+            if (tmpH <= PlayerDetail.StayOffset && tmpV <= PlayerDetail.StayOffset)
             {
-                stateMachine.stateParams.speed = 0;
+                stateParams.speed = 0;
             }
             else
             {
-                stateMachine.stateParams.moveVelocity = transform.right * h + transform.forward * v;
-                stateMachine.stateParams.speed = Mathf.Max(tmpH, tmpV);
+                stateParams.moveVelocity = transform.right * h + transform.forward * v;
+                stateParams.speed = Mathf.Max(tmpH, tmpV);
             }
+            //Debug.Log("---状态机前---playerId->" + playerInfo.playerId + "===speed->" + stateParams.speed);
         }
 
     }
@@ -107,8 +116,9 @@ public class FootmanCharacter : MonoBehaviour
         if (onceActionBegain) return;
 
         SkillItem skill = (SkillItem)skillInfo.data;
-        stateMachine.stateParams.onceActionType = skill.skillId;
-        stateMachine.stateParams.triggerOnceAction = true;
+        //Debug.Log("Character里的skillid->" + skill.skillId);
+        stateParams.onceActionType = skill.skillId;
+        stateParams.triggerOnceAction = true;
         
     }
 

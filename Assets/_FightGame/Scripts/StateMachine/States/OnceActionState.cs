@@ -32,6 +32,7 @@ public class OnceActionState : State {
             animator.SetTrigger("triggerOnceAction");
             data.triggerOnceAction = false;
         }
+        Debug.Log("状态机里技能id->" + data.onceActionType);
     }
 
 

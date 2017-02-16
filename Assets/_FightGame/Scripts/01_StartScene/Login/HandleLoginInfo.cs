@@ -52,7 +52,9 @@ public class HandleLoginInfo : MonoBehaviour {
             i++;
         }
 
-        LoginUserInfo.userName = "Test";
+        LoginUserInfo.playerInfo = new PlayerInfo();
+        LoginUserInfo.playerInfo.playerId = 0;
+        LoginUserInfo.playerInfo.playerName = "Test";
     }
 
     void SelectedCareer(NotificationCenter.Notification careerInfo)
@@ -66,7 +68,7 @@ public class HandleLoginInfo : MonoBehaviour {
 
     void EnterGame()
     {
-        if (LoginUserInfo.userName != "")
+        if (LoginUserInfo.playerInfo.playerName != "")
         {
             if (LoginUserInfo.userCareer != null)
             {
@@ -86,6 +88,6 @@ public class HandleLoginInfo : MonoBehaviour {
 
     void InputNameCheck()
     {
-        LoginUserInfo.userName = inputName.text;
+        LoginUserInfo.playerInfo.playerName = inputName.text;
     }
 }

@@ -3,7 +3,8 @@
 /// </summary>
 public class LoginUserInfo  {
 
-    public static string userName = "";
+    //public static string userName = "";
+    public static PlayerInfo playerInfo;
 
     /**还包括职业对应的技能信息*/
     public static CareerItem userCareer;

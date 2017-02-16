@@ -25,7 +25,7 @@ public class SkillButton : MonoBehaviour {
 
     void OnTriggerSkill()
     {
-        //Debug.Log("SkillButton->释放技能名：" + btnskillInfo.skillName);
+        //Debug.Log("SkillButton->释放技能id：" + btnskillInfo.skillId);
         object info = btnskillInfo;
         NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.TriggerSkill, info);
     }
