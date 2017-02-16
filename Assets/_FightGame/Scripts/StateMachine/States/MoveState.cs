@@ -19,12 +19,15 @@ public class MoveState : State
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
+        stateParams = GetComponent<StateMachineParams>();
         this.name = "MoveState";
         //Debug.Log(this.name);
     }
 
     void FixedUpdate()
     {
+        //if (stateParams != null)
+        //    Debug.Log("确实移动 speed->" + stateParams.speed);
         if (canMove)
         {
             PerformMovement();
@@ -34,10 +37,10 @@ public class MoveState : State
 
     private void PerformMovement()
     {
+        //Debug.Log("确实移动 speed->" + stateParams.speed);
         if (stateParams.speed > PlayerDetail.StayOffset)
         {
             rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
-            //Debug.Log("确实移动 speed->" + stateParams.speed);
         }
     }
 
@@ -55,14 +58,17 @@ public class MoveState : State
         //Debug.Log("不能移动");
     }
 
-    void HandleParamers(NotificationCenter.Notification info)
+    void HandleParamers()//NotificationCenter.Notification info
     {
-        stateParams = (StateMachineParams)info.data;
+        //stateParams = (StateMachineParams)info.data;
+        //if (stateParams.playerId == 0)
+        //{
         animator.SetBool("isLive", stateParams.isLive);
         animator.SetFloat("speed", stateParams.speed);
-
-        if (stateParams.playerId == 0)
-            Debug.Log("===speed->" + stateParams.speed);//"---MoveState---playerId->" + stateParams.playerId + 
+        //Debug.Log("speed->" + stateParams.speed);
+        //}
+        //if (stateParams.playerId == 0)
+        //    Debug.Log("MoveState里------speed->" + stateParams.speed);//"---MoveState---playerId->" + stateParams.playerId + 
     }
 
 }

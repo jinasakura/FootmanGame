@@ -3,11 +3,12 @@
 public class DieState : State
 {
     private Animator animator;
+    private StateMachineParams stateParams;
 
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-
+        stateParams = GetComponent<StateMachineParams>();
         this.name = "DieState";
     }
 
@@ -23,8 +24,8 @@ public class DieState : State
 
     void HandleParamers(NotificationCenter.Notification info)
     {
-        StateMachineParams data = (StateMachineParams)info.data;
-        animator.SetBool("isLive", data.isLive);
+        //StateMachineParams data = (StateMachineParams)info.data;
+        animator.SetBool("isLive", stateParams.isLive);
     }
 
 

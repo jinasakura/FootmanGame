@@ -46,7 +46,7 @@ public class StateMachineParams : MonoBehaviour
         }
         get
         {
-            //if (playerId == 0 && _speed>0.2)
+            //if (playerId == 0 && _speed > 0.2)
             //    Debug.Log("playerId->" + playerId + "-----speed  get->" + _speed);
             return _speed;
         }

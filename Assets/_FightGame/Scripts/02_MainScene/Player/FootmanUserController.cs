@@ -45,9 +45,9 @@ public class FootmanUserController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float v = Input.GetAxis("Vertical");
+        //float v = Input.GetAxis("Vertical");
         float h = UltimateJoystick.GetHorizontalAxis("Move");
-        //float v = UltimateJoystick.GetVerticalAxis("Move");
+        float v = UltimateJoystick.GetVerticalAxis("Move");
         character.Move(h, v);
         //Debug.Log("h->"+h);
         bool currentMouseButtonDown = Input.GetMouseButton(0);

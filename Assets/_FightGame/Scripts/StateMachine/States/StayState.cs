@@ -4,11 +4,12 @@ using System.Collections;
 public class StayState : State {
 
     private Animator animator;
+    private StateMachineParams stateParams;
 
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-
+        stateParams = GetComponent<StateMachineParams>();
         this.name = "StayState";
     }
 
@@ -24,14 +25,9 @@ public class StayState : State {
 
     void HandleParamers(NotificationCenter.Notification info)
     {
-        StateMachineParams data = (StateMachineParams)info.data;
-        animator.SetBool("isLive", data.isLive);
-        animator.SetInteger("stayState", data.stayState);
-        //if (!data.notMove)
-        //{
-        //    data.notMove = true;
-        //    //Debug.Log("转换到了staty");
-        //}
+        //StateMachineParams data = (StateMachineParams)info.data;
+        animator.SetBool("isLive", stateParams.isLive);
+        animator.SetInteger("stayState", stateParams.stayState);
     }
 
 

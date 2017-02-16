@@ -67,7 +67,7 @@ public class CharacterStateMachine : StateMachine
         //Debug.Log(currentState.name);
         //if (stateParams.playerId == 0)
         //    Debug.Log("*****状态机中->" + stateParams.speed);
-        NotificationCenter.DefaultCenter.PostNotification(this, StateMachineEvent.HandleParamers, stateParams);
+        NotificationCenter.DefaultCenter.PostNotification(this, StateMachineEvent.HandleParamers);
 
     }
 

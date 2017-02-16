@@ -4,11 +4,12 @@ using System.Collections;
 public class OnceActionState : State {
 
     private Animator animator;
+    private StateMachineParams stateParams;
 
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-
+        stateParams = GetComponent<StateMachineParams>();
         this.name = "OnceActionState";
     }
 
@@ -24,15 +25,15 @@ public class OnceActionState : State {
 
     void HandleParamers(NotificationCenter.Notification info)
     {
-        StateMachineParams data = (StateMachineParams)info.data;
-        animator.SetBool("isLive", data.isLive);
-        animator.SetInteger("onceActionType", data.onceActionType);
-        if (data.triggerOnceAction)
+        //StateMachineParams data = (StateMachineParams)info.data;
+        animator.SetBool("isLive", stateParams.isLive);
+        animator.SetInteger("onceActionType", stateParams.onceActionType);
+        if (stateParams.triggerOnceAction)
         {
             animator.SetTrigger("triggerOnceAction");
-            data.triggerOnceAction = false;
+            stateParams.triggerOnceAction = false;
         }
-        Debug.Log("状态机里技能id->" + data.onceActionType);
+        //Debug.Log("状态机里技能id->" + data.onceActionType);
     }
 
 
