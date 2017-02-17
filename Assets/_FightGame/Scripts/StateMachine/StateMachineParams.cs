@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+//不是很懂为什么set、get不能写成简写的形式
 public class StateMachineParams : MonoBehaviour
 {
 
@@ -24,12 +25,10 @@ public class StateMachineParams : MonoBehaviour
     {
         set
         {
-            //Debug.Log("playerId->" + playerId + "-----isLive改变->" + _isLive);
             _isLive = value;
         }
         get
         {
-            //Debug.Log("playerId->" + playerId + "-----isLive改变->" + _isLive);
             return _isLive;
         }
     }

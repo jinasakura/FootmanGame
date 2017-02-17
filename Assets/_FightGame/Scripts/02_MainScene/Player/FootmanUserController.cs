@@ -36,9 +36,10 @@ public class FootmanUserController : MonoBehaviour
     void Start()
     {
         character = GetComponent<FootmanCharacter>();
-        rb = GetComponent<Rigidbody>();
 
+        rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
         currentCameraRotationX = _playerCamera.transform.localEulerAngles.x;
         //isFirst = true;
     }
@@ -61,8 +62,8 @@ public class FootmanUserController : MonoBehaviour
         }
     }
 
-    private Vector3 lastVecRotation = Vector3.zero;
-    private Vector3 curVecRotation = Vector3.zero;
+    //private Vector3 lastVecRotation = Vector3.zero;
+    //private Vector3 curVecRotation = Vector3.zero;
     //左右旋转rigidbody
     private void PerformBodyRotation(float offsetRot)
     {

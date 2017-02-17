@@ -8,4 +8,8 @@ public class PlayerInfo {
 
     public string playerName;
 
+    public int maxHp;
+
+    public int currentHp;
+
 }

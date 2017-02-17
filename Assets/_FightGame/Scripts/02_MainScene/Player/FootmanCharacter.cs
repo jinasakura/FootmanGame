@@ -8,62 +8,56 @@ public class FootmanCharacter : MonoBehaviour
     private CharacterStateMachine stateMachine;
     private bool onceActionBegain = false;
 
-    private bool _isLive = true;
+    //private bool _isLive = true;
     public bool isLive
     {
-        get { return _isLive; }
+        get { return stateParams.isLive; }
         set
         {
-            _isLive = value;
-            stateParams.isLive = _isLive;
+            //_isLive = value;
+            stateParams.isLive = value;
         }
     }
 
-    private int _stayState = 0;
+    //private int _stayState = 0;
     public int stayState
     {
-        get { return _stayState; }
+        get { return stateParams.stayState; }
         set
         {
-            _stayState = value;
-            stateParams.stayState = _stayState;
+            //_stayState = value;
+            stateParams.stayState = value;
         }
     }
 
-    private int _onceActionType = 1;
+    //private int _onceActionType = 1;
     public int onceActionType
     {
-        get { return _onceActionType; }
+        get { return stateParams.onceActionType; }
         set
         {
-            _onceActionType = value;
-            stateParams.onceActionType = _onceActionType;
+            //_onceActionType = value;
+            stateParams.onceActionType = value;
         }
     }
 
-    private float _speed = 0.0f;
+    //private float _speed = 0.0f;
     public float speed
     {
-        get { return _speed; }
+        get { return stateParams.speed; }
         set
         {
-            _speed = value;
-            stateParams.speed = _speed;
+            //_speed = value;
+            stateParams.speed = value;
         }
     }
 
-    //private bool _isUserControl;
-    //public bool isUserControl { set; get; }
-
-    //private int _playerId;
-    //public int playerId { set; get; }
-
-    //private string _playerName;
-    //public string playerName { set; get; }
     private PlayerInfo _playerInfo;
     public PlayerInfo playerInfo { set; get; }
 
     private StateMachineParams stateParams;
+
+    private CharacterHealth health;
 
     void Start()
     {
@@ -75,11 +69,12 @@ public class FootmanCharacter : MonoBehaviour
             
         }
 
-        //stateMachine = GetComponent<CharacterStateMachine>();
         stateParams = GetComponent<StateMachineParams>();
         stateParams.playerId = playerInfo.playerId;
         stateParams.playerName = playerInfo.playerName;
         //Debug.Log("character init playerId->"+playerInfo.playerId+"------live->"+stateParams.isLive);
+
+        health = GetComponent<CharacterHealth>();
     }
 
     public void Move(float h, float v)
@@ -132,6 +127,11 @@ public class FootmanCharacter : MonoBehaviour
     void OnceActionChange(NotificationCenter.Notification info)
     {
         onceActionBegain = Convert.ToBoolean(info.data);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.name);
     }
 
 }

@@ -7,24 +7,7 @@ public class CharacterStateMachine : StateMachine
 
     public enum StayStateType { Idle, Victory, Upset, Defend };
 
-    public StateMachineParams stateParams;
-    //public StateMachineParams stateParams
-    //{
-    //    get
-    //    {
-    //        //if (_stateParams != null)
-    //        //    Debug.Log("stateMachine里speed->" + _stateParams.speed);
-    //        return _stateParams;
-    //    }
-    //    set
-    //    {
-    //        _stateParams = value;
-    //        if (_stateParams != null)
-    //        {
-    //            Debug.Log("playerId->" + _stateParams.playerId + "------stateMachine里 speed->" + _stateParams.speed);
-    //        }
-    //    }
-    //}
+    private StateMachineParams stateParams;
 
     private DieState die;
     private StayState stay;
@@ -40,6 +23,17 @@ public class CharacterStateMachine : StateMachine
     void FixedUpdate()
     {
         ChangeState<State>();
+    }
+
+    public override T GetState<T>()
+    {
+        T target = GetComponent<T>();
+        if (target == null)
+        {
+            target = gameObject.AddComponent<T>();
+            gameObject.name = stateParams.playerName;
+        }
+        return target;
     }
 
     public override void ChangeState<T>()

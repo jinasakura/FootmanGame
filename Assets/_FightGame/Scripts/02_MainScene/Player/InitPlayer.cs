@@ -22,7 +22,7 @@ public class InitPlayer : MonoBehaviour {
         if (Camera.main)
         {
             Camera mainCam = Camera.main;
-            mainCam.enabled = false;
+            mainCam.gameObject.SetActive(false);
         }
 
         int i = 0;
@@ -35,18 +35,15 @@ public class InitPlayer : MonoBehaviour {
             character.playerInfo = new PlayerInfo();//回头改成从一个本地xml中读取玩家信息
             character.playerInfo.playerId = i;
             character.playerInfo.playerName = "Player " + i;
-            //character.isLive = true;
             if (LoginUserInfo.playerInfo.playerId == character.playerInfo.playerId)
             {
                 FootmanUserController userController = players[i].AddComponent<FootmanUserController>();
                 userController.playerCamera = players[i].GetComponentInChildren<Camera>();
-                //character.isUserControl = true;
             }
             else
             {
                 FootmanAIController aiController = players[i].AddComponent<FootmanAIController>();
                 players[i].GetComponentInChildren<Camera>().enabled = false;
-                //character.isUserControl = false;
 
             }
             i++;

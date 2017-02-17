@@ -8,4 +8,6 @@ public class PlayerDetail  {
 
     public static float TurnOffset = 0.001f;
 
+    public static float rotationSensitivity = 8f;
+
 }
