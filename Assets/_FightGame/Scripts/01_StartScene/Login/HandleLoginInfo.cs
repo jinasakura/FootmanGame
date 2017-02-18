@@ -55,11 +55,14 @@ public class HandleLoginInfo : MonoBehaviour {
         LoginUserInfo.playerInfo = new PlayerInfo();
         LoginUserInfo.playerInfo.playerId = 0;
         LoginUserInfo.playerInfo.playerName = "Test";
+        
     }
 
     void SelectedCareer(NotificationCenter.Notification careerInfo)
     {
         LoginUserInfo.userCareer = careerInfo.data as CareerItem;
+        LoginUserInfo.playerInfo.careerId = LoginUserInfo.userCareer.careerId;
+        LoginUserInfo.playerInfo.currentHp = LoginUserInfo.userCareer.maxHealth;
         foreach (CareerToggleBtn item in careerBtns)
         {
             if(item.btnCareerInfo.careerId != LoginUserInfo.userCareer.careerId) { item.setToggleOff(); }

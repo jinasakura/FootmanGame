@@ -58,6 +58,7 @@ public class StateMachineParams : MonoBehaviour
         get { return _moveVelocity; }
     }
 
+    [SerializeField]
     private int _stayState;
     public int stayState
     {
@@ -65,6 +66,7 @@ public class StateMachineParams : MonoBehaviour
         get { return _stayState; }
     }
 
+    
     private bool _triggerOnceAction;
     public bool triggerOnceAction
     {
@@ -72,6 +74,7 @@ public class StateMachineParams : MonoBehaviour
         get { return _triggerOnceAction; }
     }
 
+    [SerializeField]
     private int _onceActionType;
     public int onceActionType
     {

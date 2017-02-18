@@ -3,18 +3,19 @@ using UnityEngine.UI;
 
 public class CharacterHealth : MonoBehaviour
 {
-    public float m_StartingHealth = 100f;               
-    public Slider m_Slider;                             
-    public Image m_FillImage;                           
-    public Color m_FullHealthColor = Color.green;       
-    public Color m_ZeroHealthColor = Color.red;         
+    public float maxHealth = 100f;               
+    public Slider slider;                             
+    public Image fillImage;                           
+    public Color fullHealthColor = Color.green;       
+    public Color zeroHealthColor = Color.red;         
     //public GameObject m_ExplosionPrefab;                
 
 
     //private AudioSource m_ExplosionAudio;               
-    //private ParticleSystem m_ExplosionParticles;        
-    private float m_CurrentHealth;                      
-    private bool m_Dead;                                
+    //private ParticleSystem m_ExplosionParticles;
+    [SerializeField]    
+    private float currentHp;                      
+    //private bool dead;                              
 
 
     //private void Awake()
@@ -29,8 +30,8 @@ public class CharacterHealth : MonoBehaviour
 
     private void OnEnable()
     {
-        m_CurrentHealth = m_StartingHealth;
-        m_Dead = false;
+        currentHp = maxHealth;
+        //dead = false;
 
         SetHealthUI();
     }
@@ -38,11 +39,11 @@ public class CharacterHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        m_CurrentHealth -= amount;
+        currentHp -= amount;
 
         SetHealthUI();
 
-        if (m_CurrentHealth <= 0f && !m_Dead)
+        if (currentHp <= 0f)
         {
             OnDeath();
         }
@@ -51,15 +52,16 @@ public class CharacterHealth : MonoBehaviour
 
     private void SetHealthUI()
     {
-        m_Slider.value = m_CurrentHealth;
+        slider.value = currentHp;
 
-        m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
+        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHp / maxHealth);
     }
 
 
     private void OnDeath()
     {
-        m_Dead = true;
+        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.CharacterDie);
+        //dead = true;
 
         //m_ExplosionParticles.transform.position = transform.position;
         //m_ExplosionParticles.gameObject.SetActive(true);
@@ -68,6 +70,6 @@ public class CharacterHealth : MonoBehaviour
 
         //m_ExplosionAudio.Play();
 
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

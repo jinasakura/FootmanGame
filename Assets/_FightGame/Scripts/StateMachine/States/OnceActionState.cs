@@ -23,7 +23,7 @@ public class OnceActionState : State {
         NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
     }
 
-    void HandleParamers(NotificationCenter.Notification info)
+    protected virtual void HandleParamers()
     {
         //StateMachineParams data = (StateMachineParams)info.data;
         animator.SetBool("isLive", stateParams.isLive);
@@ -33,7 +33,7 @@ public class OnceActionState : State {
             animator.SetTrigger("triggerOnceAction");
             stateParams.triggerOnceAction = false;
         }
-        //Debug.Log("状态机里技能id->" + data.onceActionType);
+        //Debug.Log("状态机里技能id->" + stateParams.onceActionType);
     }
 
 

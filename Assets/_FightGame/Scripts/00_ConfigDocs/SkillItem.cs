@@ -3,4 +3,5 @@
     public int skillId;
     public string skillName;
 
+    public int damage;
 }

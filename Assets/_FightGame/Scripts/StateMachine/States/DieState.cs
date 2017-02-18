@@ -24,7 +24,6 @@ public class DieState : State
 
     void HandleParamers(NotificationCenter.Notification info)
     {
-        //StateMachineParams data = (StateMachineParams)info.data;
         animator.SetBool("isLive", stateParams.isLive);
     }
 

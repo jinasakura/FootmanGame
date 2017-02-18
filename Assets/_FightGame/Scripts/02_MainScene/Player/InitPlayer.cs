@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public class InitPlayer : MonoBehaviour {
 
-    private GameObject userPlayer;
+    //private GameObject userPlayer;
+
+    [SerializeField]
+    private GameObject playerCamera;
 
     [SerializeField]
     private int userControlNo = 0;//记录用户控制哪个角色
@@ -16,8 +19,6 @@ public class InitPlayer : MonoBehaviour {
 
     void Awake () {
         GameObject model = CareerInfoModel.modelDict[LoginUserInfo.userCareer.modelName];
-        //userPlayer = Instantiate(model, Vector3.zero, Quaternion.identity) as GameObject;
-        //testPlayer=Instantiate(model, respawn2.transform.position, respawn2.transform.rotation) as GameObject;
 
         if (Camera.main)
         {
@@ -35,15 +36,18 @@ public class InitPlayer : MonoBehaviour {
             character.playerInfo = new PlayerInfo();//回头改成从一个本地xml中读取玩家信息
             character.playerInfo.playerId = i;
             character.playerInfo.playerName = "Player " + i;
+            character.playerInfo.currentHp = LoginUserInfo.userCareer.maxHealth;
+            character.playerInfo.careerId = LoginUserInfo.userCareer.careerId;
             if (LoginUserInfo.playerInfo.playerId == character.playerInfo.playerId)
             {
                 FootmanUserController userController = players[i].AddComponent<FootmanUserController>();
-                userController.playerCamera = players[i].GetComponentInChildren<Camera>();
+                //userController.playerCamera = players[i].GetComponentInChildren<Camera>();
+                Instantiate(playerCamera, playerCamera.transform.position, playerCamera.transform.rotation, players[i].transform);
             }
             else
             {
                 FootmanAIController aiController = players[i].AddComponent<FootmanAIController>();
-                players[i].GetComponentInChildren<Camera>().enabled = false;
+                //players[i].GetComponentInChildren<Camera>().enabled = false;
 
             }
             i++;

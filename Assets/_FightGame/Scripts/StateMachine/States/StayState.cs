@@ -23,7 +23,7 @@ public class StayState : State {
         NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
     }
 
-    void HandleParamers(NotificationCenter.Notification info)
+    void HandleParamers()
     {
         //StateMachineParams data = (StateMachineParams)info.data;
         animator.SetBool("isLive", stateParams.isLive);

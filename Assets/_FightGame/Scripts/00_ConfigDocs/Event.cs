@@ -13,7 +13,7 @@ public class MainSceneEvent
 {
     public static string TriggerSkill = "TriggerSkill";
 
-    public static string CharacterLive = "CharacterLive";
+    public static string CharacterDie = "CharacterDie";
 }
 
 public class StateMachineEvent

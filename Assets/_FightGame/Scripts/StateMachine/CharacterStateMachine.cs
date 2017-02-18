@@ -4,15 +4,16 @@ using System;
 
 public class CharacterStateMachine : StateMachine
 {
+    public enum OnceActionType { TakeDamage };
 
     public enum StayStateType { Idle, Victory, Upset, Defend };
 
     private StateMachineParams stateParams;
 
-    private DieState die;
-    private StayState stay;
-    private OnceActionState onceAction;
-    private MoveState move;
+    //private DieState die;
+    //private StayState stay;
+    //private OnceActionState onceAction;
+    //private MoveState move;
 
     void Start()
     {
@@ -40,15 +41,22 @@ public class CharacterStateMachine : StateMachine
     {
         if (stateParams.isLive)
         {
-            if (stateParams.triggerOnceAction)// && stateParams.notMove
+            if (stateParams.triggerOnceAction)
             {
-                currentState = GetState<OnceActionState>();
+                if (stateParams.onceActionType == 0)//受击
+                {
+                    currentState = GetState<StruckState>();
+                }
+                else
+                {
+                    currentState = GetState<OnceActionState>();
+                }
             }
             else if (stateParams.canMove())
             {
                 currentState = GetState<MoveState>();
             }
-            else//技能需要先静止  if(!stateParams.canMove() || !stateParams.notMove)
+            else
             {
                 currentState = GetState<StayState>();
             }

@@ -20,35 +20,26 @@ public class FootmanUserController : MonoBehaviour
     private float lookSensitivity = 4f;//镜头上下旋转的系数
     [SerializeField]
     private float rotationSensitivity = 8f;//人物左右旋转系数
-    private Camera _playerCamera;
-    public Camera playerCamera
-    {
-        set
-        {
-            _playerCamera = value;
-        }
-    }
-
-    //private Vector2 lastMousePosition;
-    //private bool isFirst=true;
+    private Camera playerCamera;
 
 
     void Start()
     {
         character = GetComponent<FootmanCharacter>();
+        playerCamera = GetComponentInChildren<Camera>();
 
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
-        currentCameraRotationX = _playerCamera.transform.localEulerAngles.x;
-        //isFirst = true;
+        currentCameraRotationX = playerCamera.transform.localEulerAngles.x;
     }
 
     private void FixedUpdate()
     {
-        //float v = Input.GetAxis("Vertical");
-        float h = UltimateJoystick.GetHorizontalAxis("Move");
-        float v = UltimateJoystick.GetVerticalAxis("Move");
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        //float h = UltimateJoystick.GetHorizontalAxis("Move");
+        //float v = UltimateJoystick.GetVerticalAxis("Move");
         character.Move(h, v);
         //Debug.Log("h->"+h);
         bool currentMouseButtonDown = Input.GetMouseButton(0);
@@ -78,7 +69,7 @@ public class FootmanUserController : MonoBehaviour
     {
         currentCameraRotationX -= offsetY;
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, cameraLowerLimit, cameraUpperLimit);
-        _playerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+        playerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
     }
 }
 

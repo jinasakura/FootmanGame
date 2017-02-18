@@ -59,12 +59,14 @@ public class FootmanCharacter : MonoBehaviour
 
     private CharacterHealth health;
 
+    private CapsuleCollider swordCollider;
+
     void Start()
     {
         if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
         {
             NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
-            NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterLive);
+            NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
             NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
             
         }
@@ -75,6 +77,17 @@ public class FootmanCharacter : MonoBehaviour
         //Debug.Log("character init playerId->"+playerInfo.playerId+"------live->"+stateParams.isLive);
 
         health = GetComponent<CharacterHealth>();
+        health.maxHealth = CareerInfoModel.careerDict[playerInfo.careerId].maxHealth;
+
+        CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
+        foreach (CapsuleCollider item in colliders)
+        {
+            if(item.gameObject.tag == "Weapon")
+            {
+                swordCollider = item;
+                break;
+            }
+        }
     }
 
     public void Move(float h, float v)
@@ -105,6 +118,14 @@ public class FootmanCharacter : MonoBehaviour
 
     }
 
+    //收到伤害
+    public void TakeDamage(int amount)
+    {
+        health.TakeDamage(amount);
+        stateParams.onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
+        stateParams.triggerOnceAction = true;
+    }
+
 
     void TriggerSkill(NotificationCenter.Notification skillInfo)
     {
@@ -117,22 +138,32 @@ public class FootmanCharacter : MonoBehaviour
         
     }
 
-    void CharacterLive(NotificationCenter.Notification liveInfo)
+    void CharacterDie()
     {
-        //人物生死通过抛事件获得
-        //重置生死后
-        //UpdateAnimation();
+        stateParams.isLive = false;
     }
 
     void OnceActionChange(NotificationCenter.Notification info)
     {
         onceActionBegain = Convert.ToBoolean(info.data);
+        //Debug.Log("****技能调用情况->" + onceActionBegain);
+        if(onceActionBegain) swordCollider.enabled = true;
+        else swordCollider.enabled = false;
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionStay(Collision other)
     {
-        Debug.Log(other.gameObject.name);
+        //Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag == "Player" && onceActionBegain)
+        {
+            GameObject enemy = other.gameObject;
+            FootmanCharacter person = enemy.GetComponent<FootmanCharacter>();
+            int damage = CareerInfoModel.skillDict[onceActionType].damage;
+            //Debug.Log("对方收到攻击，伤害->" + damage);
+            person.TakeDamage(damage);
+        }
     }
+
 
 }
 

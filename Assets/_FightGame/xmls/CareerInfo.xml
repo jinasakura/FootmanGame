@@ -4,22 +4,27 @@
         <id>1</id>
         <name>Knight</name>
         <modelName>PlayerKnight</modelName>
+        <health>100</health>
         <skills>
             <skill>
-                <id>1</id>
+                <id>1001</id>
                 <name>Attack 01</name>
+                <damage>10</damage>
             </skill>
             <skill>
-                <id>2</id>
+                <id>1002</id>
                 <name>Attack 02</name>
+                <damage>15</damage>
             </skill>
             <skill>
-                <id>3</id>
+                <id>1003</id>
                 <name>Double Attack</name>
+                <damage>20</damage>
             </skill>
             <skill>
-                <id>4</id>
+                <id>1004</id>
                 <name>Cast Spell</name>
+                <damage>30</damage>
             </skill>
         </skills>
     </career>
@@ -27,26 +32,32 @@
         <id>2</id>
         <name>Wizard</name>
         <modelName>PlayerWizard</modelName>
+        <health>100</health>
         <skills>
             <skill>
-                <id>1</id>
+                <id>2001</id>
                 <name>Melee Attack</name>
+                <damage>10</damage>
             </skill>
             <skill>
-                <id>2</id>
+                <id>2002</id>
                 <name>Projectile Attack</name>
+                <damage>15</damage>
             </skill>
             <skill>
-                <id>3</id>
+                <id>2003</id>
                 <name>Cast Spell 02</name>
+                <damage>20</damage>
             </skill>
             <skill>
-                <id>4</id>
+                <id>2004</id>
                 <name>Channeling</name>
+                <damage>25</damage>
             </skill>
             <skill>
-                <id>5</id>
+                <id>2005</id>
                 <name>Shockwave Attack</name>
+                <damage>30</damage>
             </skill>
         </skills>
     </career>
