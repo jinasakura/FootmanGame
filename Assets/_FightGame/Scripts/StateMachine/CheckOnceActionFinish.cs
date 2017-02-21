@@ -6,7 +6,9 @@ public class CheckOnceActionFinish : StateMachineBehaviour {
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, true);
+        StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
+        param.onceActionBegain = true;
+        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param);
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -17,7 +19,9 @@ public class CheckOnceActionFinish : StateMachineBehaviour {
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, false);
+        StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
+        param.onceActionBegain = false;
+        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param);
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine

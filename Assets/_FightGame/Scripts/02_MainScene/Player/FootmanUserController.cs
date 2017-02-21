@@ -15,7 +15,7 @@ public class FootmanUserController : MonoBehaviour
     [SerializeField]
     private float cameraUpperLimit = 40f;
     [SerializeField]
-    private float cameraLowerLimit = -30f;
+    private float cameraLowerLimit = -10f;
     [SerializeField]
     private float lookSensitivity = 4f;//镜头上下旋转的系数
     [SerializeField]
@@ -62,6 +62,7 @@ public class FootmanUserController : MonoBehaviour
         //四元数相乘代表什么？
         Quaternion q = rb.rotation * Quaternion.Euler(offset);
         rb.MoveRotation(q);
+        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.PlayerCameraChange, q);
     }
 
     //上下旋转镜头
@@ -70,6 +71,7 @@ public class FootmanUserController : MonoBehaviour
         currentCameraRotationX -= offsetY;
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, cameraLowerLimit, cameraUpperLimit);
         playerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+        
     }
 }
 

@@ -25,6 +25,7 @@ public class DieState : State
     void HandleParamers(NotificationCenter.Notification info)
     {
         animator.SetBool("isLive", stateParams.isLive);
+        //Debug.Log(stateParams.playerId + "->Die");
     }
 
 

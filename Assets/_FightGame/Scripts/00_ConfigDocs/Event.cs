@@ -15,7 +15,9 @@ public class MainSceneEvent
 
     public static string CharacterDie = "CharacterDie";
 
-    public static string TakeDamage = "TakeDamage";
+    public static string TakeDamageNotice = "TakeDamageNotice";
+
+    public static string PlayerCameraChange = "PlayerCameraChange";
 }
 
 public class StateMachineEvent

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 //不是很懂为什么set、get不能写成简写的形式
 public class StateMachineParams : MonoBehaviour
 {
@@ -66,6 +67,7 @@ public class StateMachineParams : MonoBehaviour
         get { return _stayState; }
     }
 
+    [SerializeField]
     private bool _onceActionBegain;
     public bool onceActionBegain
     {
@@ -98,5 +100,34 @@ public class StateMachineParams : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void Idle()
+    {
+        speed = 0;
+        moveVelocity = Vector3.zero;
+        stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
+    }
+
+    public void ChangeOnceAction(int type)
+    {
+        onceActionType = type;
+        triggerOnceAction = true;
+    }
+
+    public void TakeDamage()
+    {
+        onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
+        triggerOnceAction = true;
+    }
+
+    public void Die()
+    {
+        isLive = false;
+    }
+
+    public void Live()
+    {
+        isLive = true;
     }
 }

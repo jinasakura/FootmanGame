@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System;
 
+
+/// <summary>
+/// 所有切换状态机都在这个类里完成
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class FootmanCharacter : MonoBehaviour
 {
 
     private CharacterStateMachine stateMachine;
-    private bool onceActionBegain = false;
+    //private bool onceActionBegain = false;
 
     //private bool _isLive = true;
     public bool isLive
@@ -72,7 +76,7 @@ public class FootmanCharacter : MonoBehaviour
 
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
         NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
-        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TakeDamage);
+        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TakeDamageNotice);
 
 
         stateParams = GetComponent<StateMachineParams>();
@@ -101,11 +105,12 @@ public class FootmanCharacter : MonoBehaviour
     public void Move(float h, float v)
     {
         //时刻记得释放技能和移动是冲突的
-        if (onceActionBegain)
+        if (stateParams.onceActionBegain)
         {
-            stateParams.speed = 0;
-            stateParams.moveVelocity = Vector3.zero;
-            stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
+            //stateParams.speed = 0;
+            //stateParams.moveVelocity = Vector3.zero;
+            //stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
+            stateParams.Idle();
         }
         else
         {
@@ -125,51 +130,67 @@ public class FootmanCharacter : MonoBehaviour
 
     }
 
-    //受到伤害
+    //为外界准备的调用
     public void TakeDamage(int amount)
     {
         health.TakeDamage(amount);
     }
 
+    private void TakeDamageNotice(NotificationCenter.Notification info)
+    {
+        int id = (int)info.data;
+        if(playerInfo.playerId == id)
+        {
+            //stateParams.onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
+            //stateParams.triggerOnceAction = true;
+            stateParams.TakeDamage();
+        }
+    }
+
 
     void TriggerSkill(NotificationCenter.Notification skillInfo)
     {
-        if (onceActionBegain) return;
+        if (stateParams.onceActionBegain) return;
 
         SkillItem skill = (SkillItem)skillInfo.data;
         //Debug.Log("Character里的skillid->" + skill.skillId);
-        stateParams.onceActionType = skill.skillId;
-        stateParams.triggerOnceAction = true;
-
+        //stateParams.onceActionType = skill.skillId;
+        //stateParams.triggerOnceAction = true;
+        stateParams.ChangeOnceAction(skill.skillId);
     }
 
     void CharacterDie(NotificationCenter.Notification info)
     {
         int id = Convert.ToInt32(info.data);
         if (playerInfo.playerId == id)
-            stateParams.isLive = false;
+            stateParams.Die();
     }
 
     void OnceActionChange(NotificationCenter.Notification info)
     {
-        onceActionBegain = Convert.ToBoolean(info.data);
-        //Debug.Log("****技能调用情况->" + onceActionBegain);
-        if (onceActionBegain) swordCollider.enabled = true;
-        //else swordCollider.enabled = false;
+        StateMachineParams param = (StateMachineParams)info.data;
+        if (param.playerId == playerInfo.playerId)
+        {
+            if (stateParams.onceActionBegain) swordCollider.enabled = true;
+            else swordCollider.enabled = false;//没有砍人时也要关闭
+        }
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerStay(Collider other)
     {
         //Debug.Log(other.gameObject.tag);
-        if (other.collider.gameObject.tag == "Player" && onceActionBegain)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && stateParams.onceActionBegain)
         {
             GameObject enemy = other.gameObject;
             FootmanCharacter person = enemy.GetComponent<FootmanCharacter>();
-            int damage = CareerInfoModel.skillDict[onceActionType].damage;
-            //Debug.Log("对方收到攻击，伤害->" + damage);
-            person.TakeDamage(damage);
+            if (CareerInfoModel.skillDict.ContainsKey(onceActionType))
+            {
+                SkillItem skillItem = CareerInfoModel.skillDict[onceActionType];
+                int damage = skillItem.damage;
+                person.TakeDamage(damage);
 
-            swordCollider.enabled = false;
+                swordCollider.enabled = false;
+            }
         }
     }
 

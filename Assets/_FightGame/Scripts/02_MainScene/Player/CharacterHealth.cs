@@ -11,8 +11,9 @@ public class CharacterHealth : MonoBehaviour
     public int playerId;         
 
 
-    [SerializeField]    
-    private float currentHp;                      
+    [SerializeField] 
+    private float currentHp;
+                        
 
 
     private void OnEnable()
@@ -20,6 +21,8 @@ public class CharacterHealth : MonoBehaviour
         currentHp = maxHealth;
 
         SetHealthUI();
+
+        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.PlayerCameraChange);
     }
 
 
@@ -28,16 +31,15 @@ public class CharacterHealth : MonoBehaviour
         if (currentHp - amount > 0)
         {
             currentHp -= amount;
-
-            SetHealthUI();
-
-            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.TakeDamage, playerId);
+            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.TakeDamageNotice, playerId);
         }
         else
         {
             currentHp = 0;
-            OnDeath();
+            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.CharacterDie, playerId);
+            //OnDeath();
         }
+        SetHealthUI();
     }
 
 
@@ -47,9 +49,14 @@ public class CharacterHealth : MonoBehaviour
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHp / maxHealth);
     }
 
-
-    private void OnDeath()
+    private void PlayerCameraChange(NotificationCenter.Notification info)
     {
-        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.CharacterDie, playerId);
+        Quaternion q = (Quaternion)info.data;
+        slider.transform.rotation = Quaternion.Inverse(q);
     }
+
+    //private void OnDeath()
+    //{
+    //    NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.CharacterDie, playerId);
+    //}
 }
