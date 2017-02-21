@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StayState : State {
+public class StayState : State
+{
 
     private Animator animator;
     private StateMachineParams stateParams;
@@ -10,7 +11,7 @@ public class StayState : State {
     {
         animator = GetComponentInChildren<Animator>();
         stateParams = GetComponent<StateMachineParams>();
-        this.name = "StayState";
+        this.name = stateParams.playerId + "StayState";
     }
 
     protected override void AddListeners()
@@ -26,7 +27,8 @@ public class StayState : State {
     void HandleParamers()
     {
         //StateMachineParams data = (StateMachineParams)info.data;
-        animator.SetBool("isLive", stateParams.isLive);
+        if (!stateParams.isLive)
+            animator.SetBool("isLive", stateParams.isLive);
         animator.SetInteger("stayState", stateParams.stayState);
     }
 

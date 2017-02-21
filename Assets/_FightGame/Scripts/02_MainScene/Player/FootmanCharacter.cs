@@ -59,6 +59,7 @@ public class FootmanCharacter : MonoBehaviour
 
     private CharacterHealth health;
 
+    private CapsuleCollider bodyCollider;
     private CapsuleCollider swordCollider;
 
     void Start()
@@ -66,10 +67,13 @@ public class FootmanCharacter : MonoBehaviour
         if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
         {
             NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
-            NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
-            NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
             
         }
+
+        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
+        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
+        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TakeDamage);
+
 
         stateParams = GetComponent<StateMachineParams>();
         stateParams.playerId = playerInfo.playerId;
@@ -78,14 +82,18 @@ public class FootmanCharacter : MonoBehaviour
 
         health = GetComponent<CharacterHealth>();
         health.maxHealth = CareerInfoModel.careerDict[playerInfo.careerId].maxHealth;
+        health.playerId = playerInfo.playerId;
 
         CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         foreach (CapsuleCollider item in colliders)
         {
-            if(item.gameObject.tag == "Weapon")
+            if (item.gameObject.tag == "Weapon")
             {
                 swordCollider = item;
-                break;
+            }
+            else
+            {
+                bodyCollider = item;
             }
         }
     }
@@ -98,7 +106,6 @@ public class FootmanCharacter : MonoBehaviour
             stateParams.speed = 0;
             stateParams.moveVelocity = Vector3.zero;
             stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
-            //stateMachine.stateParams.notMove = false;
         }
         else
         {
@@ -118,12 +125,10 @@ public class FootmanCharacter : MonoBehaviour
 
     }
 
-    //收到伤害
+    //受到伤害
     public void TakeDamage(int amount)
     {
         health.TakeDamage(amount);
-        stateParams.onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
-        stateParams.triggerOnceAction = true;
     }
 
 
@@ -135,32 +140,36 @@ public class FootmanCharacter : MonoBehaviour
         //Debug.Log("Character里的skillid->" + skill.skillId);
         stateParams.onceActionType = skill.skillId;
         stateParams.triggerOnceAction = true;
-        
+
     }
 
-    void CharacterDie()
+    void CharacterDie(NotificationCenter.Notification info)
     {
-        stateParams.isLive = false;
+        int id = Convert.ToInt32(info.data);
+        if (playerInfo.playerId == id)
+            stateParams.isLive = false;
     }
 
     void OnceActionChange(NotificationCenter.Notification info)
     {
         onceActionBegain = Convert.ToBoolean(info.data);
         //Debug.Log("****技能调用情况->" + onceActionBegain);
-        if(onceActionBegain) swordCollider.enabled = true;
-        else swordCollider.enabled = false;
+        if (onceActionBegain) swordCollider.enabled = true;
+        //else swordCollider.enabled = false;
     }
 
-    void OnCollisionStay(Collision other)
+    void OnCollisionEnter(Collision other)
     {
         //Debug.Log(other.gameObject.tag);
-        if (other.gameObject.tag == "Player" && onceActionBegain)
+        if (other.collider.gameObject.tag == "Player" && onceActionBegain)
         {
             GameObject enemy = other.gameObject;
             FootmanCharacter person = enemy.GetComponent<FootmanCharacter>();
             int damage = CareerInfoModel.skillDict[onceActionType].damage;
             //Debug.Log("对方收到攻击，伤害->" + damage);
             person.TakeDamage(damage);
+
+            swordCollider.enabled = false;
         }
     }
 

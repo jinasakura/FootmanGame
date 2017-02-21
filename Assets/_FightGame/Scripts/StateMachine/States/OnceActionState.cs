@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnceActionState : State {
+public class OnceActionState : State
+{
 
     private Animator animator;
     private StateMachineParams stateParams;
@@ -10,7 +11,7 @@ public class OnceActionState : State {
     {
         animator = GetComponentInChildren<Animator>();
         stateParams = GetComponent<StateMachineParams>();
-        this.name = "OnceActionState";
+        this.name = stateParams.playerId+"->OnceActionState";
     }
 
     protected override void AddListeners()
@@ -25,8 +26,10 @@ public class OnceActionState : State {
 
     protected virtual void HandleParamers()
     {
-        //StateMachineParams data = (StateMachineParams)info.data;
-        animator.SetBool("isLive", stateParams.isLive);
+        //if (stateParams == null)
+        //    Debug.Log(stateParams.playerId + "丢失数据");
+        if (!stateParams.isLive)
+            animator.SetBool("isLive", stateParams.isLive);
         animator.SetInteger("onceActionType", stateParams.onceActionType);
         if (stateParams.triggerOnceAction)
         {

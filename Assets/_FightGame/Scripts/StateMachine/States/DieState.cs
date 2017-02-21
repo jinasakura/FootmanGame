@@ -9,7 +9,7 @@ public class DieState : State
     {
         animator = GetComponentInChildren<Animator>();
         stateParams = GetComponent<StateMachineParams>();
-        this.name = "DieState";
+        this.name = stateParams.playerId+"DieState";
     }
 
     protected override void AddListeners()

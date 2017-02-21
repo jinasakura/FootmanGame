@@ -20,7 +20,7 @@ public class MoveState : State
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         stateParams = GetComponent<StateMachineParams>();
-        this.name = "MoveState";
+        this.name = /*stateParams.playerId+*/"MoveState";
         //Debug.Log(this.name);
     }
 
@@ -63,7 +63,8 @@ public class MoveState : State
         //stateParams = (StateMachineParams)info.data;
         //if (stateParams.playerId == 0)
         //{
-        animator.SetBool("isLive", stateParams.isLive);
+        if (!stateParams.isLive)
+            animator.SetBool("isLive", stateParams.isLive);
         animator.SetFloat("speed", stateParams.speed);
         //Debug.Log("speed->" + stateParams.speed);
         //}

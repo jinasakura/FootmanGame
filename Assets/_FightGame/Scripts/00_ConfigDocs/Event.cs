@@ -14,6 +14,8 @@ public class MainSceneEvent
     public static string TriggerSkill = "TriggerSkill";
 
     public static string CharacterDie = "CharacterDie";
+
+    public static string TakeDamage = "TakeDamage";
 }
 
 public class StateMachineEvent

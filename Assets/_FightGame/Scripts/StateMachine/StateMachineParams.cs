@@ -66,6 +66,12 @@ public class StateMachineParams : MonoBehaviour
         get { return _stayState; }
     }
 
+    private bool _onceActionBegain;
+    public bool onceActionBegain
+    {
+        set { _onceActionBegain = value; }
+        get { return _onceActionBegain; }
+    }
     
     private bool _triggerOnceAction;
     public bool triggerOnceAction

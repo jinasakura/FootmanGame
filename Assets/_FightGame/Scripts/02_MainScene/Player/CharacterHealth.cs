@@ -7,31 +7,17 @@ public class CharacterHealth : MonoBehaviour
     public Slider slider;                             
     public Image fillImage;                           
     public Color fullHealthColor = Color.green;       
-    public Color zeroHealthColor = Color.red;         
-    //public GameObject m_ExplosionPrefab;                
+    public Color zeroHealthColor = Color.red;
+    public int playerId;         
 
 
-    //private AudioSource m_ExplosionAudio;               
-    //private ParticleSystem m_ExplosionParticles;
     [SerializeField]    
     private float currentHp;                      
-    //private bool dead;                              
-
-
-    //private void Awake()
-    //{
-    //    m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
-
-    //    m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource>();
-
-    //    m_ExplosionParticles.gameObject.SetActive(false);
-    //}
 
 
     private void OnEnable()
     {
         currentHp = maxHealth;
-        //dead = false;
 
         SetHealthUI();
     }
@@ -39,12 +25,17 @@ public class CharacterHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        currentHp -= amount;
-
-        SetHealthUI();
-
-        if (currentHp <= 0f)
+        if (currentHp - amount > 0)
         {
+            currentHp -= amount;
+
+            SetHealthUI();
+
+            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.TakeDamage, playerId);
+        }
+        else
+        {
+            currentHp = 0;
             OnDeath();
         }
     }
@@ -53,23 +44,12 @@ public class CharacterHealth : MonoBehaviour
     private void SetHealthUI()
     {
         slider.value = currentHp;
-
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHp / maxHealth);
     }
 
 
     private void OnDeath()
     {
-        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.CharacterDie);
-        //dead = true;
-
-        //m_ExplosionParticles.transform.position = transform.position;
-        //m_ExplosionParticles.gameObject.SetActive(true);
-
-        //m_ExplosionParticles.Play();
-
-        //m_ExplosionAudio.Play();
-
-        //gameObject.SetActive(false);
+        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.CharacterDie, playerId);
     }
 }

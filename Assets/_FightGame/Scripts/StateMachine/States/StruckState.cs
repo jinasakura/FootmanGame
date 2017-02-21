@@ -9,21 +9,28 @@ public class StruckState : OnceActionState {
     void Awake () {
         animator = GetComponentInChildren<Animator>();
         stateParams = GetComponent<StateMachineParams>();
-        this.name = "StruckState";
+        this.name = stateParams.playerId+"StruckState";
     }
 
-    //protected override void AddListeners()
-    //{
-    //    NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
-    //}
+    protected override void AddListeners()
+    {
+        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
+    }
 
-    //protected override void RemoveListeners()
-    //{
-    //    NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
-    //}
+    protected override void RemoveListeners()
+    {
+        NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
+    }
 
-    //void HandleParamers(NotificationCenter.Notification info)
-    //{
-    //    animator.SetBool("isLive", stateParams.isLive);
-    //}
+    protected override void HandleParamers()
+    {
+        if (!stateParams.isLive)
+            animator.SetBool("isLive", stateParams.isLive);
+        animator.SetInteger("onceActionType", stateParams.onceActionType);
+        if (stateParams.triggerOnceAction)
+        {
+            animator.SetTrigger("triggerOnceAction");
+            stateParams.triggerOnceAction = false;
+        }
+    }
 }
