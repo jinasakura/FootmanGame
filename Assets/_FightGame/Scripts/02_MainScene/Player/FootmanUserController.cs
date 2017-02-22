@@ -27,6 +27,7 @@ public class FootmanUserController : MonoBehaviour
     {
         character = GetComponent<FootmanCharacter>();
         playerCamera = GetComponentInChildren<Camera>();
+        //playerCamera.tag = "MainCamera";
 
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
@@ -62,7 +63,7 @@ public class FootmanUserController : MonoBehaviour
         //四元数相乘代表什么？
         Quaternion q = rb.rotation * Quaternion.Euler(offset);
         rb.MoveRotation(q);
-        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.PlayerCameraChange, q);
+        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.PlayerCameraChange, offsetRot);
     }
 
     //上下旋转镜头

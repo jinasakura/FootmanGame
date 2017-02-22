@@ -49,10 +49,17 @@ public class CharacterHealth : MonoBehaviour
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHp / maxHealth);
     }
 
+
     private void PlayerCameraChange(NotificationCenter.Notification info)
     {
-        Quaternion q = (Quaternion)info.data;
-        slider.transform.rotation = Quaternion.Inverse(q);
+        if (playerId != LoginUserInfo.playerInfo.playerId)
+        {
+            Transform trans = Camera.main.transform;
+            float degrees = Mathf.Atan2(slider.transform.position.x - trans.position.x, slider.transform.position.y - trans.transform.position.y) * Mathf.Rad2Deg;
+            Vector3 vec = new Vector3(0f, 0f, degrees);
+            slider.transform.rotation = slider.transform.rotation * Quaternion.Euler(vec);
+            //Debug.Log(slider.transform.rotation);
+        }
     }
 
     //private void OnDeath()

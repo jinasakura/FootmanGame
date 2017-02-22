@@ -10,10 +10,6 @@ public class CharacterStateMachine : StateMachine
 
     private StateMachineParams stateParams;
 
-    //private DieState die;
-    //private StayState stay;
-    //private OnceActionState onceAction;
-    //private MoveState move;
 
     void Start()
     {
