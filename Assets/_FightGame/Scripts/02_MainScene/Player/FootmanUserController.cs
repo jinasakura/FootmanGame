@@ -54,8 +54,7 @@ public class FootmanUserController : MonoBehaviour
         }
     }
 
-    //private Vector3 lastVecRotation = Vector3.zero;
-    //private Vector3 curVecRotation = Vector3.zero;
+
     //左右旋转rigidbody
     private void PerformBodyRotation(float offsetRot)
     {
@@ -63,7 +62,7 @@ public class FootmanUserController : MonoBehaviour
         //四元数相乘代表什么？
         Quaternion q = rb.rotation * Quaternion.Euler(offset);
         rb.MoveRotation(q);
-        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.PlayerCameraChange, offsetRot);
+        
     }
 
     //上下旋转镜头

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: cf2cf9c2392ba5f47a54ca9ce56fd014
-timeCreated: 1487662446
+guid: 7253de2d7959c7b488945d29e00dd7d8
+timeCreated: 1488350623
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -38,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 3
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,11 +52,7 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline:
-    - - {x: -256, y: -256}
-      - {x: -256, y: 256}
-      - {x: 256, y: 256}
-      - {x: 256, y: -256}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

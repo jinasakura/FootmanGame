@@ -61,10 +61,24 @@ public class FootmanCharacter : MonoBehaviour
 
     private StateMachineParams stateParams;
 
-    private CharacterHealth health;
+    private HealthSlider healthSlider;
+
+    [SerializeField]
+    private float _currentHp;
+    public float currentHp
+    {
+        set { _currentHp = value; }
+        get { return _currentHp; }
+    }
+
+    private float maxHealth;
 
     private CapsuleCollider bodyCollider;
     private CapsuleCollider swordCollider;
+
+    public int orderInLayer;
+    public string sortingLayerName;
+    private Canvas uiCanvas;
 
     void Start()
     {
@@ -78,15 +92,16 @@ public class FootmanCharacter : MonoBehaviour
         NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TakeDamageNotice);
 
-
         stateParams = GetComponent<StateMachineParams>();
         stateParams.playerId = playerInfo.playerId;
         stateParams.playerName = playerInfo.playerName;
-        //Debug.Log("character init playerId->"+playerInfo.playerId+"------live->"+stateParams.isLive);
 
-        health = GetComponent<CharacterHealth>();
-        health.maxHealth = CareerInfoModel.careerDict[playerInfo.careerId].maxHealth;
-        health.playerId = playerInfo.playerId;
+        healthSlider = GetComponentInChildren<HealthSlider>();
+        maxHealth = healthSlider.maxValue = CareerInfoModel.careerDict[playerInfo.careerId].maxHealth;
+
+        uiCanvas = GetComponentInChildren<Canvas>();
+        uiCanvas.sortingLayerName = sortingLayerName;
+        uiCanvas.sortingOrder = orderInLayer;
 
         CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         foreach (CapsuleCollider item in colliders)
@@ -100,6 +115,8 @@ public class FootmanCharacter : MonoBehaviour
                 bodyCollider = item;
             }
         }
+
+        //Debug.Log("playerId->" + playerInfo.playerId + "---rotation->" + transform.rotation.eulerAngles);
     }
 
     public void Move(float h, float v)
@@ -107,9 +124,6 @@ public class FootmanCharacter : MonoBehaviour
         //时刻记得释放技能和移动是冲突的
         if (stateParams.onceActionBegain)
         {
-            //stateParams.speed = 0;
-            //stateParams.moveVelocity = Vector3.zero;
-            //stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
             stateParams.Idle();
         }
         else
@@ -130,10 +144,24 @@ public class FootmanCharacter : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        Debug.Log("playerId->" + playerInfo.playerId + "===plane distance->" + uiCanvas.planeDistance);
+    }
+
     //为外界准备的调用
     public void TakeDamage(int amount)
     {
-        health.TakeDamage(amount);
+        if (currentHp - amount > 0)
+        {
+            currentHp -= amount;
+        }
+        else
+        {
+            currentHp = 0;
+            stateParams.Die();
+        }
+        healthSlider.TakeDamage(amount);
     }
 
     private void TakeDamageNotice(NotificationCenter.Notification info)
