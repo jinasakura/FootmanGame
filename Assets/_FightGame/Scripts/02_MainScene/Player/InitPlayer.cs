@@ -18,7 +18,7 @@ public class InitPlayer : MonoBehaviour {
     public GameObject[] players;
 
     void Awake () {
-        GameObject model = CareerInfoModel.modelDict[LoginUserInfo.userCareer.modelName];
+        GameObject model = AllInfoModel.modelDict[LoginUserInfo.userCareer.modelName];
 
         if (Camera.main)
         {
@@ -42,8 +42,8 @@ public class InitPlayer : MonoBehaviour {
             {
                 FootmanUserController userController = players[i].AddComponent<FootmanUserController>();
                 Instantiate(playerCamera, playerCamera.transform.position, playerCamera.transform.rotation, players[i].transform);
-                character.orderInLayer = respawns.Length;
-                character.sortingLayerName = "UI-Self";
+                //character.orderInLayer = respawns.Length;
+                //character.sortingLayerName = "UI-Self";
             }
             else
             {

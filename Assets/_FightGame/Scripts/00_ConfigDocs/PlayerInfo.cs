@@ -8,6 +8,8 @@ public class PlayerInfo {
 
     public string playerName;
 
+    public int level;
+
     public int currentHp;
 
     public int careerId;

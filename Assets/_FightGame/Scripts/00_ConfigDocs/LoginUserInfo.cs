@@ -6,7 +6,8 @@ public class LoginUserInfo {
 
     public static PlayerInfo playerInfo;
 
-    /**还包括职业对应的技能信息*/
     public static CareerItem userCareer;
+
+    public static SkillItem userSkills;
 
 }

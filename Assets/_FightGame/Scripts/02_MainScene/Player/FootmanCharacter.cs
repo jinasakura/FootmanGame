@@ -76,9 +76,9 @@ public class FootmanCharacter : MonoBehaviour
     private CapsuleCollider bodyCollider;
     private CapsuleCollider swordCollider;
 
-    public int orderInLayer;
-    public string sortingLayerName;
-    private Canvas uiCanvas;
+    //public int orderInLayer = 0;
+    //public string sortingLayerName = "UI-HUD";
+    //private Canvas uiCanvas;
 
     void Start()
     {
@@ -97,11 +97,12 @@ public class FootmanCharacter : MonoBehaviour
         stateParams.playerName = playerInfo.playerName;
 
         healthSlider = GetComponentInChildren<HealthSlider>();
-        maxHealth = healthSlider.maxValue = CareerInfoModel.careerDict[playerInfo.careerId].maxHealth;
+        maxHealth = healthSlider.maxValue = AllInfoModel.careerDict[playerInfo.careerId].maxHealth;
 
-        uiCanvas = GetComponentInChildren<Canvas>();
-        uiCanvas.sortingLayerName = sortingLayerName;
-        uiCanvas.sortingOrder = orderInLayer;
+        //uiCanvas = GetComponentInChildren<Canvas>();
+        ////uiCanvas.worldCamera = Camera.main;
+        //uiCanvas.sortingOrder = orderInLayer;
+        //uiCanvas.sortingLayerName = sortingLayerName;
 
         CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         foreach (CapsuleCollider item in colliders)
@@ -144,10 +145,10 @@ public class FootmanCharacter : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        Debug.Log("playerId->" + playerInfo.playerId + "===plane distance->" + uiCanvas.planeDistance);
-    }
+    //void Update()
+    //{
+    //    Debug.Log("playerId->" + playerInfo.playerId + "===plane distance->" + uiCanvas.planeDistance);
+    //}
 
     //为外界准备的调用
     public void TakeDamage(int amount)
@@ -211,9 +212,9 @@ public class FootmanCharacter : MonoBehaviour
         {
             GameObject enemy = other.gameObject;
             FootmanCharacter person = enemy.GetComponent<FootmanCharacter>();
-            if (CareerInfoModel.skillDict.ContainsKey(onceActionType))
+            if (AllInfoModel.skillDict.ContainsKey(onceActionType))
             {
-                SkillItem skillItem = CareerInfoModel.skillDict[onceActionType];
+                SkillItem skillItem = AllInfoModel.skillDict[onceActionType];
                 int damage = skillItem.damage;
                 person.TakeDamage(damage);
 

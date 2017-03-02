@@ -35,9 +35,9 @@ public class HandleLoginInfo : MonoBehaviour {
     {
         //Debug.Log("数据已准备好");
         //初始化对的职业按钮
-        careerBtns = new CareerToggleBtn[CareerInfoModel.careers.Length];
+        careerBtns = new CareerToggleBtn[CareerModel.careerDict.Count];
         int i = 0;
-        foreach (CareerItem item in CareerInfoModel.careers)
+        foreach (CareerItem item in CareerModel.careerDict.Values)
         {
             GameObject cbtn = Instantiate(careerBtn, Vector3.zero, Quaternion.identity, careerBtnPanel) as GameObject;
             CareerToggleBtn carBtn = cbtn.GetComponent<CareerToggleBtn>();
@@ -55,14 +55,16 @@ public class HandleLoginInfo : MonoBehaviour {
         LoginUserInfo.playerInfo = new PlayerInfo();
         LoginUserInfo.playerInfo.playerId = 0;
         LoginUserInfo.playerInfo.playerName = "Test";
-        
+        LoginUserInfo.playerInfo.level = 1;
+
     }
 
     void SelectedCareer(NotificationCenter.Notification careerInfo)
     {
         LoginUserInfo.userCareer = careerInfo.data as CareerItem;
         LoginUserInfo.playerInfo.careerId = LoginUserInfo.userCareer.careerId;
-        LoginUserInfo.playerInfo.currentHp = LoginUserInfo.userCareer.maxHealth;
+        LoginUserInfo.userSkills = SkillModel.skillDict[LoginUserInfo.playerInfo.careerId];
+        //LoginUserInfo.playerInfo.currentHp = LoginUserInfo.userCareer.maxHealth;
         foreach (CareerToggleBtn item in careerBtns)
         {
             if(item.btnCareerInfo.careerId != LoginUserInfo.userCareer.careerId) { item.setToggleOff(); }
