@@ -97,7 +97,7 @@ public class FootmanCharacter : MonoBehaviour
         stateParams.playerName = playerInfo.playerName;
 
         healthSlider = GetComponentInChildren<HealthSlider>();
-        maxHealth = healthSlider.maxValue = AllInfoModel.careerDict[playerInfo.careerId].maxHealth;
+        currentHp = maxHealth = healthSlider.maxValue = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.level).hp;
 
         //uiCanvas = GetComponentInChildren<Canvas>();
         ////uiCanvas.worldCamera = Camera.main;
@@ -181,11 +181,11 @@ public class FootmanCharacter : MonoBehaviour
     {
         if (stateParams.onceActionBegain) return;
 
-        SkillItem skill = (SkillItem)skillInfo.data;
+        SkillLevelItem skill = (SkillLevelItem)skillInfo.data;
         //Debug.Log("Character里的skillid->" + skill.skillId);
         //stateParams.onceActionType = skill.skillId;
         //stateParams.triggerOnceAction = true;
-        stateParams.ChangeOnceAction(skill.skillId);
+        stateParams.ChangeOnceAction(skill.id);
     }
 
     void CharacterDie(NotificationCenter.Notification info)
@@ -212,10 +212,10 @@ public class FootmanCharacter : MonoBehaviour
         {
             GameObject enemy = other.gameObject;
             FootmanCharacter person = enemy.GetComponent<FootmanCharacter>();
-            if (AllInfoModel.skillDict.ContainsKey(onceActionType))
+            if (SkillModel.GetSkillById(playerInfo.careerId,onceActionType) != null)
             {
-                SkillItem skillItem = AllInfoModel.skillDict[onceActionType];
-                int damage = skillItem.damage;
+                SkillLevelItem skillLevel = SkillModel.GetSkillById(playerInfo.careerId, onceActionType);
+                int damage = skillLevel.damage;
                 person.TakeDamage(damage);
 
                 swordCollider.enabled = false;

@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class SkillButton : MonoBehaviour {
 
-    private SkillItem _btnSkillInfo;
-    public SkillItem btnskillInfo
+    private SkillLevelItem _btnSkillInfo;
+    public SkillLevelItem btnskillInfo
     {
         set
         {

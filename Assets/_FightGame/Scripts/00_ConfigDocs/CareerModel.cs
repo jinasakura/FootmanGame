@@ -1,25 +1,42 @@
 ﻿using System.Collections.Generic;
-public class CareerModel{
+public class CareerModel
+{
 
-    private static Dictionary<int, CareerItem> _careerDict = new Dictionary<int, CareerItem>();
-    public static Dictionary<int,CareerItem> careerDict
+    private static Dictionary<int, CareerItem> careerDict = new Dictionary<int, CareerItem>();
+
+    public static void SetCareerItem(int careerId, CareerItem item)
     {
-        set { _careerDict = value; }
+        careerDict[careerId] = item;
     }
 
-    public static CareerLevelItem GetLevelItem(int careerId,int level)
+    public static int GetCareerCount()
     {
-        CareerItem careerItem = _careerDict[careerId];
+        return careerDict.Count;
+    }
+
+    public static Dictionary<int,CareerItem>.ValueCollection GetAllCareerItem()
+    {
+        return careerDict.Values;
+    }
+
+    public static CareerLevelItem GetLevelItem(int careerId, int level)
+    {
+        CareerItem careerItem = careerDict[careerId];
         CareerLevelItem desLevel = null;
         foreach (CareerLevelItem item in careerItem.levels)
         {
-            if(item.id == level)
+            if (item.id == level)
             {
                 desLevel = item;
                 break;
             }
         }
         return desLevel;
+    }
+
+    public static CareerItem GetCareerItem(int careerId)
+    {
+        return careerDict[careerId];
     }
 
 }

@@ -5,7 +5,7 @@
 		<levels>
 			<level>
                 <id>1001</id>
-                <name>Attack 01</name>
+                <skillName>Attack 01</skillName>
                 <damage>10</damage>
                 <level>1</level>
                 <mp>10</mp>
@@ -13,7 +13,7 @@
             </level>
             <level>
                 <id>1002</id>
-                <name>Attack 02</name>
+                <skillName>Attack 02</skillName>
                 <damage>15</damage>
                 <level>1</level>
                 <mp>15</mp>
@@ -21,7 +21,7 @@
             </level>
             <level>
                 <id>1003</id>
-                <name>Double Attack</name>
+                <skillName>Double Attack</skillName>
                 <damage>20</damage>
                 <level>2</level>
                 <mp>20</mp>
@@ -29,7 +29,7 @@
             </level>
             <level>
                 <id>1004</id>
-                <name>Cast Spell</name>
+                <skillName>Cast Spell</skillName>
                 <damage>30</damage>
                 <level>3</level>
                 <mp>25</mp>
@@ -42,7 +42,7 @@
 		<levels>
 			<level>
                 <id>2001</id>
-                <name>Melee Attack</name>
+                <skillName>Melee Attack</skillName>
                 <damage>10</damage>
                 <level>1</level>
                 <mp>10</mp>
@@ -50,7 +50,7 @@
             </level>
             <level>
                 <id>2002</id>
-                <name>Projectile Attack</name>
+                <skillName>Projectile Attack</skillName>
                 <damage>15</damage>
                 <level>1</level>
                 <mp>15</mp>
@@ -58,7 +58,7 @@
             </level>
             <level>
                 <id>2003</id>
-                <name>Cast Spell 02</name>
+                <skillName>Cast Spell 02</skillName>
                 <damage>20</damage>
                 <level>2</level>
                 <mp>20</mp>
@@ -66,7 +66,7 @@
             </level>
             <level>
                 <id>2004</id>
-                <name>Channeling</name>
+                <skillName>Channeling</skillName>
                 <damage>30</damage>
                 <level>3</level>
                 <mp>25</mp>
@@ -74,7 +74,7 @@
             </level>
             <level>
                 <id>2005</id>
-                <name>Shockwave Attack</name>
+                <skillName>Shockwave Attack</skillName>
                 <damage>30</damage>
                 <level>3</level>
                 <mp>25</mp>

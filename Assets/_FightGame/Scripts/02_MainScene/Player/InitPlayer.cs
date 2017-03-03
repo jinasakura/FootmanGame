@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class InitPlayer : MonoBehaviour {
 
-    //private GameObject userPlayer;
-
     [SerializeField]
     private GameObject playerCamera;
 
@@ -18,7 +16,7 @@ public class InitPlayer : MonoBehaviour {
     public GameObject[] players;
 
     void Awake () {
-        GameObject model = AllInfoModel.modelDict[LoginUserInfo.userCareer.modelName];
+        GameObject model = AllInfoModel.modelDict[LoginUserInfo.playerInfo.modelName];
 
         if (Camera.main)
         {
@@ -36,8 +34,8 @@ public class InitPlayer : MonoBehaviour {
             character.playerInfo = new PlayerInfo();//回头改成从一个本地xml中读取玩家信息
             character.playerInfo.playerId = i;
             character.playerInfo.playerName = "Player " + i;
-            character.playerInfo.currentHp = LoginUserInfo.userCareer.maxHealth;
-            character.playerInfo.careerId = LoginUserInfo.userCareer.careerId;
+            character.playerInfo.careerId = LoginUserInfo.playerInfo.careerId;
+            character.playerInfo.level = 1;
             if (LoginUserInfo.playerInfo.playerId == character.playerInfo.playerId)
             {
                 FootmanUserController userController = players[i].AddComponent<FootmanUserController>();
@@ -48,6 +46,7 @@ public class InitPlayer : MonoBehaviour {
             else
             {
                 FootmanAIController aiController = players[i].AddComponent<FootmanAIController>();
+                
             }
             i++;
         }

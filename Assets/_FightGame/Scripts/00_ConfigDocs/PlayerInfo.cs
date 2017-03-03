@@ -10,7 +10,7 @@ public class PlayerInfo {
 
     public int level;
 
-    public int currentHp;
-
     public int careerId;
+
+    public string modelName;
 }

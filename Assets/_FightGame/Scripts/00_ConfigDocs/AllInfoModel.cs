@@ -11,8 +11,8 @@ using System.Collections.Generic;
 public class AllInfoModel : MonoBehaviour {
 
 
-    public string carrerXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/Xml/CareerInfo.xml";
-    public string skillXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/Xml/SkillInfo.xml";
+    public string carrerXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/xmls/CareerInfo.xml";
+    public string skillXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/xmls/SkillInfo.xml";
 
     //private static CareerItem[] careers;
 
@@ -33,18 +33,7 @@ public class AllInfoModel : MonoBehaviour {
 
         HandleModelInfo();
 
-        //careerDict = new Dictionary<int, CareerItem>();
-        //skillDict = new Dictionary<int, SkillItem>();
-        //foreach (SkillItem item in skillDict)
-        //{
-            //careerDict[item.careerId] = item;
-            //foreach (SkillItem skill in item.skills)
-            //{
-            //    skillDict[skill.skillId] = skill;
-            //}
-        //}
-
-        //NotificationCenter.DefaultCenter.PostNotification(this, LoginEvent.DataIsReady);
+        NotificationCenter.DefaultCenter.PostNotification(this, LoginEvent.DataIsReady);
     }
 
     private void HandleCareerXml()
@@ -82,7 +71,7 @@ public class AllInfoModel : MonoBehaviour {
                 }
             }
 
-            CareerModel.careerDict[careers[i].careerId] = careers[i];
+            CareerModel.SetCareerItem(careers[i].careerId, careers[i]);
 
             i++;
         }
@@ -91,7 +80,7 @@ public class AllInfoModel : MonoBehaviour {
     private void HandleSkillXml()
     {
         XmlDocument doc = new XmlDocument();
-        doc.Load(carrerXMLPath);
+        doc.Load(skillXMLPath);
 
         XmlNode xn = doc.SelectSingleNode("info");
         XmlNodeList xnl = xn.ChildNodes;
@@ -114,7 +103,7 @@ public class AllInfoModel : MonoBehaviour {
                 {
                     skills[i].levels[j] = new SkillLevelItem();
                     skills[i].levels[j].id = Int32.Parse(skill.ChildNodes.Item(0).InnerText);
-                    skills[i].levels[j].name = skill.ChildNodes.Item(1).InnerText;
+                    skills[i].levels[j].skillName = skill.ChildNodes.Item(1).InnerText;
                     skills[i].levels[j].damage = Int32.Parse(skill.ChildNodes.Item(2).InnerText);
                     skills[i].levels[j].level = Int32.Parse(skill.ChildNodes.Item(3).InnerText);
                     skills[i].levels[j].mp = Int32.Parse(skill.ChildNodes.Item(4).InnerText);
@@ -123,7 +112,7 @@ public class AllInfoModel : MonoBehaviour {
                 }
             }
 
-            SkillModel.skillDict[skills[i].careerId] = skills[i];
+            SkillModel.SetSkillItem(skills[i].careerId, skills[i]);
 
             i++;
         }

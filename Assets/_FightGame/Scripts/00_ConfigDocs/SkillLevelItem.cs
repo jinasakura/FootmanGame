@@ -2,7 +2,7 @@
 public class SkillLevelItem
 {
     public int id;
-    public string name;
+    public string skillName;
 
     //消耗hp
     public int damage;
