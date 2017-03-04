@@ -62,16 +62,7 @@ public class FootmanCharacter : MonoBehaviour
     private StateMachineParams stateParams;
 
     private HealthSlider healthSlider;
-
-    [SerializeField]
-    private float _currentHp;
-    public float currentHp
-    {
-        set { _currentHp = value; }
-        get { return _currentHp; }
-    }
-
-    private float maxHealth;
+    private HealthSlider mpSlider;
 
     private CapsuleCollider bodyCollider;
     private CapsuleCollider swordCollider;
@@ -85,24 +76,24 @@ public class FootmanCharacter : MonoBehaviour
         if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
         {
             NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
-            
+
         }
 
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
         NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
-        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TakeDamageNotice);
 
         stateParams = GetComponent<StateMachineParams>();
         stateParams.playerId = playerInfo.playerId;
         stateParams.playerName = playerInfo.playerName;
 
-        healthSlider = GetComponentInChildren<HealthSlider>();
-        currentHp = maxHealth = healthSlider.maxValue = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.level).hp;
-
-        //uiCanvas = GetComponentInChildren<Canvas>();
-        ////uiCanvas.worldCamera = Camera.main;
-        //uiCanvas.sortingOrder = orderInLayer;
-        //uiCanvas.sortingLayerName = sortingLayerName;
+        HealthSlider[] sliders = GetComponentsInChildren<HealthSlider>();
+        foreach (HealthSlider slider in sliders)
+        {
+            if (slider.name == "HealthSlider") healthSlider = slider;
+            else mpSlider = slider;
+        }
+        healthSlider.maxValue = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.level).hp;
+        mpSlider.maxValue = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.level).mp;
 
         CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         foreach (CapsuleCollider item in colliders)
@@ -116,8 +107,6 @@ public class FootmanCharacter : MonoBehaviour
                 bodyCollider = item;
             }
         }
-
-        //Debug.Log("playerId->" + playerInfo.playerId + "---rotation->" + transform.rotation.eulerAngles);
     }
 
     public void Move(float h, float v)
@@ -145,46 +134,20 @@ public class FootmanCharacter : MonoBehaviour
 
     }
 
-    //void Update()
-    //{
-    //    Debug.Log("playerId->" + playerInfo.playerId + "===plane distance->" + uiCanvas.planeDistance);
-    //}
-
     //为外界准备的调用
     public void TakeDamage(int amount)
     {
-        if (currentHp - amount > 0)
-        {
-            currentHp -= amount;
-        }
-        else
-        {
-            currentHp = 0;
-            stateParams.Die();
-        }
         healthSlider.TakeDamage(amount);
-    }
 
-    private void TakeDamageNotice(NotificationCenter.Notification info)
-    {
-        int id = (int)info.data;
-        if(playerInfo.playerId == id)
-        {
-            //stateParams.onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
-            //stateParams.triggerOnceAction = true;
-            stateParams.TakeDamage();
-        }
+        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
+            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserHpChange, amount);
     }
-
 
     void TriggerSkill(NotificationCenter.Notification skillInfo)
     {
         if (stateParams.onceActionBegain) return;
 
         SkillLevelItem skill = (SkillLevelItem)skillInfo.data;
-        //Debug.Log("Character里的skillid->" + skill.skillId);
-        //stateParams.onceActionType = skill.skillId;
-        //stateParams.triggerOnceAction = true;
         stateParams.ChangeOnceAction(skill.id);
     }
 
@@ -207,16 +170,31 @@ public class FootmanCharacter : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        //Debug.Log(other.gameObject.tag);
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") && stateParams.onceActionBegain)
         {
             GameObject enemy = other.gameObject;
             FootmanCharacter person = enemy.GetComponent<FootmanCharacter>();
-            if (SkillModel.GetSkillById(playerInfo.careerId,onceActionType) != null)
+            if (SkillModel.GetSkillById(playerInfo.careerId, onceActionType) != null)
             {
                 SkillLevelItem skillLevel = SkillModel.GetSkillById(playerInfo.careerId, onceActionType);
-                int damage = skillLevel.damage;
-                person.TakeDamage(damage);
+
+                if (!skillLevel.passive)
+                {
+                    if (mpSlider.currentValue >= skillLevel.mp)
+                    {
+                        mpSlider.TakeDamage(skillLevel.mp);
+
+                        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
+                            NotificationCenter.DefaultCenter.PostNotification(this,MainSceneEvent.UserMpChange, skillLevel.mp);
+
+                        int damage = skillLevel.damage;
+                        person.TakeDamage(damage);
+                    }
+                    else
+                    {
+                        Debug.Log("You do not have sufficient mp");
+                    }
+                }
 
                 swordCollider.enabled = false;
             }

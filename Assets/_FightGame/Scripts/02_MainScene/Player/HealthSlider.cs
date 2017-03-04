@@ -6,8 +6,8 @@ public class HealthSlider : MonoBehaviour
                   
     public Slider slider;                             
     public Image fillImage;                           
-    public Color fullHealthColor = Color.green;       
-    public Color zeroHealthColor = Color.red;
+    public Color fullHealthColor = Color.green;
+    //public Color zeroHealthColor = Color.red;
 
     public float currentValue;
     public float maxValue;
@@ -15,7 +15,7 @@ public class HealthSlider : MonoBehaviour
     private void OnEnable()
     {
         currentValue = maxValue;
-
+        fillImage.color = fullHealthColor;
         SetHealthUI();
     }
 
@@ -37,7 +37,7 @@ public class HealthSlider : MonoBehaviour
     private void SetHealthUI()
     {
         slider.value = currentValue;
-        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentValue / maxValue);
+        //fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentValue / maxValue);
     }
 
 }

@@ -40,13 +40,10 @@ public class InitPlayer : MonoBehaviour {
             {
                 FootmanUserController userController = players[i].AddComponent<FootmanUserController>();
                 Instantiate(playerCamera, playerCamera.transform.position, playerCamera.transform.rotation, players[i].transform);
-                //character.orderInLayer = respawns.Length;
-                //character.sortingLayerName = "UI-Self";
             }
             else
             {
                 FootmanAIController aiController = players[i].AddComponent<FootmanAIController>();
-                
             }
             i++;
         }

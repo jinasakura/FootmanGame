@@ -15,9 +15,10 @@ public class MainSceneEvent
 
     public static string CharacterDie = "CharacterDie";
 
-    public static string TakeDamageNotice = "TakeDamageNotice";
+    public static string UserHpChange = "UserHpChange";
 
-    public static string PlayerCameraChange = "PlayerCameraChange";
+    public static string UserMpChange = "UserMpChange";
+
 }
 
 public class StateMachineEvent

@@ -13,4 +13,8 @@ public class PlayerInfo {
     public int careerId;
 
     public string modelName;
+
+    public int currentHp;
+
+    public int currentMp;
 }
