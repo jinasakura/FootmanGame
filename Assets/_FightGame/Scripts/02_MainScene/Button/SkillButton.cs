@@ -26,7 +26,9 @@ public class SkillButton : MonoBehaviour {
     void OnTriggerSkill()
     {
         //Debug.Log("SkillButton->释放技能id：" + btnskillInfo.skillId);
-        object info = btnskillInfo;
+        SkillTransferInfo info = new SkillTransferInfo();
+        info.playerId = LoginUserInfo.playerInfo.playerId;
+        info.levelInfo = btnskillInfo;
         NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.TriggerSkill, info);
     }
 }

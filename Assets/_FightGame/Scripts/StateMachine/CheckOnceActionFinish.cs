@@ -8,7 +8,7 @@ public class CheckOnceActionFinish : StateMachineBehaviour {
     {
         StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
         param.onceActionBegain = true;
-        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param);
+        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param.playerId);
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -21,7 +21,7 @@ public class CheckOnceActionFinish : StateMachineBehaviour {
     {
         StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
         param.onceActionBegain = false;
-        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param);
+        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param.playerId);
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine

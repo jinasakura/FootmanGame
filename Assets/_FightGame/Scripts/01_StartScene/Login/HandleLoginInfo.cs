@@ -93,7 +93,7 @@ public class HandleLoginInfo : MonoBehaviour {
         {
             if (LoginUserInfo.careerLevel != null)
             {
-                SceneManager.LoadScene("MainScene");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
             }
             else
             {

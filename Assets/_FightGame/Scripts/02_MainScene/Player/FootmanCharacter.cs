@@ -67,20 +67,17 @@ public class FootmanCharacter : MonoBehaviour
     private CapsuleCollider bodyCollider;
     private CapsuleCollider swordCollider;
 
-    //public int orderInLayer = 0;
-    //public string sortingLayerName = "UI-HUD";
-    //private Canvas uiCanvas;
 
     void Start()
     {
-        if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
-        {
-            NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
+        //if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
+        //{
+        //    NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
 
-        }
+        //}
 
-        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
-        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
+        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
+        //NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
 
         stateParams = GetComponent<StateMachineParams>();
         stateParams.playerId = playerInfo.playerId;
@@ -143,29 +140,29 @@ public class FootmanCharacter : MonoBehaviour
             NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserHpChange, amount);
     }
 
-    void TriggerSkill(NotificationCenter.Notification skillInfo)
+    public void TriggerSkill(int skillId)
     {
         if (stateParams.onceActionBegain) return;
 
-        SkillLevelItem skill = (SkillLevelItem)skillInfo.data;
-        stateParams.ChangeOnceAction(skill.id);
+        //SkillLevelItem skill = (SkillLevelItem)skillInfo.data;
+        stateParams.ChangeOnceAction(skillId);
     }
 
-    void CharacterDie(NotificationCenter.Notification info)
+    public void Die()
     {
-        int id = Convert.ToInt32(info.data);
-        if (playerInfo.playerId == id)
-            stateParams.Die();
+        //int id = Convert.ToInt32(info.data);
+        //if (playerInfo.playerId == id)
+        stateParams.Die();
     }
 
-    void OnceActionChange(NotificationCenter.Notification info)
+    public void OnceActionChange()
     {
-        StateMachineParams param = (StateMachineParams)info.data;
-        if (param.playerId == playerInfo.playerId)
-        {
-            if (stateParams.onceActionBegain) swordCollider.enabled = true;
-            else swordCollider.enabled = false;//没有砍人时也要关闭
-        }
+        //StateMachineParams param = (StateMachineParams)info.data;
+        //if (param.playerId == playerInfo.playerId)
+        //{
+        if (stateParams.onceActionBegain) swordCollider.enabled = true;
+        else swordCollider.enabled = false;//没有砍人时也要关闭
+        //}
     }
 
     void OnTriggerStay(Collider other)
@@ -185,7 +182,7 @@ public class FootmanCharacter : MonoBehaviour
                         mpSlider.TakeDamage(skillLevel.mp);
 
                         if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
-                            NotificationCenter.DefaultCenter.PostNotification(this,MainSceneEvent.UserMpChange, skillLevel.mp);
+                            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, skillLevel.mp);
 
                         int damage = skillLevel.damage;
                         person.TakeDamage(damage);
