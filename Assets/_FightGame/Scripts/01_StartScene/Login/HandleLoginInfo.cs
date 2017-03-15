@@ -37,7 +37,8 @@ public class HandleLoginInfo : MonoBehaviour {
 
         LoginUserInfo.playerInfo.playerId = 0;
         LoginUserInfo.playerInfo.playerName = "Test";
-        LoginUserInfo.playerInfo.level = 1;
+        LoginUserInfo.playerInfo.detail = new PlayerDetailInfo();
+        LoginUserInfo.playerInfo.detail.level = 1;
     }
 
     private void ChangeCareer(CareerItem item)
@@ -45,8 +46,8 @@ public class HandleLoginInfo : MonoBehaviour {
         LoginUserInfo.playerInfo.careerId = item.careerId;
         LoginUserInfo.playerInfo.modelName = item.modelName;
 
-        LoginUserInfo.careerLevel = item.GetCareerLevel(LoginUserInfo.playerInfo.level);
-        LoginUserInfo.skillLevels = SkillModel.GetAllSkillLevels(item.careerId, LoginUserInfo.playerInfo.level);
+        LoginUserInfo.careerLevel = item.GetCareerLevel(LoginUserInfo.playerInfo.detail.level);
+        LoginUserInfo.skillLevels = SkillModel.GetAllSkillLevels(item.careerId, LoginUserInfo.playerInfo.detail.level);
     }
 
     void DataIsReady()

@@ -4,21 +4,21 @@ using System;
 public class StateMachineParams : MonoBehaviour
 {
 
-    [SerializeField]
-    private int _playerId;
-    public int playerId
-    {
-        set { _playerId = value; }
-        get { return _playerId; }
-    }
+    //[SerializeField]
+    //private int _playerId;
+    //public int playerId
+    //{
+    //    set { _playerId = value; }
+    //    get { return _playerId; }
+    //}
 
-    [SerializeField]
-    private string _playerName;
-    public string playerName
-    {
-        set { _playerName = value; }
-        get { return _playerName; }
-    }
+    //[SerializeField]
+    //private string _playerName;
+    //public string playerName
+    //{
+    //    set { _playerName = value; }
+    //    get { return _playerName; }
+    //}
 
     [SerializeField]
     private bool _isLive;

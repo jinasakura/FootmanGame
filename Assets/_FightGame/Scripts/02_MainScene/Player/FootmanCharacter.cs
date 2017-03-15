@@ -9,19 +9,7 @@ using System;
 public class FootmanCharacter : MonoBehaviour
 {
 
-    private CharacterStateMachine stateMachine;
-    //private bool onceActionBegain = false;
-
-    //private bool _isLive = true;
-    public bool isLive
-    {
-        get { return stateParams.isLive; }
-        set
-        {
-            //_isLive = value;
-            stateParams.isLive = value;
-        }
-    }
+    //private CharacterStateMachine stateMachine;
 
     //private int _stayState = 0;
     public int stayState
@@ -45,52 +33,40 @@ public class FootmanCharacter : MonoBehaviour
         }
     }
 
-    //private float _speed = 0.0f;
-    public float speed
-    {
-        get { return stateParams.speed; }
-        set
-        {
-            //_speed = value;
-            stateParams.speed = value;
-        }
-    }
 
-    private PlayerInfo _playerInfo;
-    public PlayerInfo playerInfo { set; get; }
+    private PlayerInfo playerInfo;
+    //public PlayerInfo playerInfo { set; get; }
 
     private StateMachineParams stateParams;
 
-    private HealthSlider healthSlider;
-    private HealthSlider mpSlider;
+    private SimpleColorSlider healthSlider;
+    private SimpleColorSlider mpSlider;
 
     private CapsuleCollider bodyCollider;
     private CapsuleCollider swordCollider;
 
+    private SkillLevelItem skillInfo;
 
     void Start()
     {
-        //if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
-        //{
-        //    NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.TriggerSkill);
-
-        //}
-
-        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.CharacterDie);
-        //NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
-
+        playerInfo = GetComponent<PlayerInfo>();
         stateParams = GetComponent<StateMachineParams>();
-        stateParams.playerId = playerInfo.playerId;
-        stateParams.playerName = playerInfo.playerName;
+        //stateParams.playerId = playerInfo.playerId;
+        //stateParams.playerName = playerInfo.playerName;
 
-        HealthSlider[] sliders = GetComponentsInChildren<HealthSlider>();
-        foreach (HealthSlider slider in sliders)
+        SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
+        foreach (SimpleColorSlider slider in sliders)
         {
             if (slider.name == "HealthSlider") healthSlider = slider;
             else mpSlider = slider;
         }
-        healthSlider.maxValue = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.level).hp;
-        mpSlider.maxValue = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.level).mp;
+
+        CareerLevelItem careerLevel = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.detail.level);
+        healthSlider.maxValue = careerLevel.hp;
+        mpSlider.maxValue = careerLevel.mp;
+
+        playerInfo.detail.currentHp = careerLevel.hp;
+        playerInfo.detail.currentMp = careerLevel.mp;
 
         CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         foreach (CapsuleCollider item in colliders)
@@ -109,16 +85,13 @@ public class FootmanCharacter : MonoBehaviour
     public void Move(float h, float v)
     {
         //时刻记得释放技能和移动是冲突的
-        if (stateParams.onceActionBegain)
-        {
-            stateParams.Idle();
-        }
-        else
+        if(!stateParams.onceActionBegain)
         {
             float tmpH = Mathf.Abs(h);
             float tmpV = Mathf.Abs(v);
             if (tmpH <= PlayerDetail.StayOffset && tmpV <= PlayerDetail.StayOffset)
             {
+                stateParams.moveVelocity = Vector3.zero;
                 stateParams.speed = 0;
             }
             else
@@ -131,70 +104,56 @@ public class FootmanCharacter : MonoBehaviour
 
     }
 
+    public void Die()
+    {
+        stateParams.Die();
+    }
+
+    public void Live()
+    {
+        stateParams.Live();
+    }
+
     //为外界准备的调用
     public void TakeDamage(int amount)
     {
         healthSlider.TakeDamage(amount);
+        playerInfo.detail.DeductHp(amount);
 
         if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
             NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserHpChange, amount);
     }
 
-    public void TriggerSkill(int skillId)
+    public void TriggerSkill(SkillLevelItem info)
     {
-        if (stateParams.onceActionBegain) return;
-
-        //SkillLevelItem skill = (SkillLevelItem)skillInfo.data;
-        stateParams.ChangeOnceAction(skillId);
+        stateParams.ChangeOnceAction(info.id);
+        playerInfo.detail.DeductMp(info.mp);
     }
 
-    public void Die()
-    {
-        //int id = Convert.ToInt32(info.data);
-        //if (playerInfo.playerId == id)
-        stateParams.Die();
-    }
 
-    public void OnceActionChange()
+    //一个动作期间：是否要区分主、被动技能
+    public void OnSkillStateChange()
     {
-        //StateMachineParams param = (StateMachineParams)info.data;
-        //if (param.playerId == playerInfo.playerId)
-        //{
-        if (stateParams.onceActionBegain) swordCollider.enabled = true;
-        else swordCollider.enabled = false;//没有砍人时也要关闭
-        //}
+        if (stateParams.onceActionBegain)
+        {
+            swordCollider.enabled = true;
+            bodyCollider.enabled = true;
+        }
+        else//没有砍人时也要关闭
+        {
+            swordCollider.enabled = false;
+            bodyCollider.enabled = false;
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && stateParams.onceActionBegain)
+        if (stateParams.onceActionBegain && other.gameObject.tag == "Player")
         {
             GameObject enemy = other.gameObject;
             FootmanCharacter person = enemy.GetComponent<FootmanCharacter>();
-            if (SkillModel.GetSkillById(playerInfo.careerId, onceActionType) != null)
-            {
-                SkillLevelItem skillLevel = SkillModel.GetSkillById(playerInfo.careerId, onceActionType);
+            //我怎么知道打到对方的bodyCollider上了，去对方身上判断
 
-                if (!skillLevel.passive)
-                {
-                    if (mpSlider.currentValue >= skillLevel.mp)
-                    {
-                        mpSlider.TakeDamage(skillLevel.mp);
-
-                        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
-                            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, skillLevel.mp);
-
-                        int damage = skillLevel.damage;
-                        person.TakeDamage(damage);
-                    }
-                    else
-                    {
-                        Debug.Log("You do not have sufficient mp");
-                    }
-                }
-
-                swordCollider.enabled = false;
-            }
         }
     }
 

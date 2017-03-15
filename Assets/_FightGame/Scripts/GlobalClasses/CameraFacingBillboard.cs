@@ -5,9 +5,7 @@ public class CameraFacingBillboard : MonoBehaviour
 
     void Update()
     {
-        //transform.LookAt(transform.position + lookedCamera.transform.rotation * Vector3.forward,
-        //    lookedCamera.transform.rotation * Vector3.up);
-        Vector3 fwd = Camera.main.transform.forward;
+        Vector3 fwd = Camera.main.transform.forward;//注意这个Camera.main可能不是想要的摄像机
         fwd.y = 0;
         transform.rotation = Quaternion.LookRotation(fwd);
     }

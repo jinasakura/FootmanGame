@@ -53,25 +53,26 @@ public class SceneManager : MonoBehaviour {
         //}
 
         int i = 0;
-        FootmanCharacter character;
         GameObject player;
+        PlayerInfo playerInfo;
         foreach (Transform item in respawns)
         {
             player = Instantiate(model, item.transform.position, item.transform.rotation) as GameObject;
-            character = player.GetComponent<FootmanCharacter>();
-            character.playerInfo = new PlayerInfo();//回头改成从一个本地xml中读取玩家信息
-            character.playerInfo.playerId = i;
-            character.playerInfo.playerName = "Player " + i;
-            character.playerInfo.careerId = LoginUserInfo.playerInfo.careerId;
-            character.playerInfo.level = 1;
-            if (LoginUserInfo.playerInfo.playerId == character.playerInfo.playerId)
+            playerInfo = player.GetComponent<PlayerInfo>();
+            playerInfo.playerId = i;
+            playerInfo.playerName = "Player " + i;
+            playerInfo.careerId = LoginUserInfo.playerInfo.careerId;
+            playerInfo.detail = new PlayerDetailInfo();
+            playerInfo.detail.level = 1;
+            player.AddComponent<FootmanCharacter>();
+            if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
             {
-                FootmanUserController userController = players[i].AddComponent<FootmanUserController>();
-                Instantiate(playerCamera, playerCamera.transform.position, playerCamera.transform.rotation, players[i].transform);
+                FootmanUserController userController = player.AddComponent<FootmanUserController>();
+                Instantiate(playerCamera, playerCamera.transform.position, playerCamera.transform.rotation, player.transform);
             }
             else
             {
-                FootmanAIController aiController = players[i].AddComponent<FootmanAIController>();
+                FootmanAIController aiController = player.AddComponent<FootmanAIController>();
             }
             playersDict[i] = player;
 

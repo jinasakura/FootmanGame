@@ -11,7 +11,7 @@ public class LoginEvent  {
 
 public class MainSceneEvent
 {
-    public static string TriggerSkill = "TriggerSkill";
+    public static string ReleaseSkill = "TriggerSkill";
 
     public static string CharacterDie = "CharacterDie";
 
@@ -25,9 +25,9 @@ public class StateMachineEvent
 {
     public static string HandleParamers = "HandleParamers";
 
-    public static string OnceActionBegain = "OnceActionBegain";
+    //public static string OnceActionBegain = "OnceActionBegain";
 
-    public static string OnceActionEnd = "OnceActionEnd";
+    //public static string OnceActionEnd = "OnceActionEnd";
 
     public static string OnceActionChange = "OnceActionChange";
 }

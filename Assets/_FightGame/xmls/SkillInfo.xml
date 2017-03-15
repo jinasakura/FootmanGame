@@ -10,6 +10,7 @@
                 <level>1</level>
                 <mp>10</mp>
                 <passive>false</passive>
+                <skillType>1</skillType>
             </level>
             <level>
                 <id>1002</id>
@@ -18,6 +19,7 @@
                 <level>1</level>
                 <mp>15</mp>
                 <passive>false</passive>
+                <skillType>1</skillType>
             </level>
             <level>
                 <id>1003</id>
@@ -26,6 +28,7 @@
                 <level>2</level>
                 <mp>20</mp>
                 <passive>false</passive>
+                <skillType>1</skillType>
             </level>
             <level>
                 <id>1004</id>
@@ -34,6 +37,7 @@
                 <level>3</level>
                 <mp>25</mp>
                 <passive>true</passive>
+                <skillType>1</skillType>
             </level>
 		</levels>
 	</career>
@@ -47,6 +51,7 @@
                 <level>1</level>
                 <mp>10</mp>
                 <passive>false</passive>
+                <skillType>1</skillType>
             </level>
             <level>
                 <id>2002</id>
@@ -55,6 +60,7 @@
                 <level>1</level>
                 <mp>15</mp>
                 <passive>false</passive>
+                <skillType>1</skillType>
             </level>
             <level>
                 <id>2003</id>
@@ -63,6 +69,7 @@
                 <level>2</level>
                 <mp>20</mp>
                 <passive>false</passive>
+                <skillType>1</skillType>
             </level>
             <level>
                 <id>2004</id>
@@ -71,6 +78,7 @@
                 <level>3</level>
                 <mp>25</mp>
                 <passive>true</passive>
+                <skillType>1</skillType>
             </level>
             <level>
                 <id>2005</id>
@@ -79,6 +87,7 @@
                 <level>3</level>
                 <mp>25</mp>
                 <passive>false</passive>
+                <skillType>1</skillType>
             </level>
 		</levels>
 	</career>

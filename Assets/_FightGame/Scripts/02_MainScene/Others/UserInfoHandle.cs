@@ -7,19 +7,19 @@ public class UserInfoHandle : MonoBehaviour {
     [SerializeField]
     private Text userName;
     [SerializeField]
-    private HealthSlider healthSlider;
+    private SimpleColorSlider healthSlider;
     [SerializeField]
-    private HealthSlider mpSlider;
+    private SimpleColorSlider mpSlider;
 
 	void OnEnable() {
         userName.text = LoginUserInfo.playerInfo.playerName;
-        HealthSlider[] sliders = GetComponentsInChildren<HealthSlider>();
-        foreach (HealthSlider slider in sliders)
+        SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
+        foreach (SimpleColorSlider slider in sliders)
         {
             if (slider.name == "HealthSlider") healthSlider = slider;
             else mpSlider = slider;
         }
-        CareerLevelItem item = CareerModel.GetLevelItem(LoginUserInfo.playerInfo.careerId, LoginUserInfo.playerInfo.level);
+        CareerLevelItem item = CareerModel.GetLevelItem(LoginUserInfo.playerInfo.careerId, LoginUserInfo.playerInfo.detail.level);
         healthSlider.maxValue = item.hp;
         mpSlider.maxValue = item.mp;
 

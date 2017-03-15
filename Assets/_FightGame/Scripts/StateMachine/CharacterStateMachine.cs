@@ -28,7 +28,7 @@ public class CharacterStateMachine : StateMachine
         if (target == null)
         {
             target = gameObject.AddComponent<T>();
-            gameObject.name = stateParams.playerName;
+            gameObject.name = gameObject.GetComponent<PlayerInfo>().playerName;
         }
         return target;
     }

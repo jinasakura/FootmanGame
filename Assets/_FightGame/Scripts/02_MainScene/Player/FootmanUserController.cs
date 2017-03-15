@@ -5,11 +5,9 @@ using System.Collections;
 /// 将镜头的操作由原来FootmanCharacter放入这个类里
 /// 因为Character里不应区分玩家与非玩家的操作
 /// </summary>
-public class FootmanUserController : MonoBehaviour
+public class FootmanUserController : RoleController
 {
 
-    private FootmanCharacter character;
-    private Rigidbody rb;
     private float currentCameraRotationX = 0f;
 
     [SerializeField]
@@ -23,16 +21,12 @@ public class FootmanUserController : MonoBehaviour
     private Camera playerCamera;
 
 
-    void Start()
+    protected override void init()
     {
-        character = GetComponent<FootmanCharacter>();
-        playerCamera = GetComponentInChildren<Camera>();
-        //playerCamera.tag = "MainCamera";
-
-        rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
+        base.init();
         currentCameraRotationX = playerCamera.transform.localEulerAngles.x;
+
+        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.ReleaseSkill);
     }
 
     private void FixedUpdate()
@@ -55,15 +49,15 @@ public class FootmanUserController : MonoBehaviour
     }
 
 
-    //左右旋转rigidbody
-    private void PerformBodyRotation(float offsetRot)
-    {
-        Vector3 offset = new Vector3(0f, offsetRot, 0f);
-        //四元数相乘代表什么？
-        Quaternion q = rb.rotation * Quaternion.Euler(offset);
-        rb.MoveRotation(q);
-        
-    }
+    ////左右旋转rigidbody
+    //private void PerformBodyRotation(float offsetRot)
+    //{
+    //    Vector3 offset = new Vector3(0f, offsetRot, 0f);
+    //    //四元数相乘代表什么？
+    //    Quaternion q = rb.rotation * Quaternion.Euler(offset);
+    //    rb.MoveRotation(q);
+
+    //}
 
     //上下旋转镜头
     private void PerformCameraRotation(float offsetY)
@@ -71,7 +65,24 @@ public class FootmanUserController : MonoBehaviour
         currentCameraRotationX -= offsetY;
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, cameraLowerLimit, cameraUpperLimit);
         playerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
-        
+
+    }
+
+    private void ReleaseSkill(NotificationCenter.Notification info)
+    {
+        string skillName = (string)info.data;
+        SkillLevelItem skillInfo = SkillModel.GetSkillLevelByName(skillName);
+
+        skill = GetComponent<Skill>();
+        if (skill != null)
+        {
+            skill = gameObject.AddComponent<Skill>();
+            gameObject.name = playerInfo.playerName;
+            skill.skillInfo = skillInfo;
+            skill.Caster(LoginUserInfo.playerInfo.playerId);
+            if (skill.CheckCondition(LoginUserInfo.playerInfo.detail)) { skill.Trigger(); }
+            
+        }
     }
 }
 

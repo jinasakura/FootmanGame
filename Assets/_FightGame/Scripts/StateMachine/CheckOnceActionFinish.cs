@@ -3,12 +3,16 @@ using System.Collections;
 
 public class CheckOnceActionFinish : StateMachineBehaviour {
 
+    private Skill skill;
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
         param.onceActionBegain = true;
-        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param.playerId);
+        //PlayerInfo player = animator.gameObject.GetComponentInParent<PlayerInfo>();
+        //NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, player.playerId);
+        if (skill == null) { skill = animator.gameObject.GetComponentInParent<Skill>(); }
+        skill.OnSkillStateChange();
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -21,7 +25,9 @@ public class CheckOnceActionFinish : StateMachineBehaviour {
     {
         StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
         param.onceActionBegain = false;
-        NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, param.playerId);
+        skill.OnSkillStateChange();
+        //PlayerInfo player = animator.gameObject.GetComponentInParent<PlayerInfo>();
+        //NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, player.playerId);
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine

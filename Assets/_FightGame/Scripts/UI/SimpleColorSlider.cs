@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthSlider : MonoBehaviour
+public class SimpleColorSlider : MonoBehaviour
 {
                   
     public Slider slider;                             

@@ -22,7 +22,7 @@ public class HandleSkillBtnsInfo : MonoBehaviour {
             {
                 GameObject cbtn = Instantiate(skillButton, Vector3.zero, Quaternion.identity, this.transform) as GameObject;
                 SkillButton carBtn = cbtn.GetComponent<SkillButton>();
-                carBtn.btnskillInfo = item;
+                carBtn.skillName = item.skillName;
             }
         }
         

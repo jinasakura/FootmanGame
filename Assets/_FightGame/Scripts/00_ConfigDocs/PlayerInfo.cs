@@ -1,20 +1,18 @@
-﻿
-/// <summary>
-/// 玩家共同信息
-/// </summary>
-public class PlayerInfo {
+﻿using UnityEngine;
 
+/// <summary>
+/// 玩家共同信息(playerId、playerName、detail等)
+/// </summary>
+public class PlayerInfo : MonoBehaviour
+{
     public int playerId;
 
     public string playerName;
 
-    public int level;
+    public string modelName;
 
     public int careerId;
 
-    public string modelName;
+    public PlayerDetailInfo detail;
 
-    public int currentHp;
-
-    public int currentMp;
 }
