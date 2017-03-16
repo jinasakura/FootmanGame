@@ -105,7 +105,7 @@ public class AllInfoModel : MonoBehaviour {
                     skills[i].levels[j].careerId = skills[i].careerId;
                     skills[i].levels[j].id = Int32.Parse(skill.ChildNodes.Item(0).InnerText);
                     skills[i].levels[j].skillName = skill.ChildNodes.Item(1).InnerText;
-                    skills[i].levels[j].damage = Int32.Parse(skill.ChildNodes.Item(2).InnerText);
+                    skills[i].levels[j].damageHp = Int32.Parse(skill.ChildNodes.Item(2).InnerText);
                     skills[i].levels[j].level = Int32.Parse(skill.ChildNodes.Item(3).InnerText);
                     skills[i].levels[j].mp = Int32.Parse(skill.ChildNodes.Item(4).InnerText);
                     skills[i].levels[j].passive = bool.Parse(skill.ChildNodes.Item(5).InnerText);

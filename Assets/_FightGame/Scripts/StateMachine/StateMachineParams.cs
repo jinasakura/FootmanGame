@@ -67,13 +67,13 @@ public class StateMachineParams : MonoBehaviour
         get { return _stayState; }
     }
 
-    [SerializeField]
-    private bool _onceActionBegain;
-    public bool onceActionBegain
-    {
-        set { _onceActionBegain = value; }
-        get { return _onceActionBegain; }
-    }
+    //[SerializeField]
+    //private bool _onceActionBegain;
+    //public bool onceActionBegain
+    //{
+    //    set { _onceActionBegain = value; }
+    //    get { return _onceActionBegain; }
+    //}
     
     private bool _triggerOnceAction;
     public bool triggerOnceAction
@@ -92,7 +92,7 @@ public class StateMachineParams : MonoBehaviour
 
     public bool canMove()
     {
-        if (speed > PlayerDetail.StayOffset)
+        if (speed > FootmanCharacter.STAY_OFFSET)
         {
             return true;
         }
@@ -102,32 +102,32 @@ public class StateMachineParams : MonoBehaviour
         }
     }
 
-    public void Idle()
-    {
-        speed = 0;
-        moveVelocity = Vector3.zero;
-        stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
-    }
+    //public void Idle()
+    //{
+    //    speed = 0;
+    //    moveVelocity = Vector3.zero;
+    //    stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
+    //}
 
-    public void ChangeOnceAction(int type)
-    {
-        onceActionType = type;
-        triggerOnceAction = true;
-    }
+    //public void ChangeOnceAction(int type)
+    //{
+    //    onceActionType = type;
+    //    triggerOnceAction = true;
+    //}
 
-    public void TakeDamage()
-    {
-        onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
-        triggerOnceAction = true;
-    }
+    //public void TakeDamage()
+    //{
+    //    onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
+    //    triggerOnceAction = true;
+    //}
 
-    public void Die()
-    {
-        isLive = false;
-    }
+    //public void Die()
+    //{
+    //    isLive = false;
+    //}
 
-    public void Live()
-    {
-        isLive = true;
-    }
+    //public void Live()
+    //{
+    //    isLive = true;
+    //}
 }

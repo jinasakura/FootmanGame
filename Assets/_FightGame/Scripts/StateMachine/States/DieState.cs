@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-public class DieState : State
+public class DieState : RoleState
 {
-    private Animator animator;
-    private StateMachineParams stateParams;
+    //private Animator animator;
+    //private StateMachineParams stateParams;
 
-    void Awake()
-    {
-        animator = GetComponentInChildren<Animator>();
-        stateParams = GetComponent<StateMachineParams>();
-        this.name = stateParams.playerId+"DieState";
-    }
+    //void Awake()
+    //{
+    //    animator = GetComponentInChildren<Animator>();
+    //    stateParams = GetComponent<StateMachineParams>();
+    //    //this.name = stateParams.playerId+"DieState";
+    //}
 
     protected override void AddListeners()
     {
@@ -22,7 +22,7 @@ public class DieState : State
         NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
     }
 
-    void HandleParamers(NotificationCenter.Notification info)
+    private void HandleParamers()
     {
         animator.SetBool("isLive", stateParams.isLive);
         //Debug.Log(stateParams.playerId + "->Die");

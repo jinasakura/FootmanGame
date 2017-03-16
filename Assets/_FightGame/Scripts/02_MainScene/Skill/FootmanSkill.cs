@@ -1,19 +1,34 @@
 ﻿using System;
 using UnityEngine;
 
-public class Skill : MonoBehaviour {
+public class FootmanSkill : MonoBehaviour {
 
     private SkillLevelItem _skillInfo;
     public SkillLevelItem skillInfo { set; get; }
 
     private int casterPlayerId;
     private FootmanCharacter charater;
+    private FootmanRoleFight fight;
 
-    public void Caster(int playerId)
+    private bool _skillBegain;
+    public bool skillBegain { set; get; }
+
+    void Start()
     {
-        casterPlayerId = playerId;
-        charater = SceneManager.instance.GetCharacterById(casterPlayerId);
+        charater = GetComponent<FootmanCharacter>();
+        fight = GetComponent<FootmanRoleFight>();
     }
+
+    public void ReleaseSkill(string skillName)
+    {
+        skillInfo = SkillModel.GetSkillLevelByName(skillName);
+     }
+
+    //public void Caster(int playerId)
+    //{
+    //    casterPlayerId = playerId;
+    //    charater = SceneManager.instance.GetCharacterById(casterPlayerId);
+    //}
 
 
     public bool CheckCondition(PlayerDetailInfo playerRequirement)
@@ -37,13 +52,15 @@ public class Skill : MonoBehaviour {
         if (skillInfo.skillType == Convert.ToInt16(SkillTpye.Attack.Single) || 
             skillInfo.skillType == Convert.ToInt16(SkillTpye.Attack.Group))
         {
-            charater.TriggerSkill(skillInfo);
+            charater.TriggerSkill(skillInfo.id);
+            fight.TriggerSkill(skillInfo);
         }
         
     }
 
-    public void OnSkillStateChange()
+    public void OnSkillStateChange(bool begain)
     {
-        charater.OnSkillStateChange();
+        skillBegain = begain;
+        fight.OnSkillStateChange(skillBegain);
     }
 }

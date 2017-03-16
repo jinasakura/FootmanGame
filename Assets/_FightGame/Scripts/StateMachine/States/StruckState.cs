@@ -1,36 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 受击
+/// </summary>
 public class StruckState : OnceActionState {
 
-    private Animator animator;
-    private StateMachineParams stateParams;
+    private SimpleColorSlider healthSlider;
+    private PlayerInfo playerInfo;
+    private FootmanSkill skill;
 
-    void Awake () {
-        animator = GetComponentInChildren<Animator>();
-        stateParams = GetComponent<StateMachineParams>();
-        this.name = stateParams.playerId+"StruckState";
-    }
-
-    protected override void AddListeners()
+    protected override void init()
     {
-        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
-    }
+        base.init();
 
-    protected override void RemoveListeners()
-    {
-        NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
+        playerInfo = GetComponent<PlayerInfo>();
+        skill = GetComponent<FootmanSkill>();
+
+        SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
+        foreach (SimpleColorSlider slider in sliders)
+        {
+            if (slider.name == "HealthSlider") healthSlider = slider;
+        }
     }
 
     protected override void HandleParamers()
     {
-        if (!stateParams.isLive)
-            animator.SetBool("isLive", stateParams.isLive);
-        animator.SetInteger("onceActionType", stateParams.onceActionType);
-        if (stateParams.triggerOnceAction)
-        {
-            animator.SetTrigger("triggerOnceAction");
-            stateParams.triggerOnceAction = false;
-        }
+        base.HandleParamers();
+
+        float amount = SkillModel.GetSkillById(skill.skillInfo.careerId, skill.skillInfo.id).damageHp;
+        healthSlider.TakeDamage(amount);
+        playerInfo.detail.DeductHp(amount);
+
+        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
+            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserHpChange, amount);
     }
 }

@@ -41,6 +41,7 @@ public class SkillButton : MonoBehaviour {
         //SkillTransferInfo info = new SkillTransferInfo();
         //info.playerId = LoginUserInfo.playerInfo.playerId;
         //info.levelInfo = btnskillInfo;
-        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.ReleaseSkill, skillName);
+        //NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.ReleaseSkill, skillName);
+        GetComponent<FootmanSkill>().ReleaseSkill(skillName);
     }
 }

@@ -3,16 +3,16 @@ using System.Collections;
 
 public class CheckOnceActionFinish : StateMachineBehaviour {
 
-    private Skill skill;
+    private FootmanSkill skill;
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
-        param.onceActionBegain = true;
+        //param.onceActionBegain = true;
         //PlayerInfo player = animator.gameObject.GetComponentInParent<PlayerInfo>();
         //NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, player.playerId);
-        if (skill == null) { skill = animator.gameObject.GetComponentInParent<Skill>(); }
-        skill.OnSkillStateChange();
+        if (skill == null) { skill = animator.gameObject.GetComponentInParent<FootmanSkill>(); }
+        skill.OnSkillStateChange(true);
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -24,8 +24,8 @@ public class CheckOnceActionFinish : StateMachineBehaviour {
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         StateMachineParams param = animator.gameObject.GetComponentInParent<StateMachineParams>();
-        param.onceActionBegain = false;
-        skill.OnSkillStateChange();
+        //param.onceActionBegain = false;
+        skill.OnSkillStateChange(false);
         //PlayerInfo player = animator.gameObject.GetComponentInParent<PlayerInfo>();
         //NotificationCenter.DefaultCenter.PostNotification(animator, StateMachineEvent.OnceActionChange, player.playerId);
     }

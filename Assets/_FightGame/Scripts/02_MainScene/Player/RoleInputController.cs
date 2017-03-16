@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RoleController : MonoBehaviour {
+public class RoleInputController : MonoBehaviour {
 
     protected PlayerInfo playerInfo;
     protected FootmanCharacter character;
     protected Rigidbody rb;
-    protected Skill skill;
+    protected FootmanSkill skill;
 
     void Start () {
         init();
@@ -20,7 +20,6 @@ public class RoleController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
-        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.OnceActionChange);
 
     }
 
@@ -33,8 +32,5 @@ public class RoleController : MonoBehaviour {
         rb.MoveRotation(q);
     }
 
-    protected virtual void OnceActionChange()
-    {
-        character.OnSkillStateChange();
-    }
+
 }

@@ -4,8 +4,9 @@ using System.Collections;
 /// <summary>
 /// 将镜头的操作由原来FootmanCharacter放入这个类里
 /// 因为Character里不应区分玩家与非玩家的操作
+/// 输入、少量执行
 /// </summary>
-public class FootmanUserController : RoleController
+public class FootmanUserController : RoleInputController
 {
 
     private float currentCameraRotationX = 0f;
@@ -25,8 +26,6 @@ public class FootmanUserController : RoleController
     {
         base.init();
         currentCameraRotationX = playerCamera.transform.localEulerAngles.x;
-
-        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.ReleaseSkill);
     }
 
     private void FixedUpdate()
@@ -35,7 +34,11 @@ public class FootmanUserController : RoleController
         float v = Input.GetAxis("Vertical");
         //float h = UltimateJoystick.GetHorizontalAxis("Move");
         //float v = UltimateJoystick.GetVerticalAxis("Move");
-        character.Move(h, v);
+        if (!GetComponent<FootmanSkill>().skillBegain)
+        {
+            character.Move(h, v);
+        }
+        
         //Debug.Log("h->"+h);
         bool currentMouseButtonDown = Input.GetMouseButton(0);
         if (currentMouseButtonDown && UltimateJoystick.GetVerticalAxis("Turn") != 0)
@@ -68,22 +71,7 @@ public class FootmanUserController : RoleController
 
     }
 
-    private void ReleaseSkill(NotificationCenter.Notification info)
-    {
-        string skillName = (string)info.data;
-        SkillLevelItem skillInfo = SkillModel.GetSkillLevelByName(skillName);
-
-        skill = GetComponent<Skill>();
-        if (skill != null)
-        {
-            skill = gameObject.AddComponent<Skill>();
-            gameObject.name = playerInfo.playerName;
-            skill.skillInfo = skillInfo;
-            skill.Caster(LoginUserInfo.playerInfo.playerId);
-            if (skill.CheckCondition(LoginUserInfo.playerInfo.detail)) { skill.Trigger(); }
-            
-        }
-    }
+   
 }
 
 

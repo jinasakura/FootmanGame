@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FootmanAIController : RoleController
+public class FootmanAIController : RoleInputController
 {
 
     //private FootmanCharacter character;

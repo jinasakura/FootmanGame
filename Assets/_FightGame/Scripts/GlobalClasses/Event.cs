@@ -29,7 +29,7 @@ public class StateMachineEvent
 
     //public static string OnceActionEnd = "OnceActionEnd";
 
-    public static string OnceActionChange = "OnceActionChange";
+    public static string SkillStateChange = "SkillStateChange";
 }
 
 

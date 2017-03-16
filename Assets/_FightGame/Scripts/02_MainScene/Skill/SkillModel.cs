@@ -12,11 +12,11 @@ public class SkillLevelItem
     public string skillName;
 
     //消耗敌人hp
-    public int damage;
+    public float damageHp;
 
     //技能限制等级，对应CareerLevelItem里的id
     public int level;
-    public int mp;
+    public float mp;
 
     //0-主动技能-false ; 1-被动技能-true
     public bool passive;

@@ -1,27 +1,31 @@
 ﻿using UnityEngine;
 
-public class MoveState : State
+public class MoveState : RoleState
 {
 
-    private Animator animator;
+    //private Animator animator;
+    //private StateMachineParams stateParams;
 
     [SerializeField]
     private float speedMultiplier = 2f;
 
     private Rigidbody rb;
-    private StateMachineParams stateParams;
+    
     private bool canMove = false;
 
-    void Awake()
-    {
-        animator = GetComponentInChildren<Animator>();
+    //void Awake()
+    //{
+    //    animator = GetComponentInChildren<Animator>();
+    //    stateParams = GetComponent<StateMachineParams>();
+    //    //this.name = /*stateParams.playerId+*/"MoveState";
+    //    //Debug.Log(this.name);
+    //}
 
+    protected override void init()
+    {
+        base.init();
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-        stateParams = GetComponent<StateMachineParams>();
-        this.name = /*stateParams.playerId+*/"MoveState";
-        //Debug.Log(this.name);
     }
 
     void FixedUpdate()
@@ -32,30 +36,29 @@ public class MoveState : State
         {
             PerformMovement();
         }
-
     }
 
     private void PerformMovement()
     {
         //Debug.Log("确实移动 speed->" + stateParams.speed);
-        if (stateParams.speed > PlayerDetail.StayOffset)
-        {
-            rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
-        }
+        //if (stateParams.speed > PlayerDetail.StayOffset)
+        //{
+        rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
+        //}
     }
 
     protected override void AddListeners()
     {
-        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
+        //NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
+        base.AddListeners();
         canMove = true;
-        //Debug.Log("可以移动");
     }
 
     protected override void RemoveListeners()
     {
-        NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
+        //NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
+        base.RemoveListeners();
         canMove = false;
-        //Debug.Log("不能移动");
     }
 
     void HandleParamers()//NotificationCenter.Notification info

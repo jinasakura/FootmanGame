@@ -72,7 +72,7 @@ public class SceneManager : MonoBehaviour {
             }
             else
             {
-                FootmanAIController aiController = player.AddComponent<FootmanAIController>();
+                player.AddComponent<FootmanAIController>();
             }
             playersDict[i] = player;
 
