@@ -4,18 +4,12 @@ using System.Collections;
 public class FootmanAIController : RoleInputController
 {
 
-    //private FootmanCharacter character;
-    //private Rigidbody rb;
+    protected override void init()
+    {
+        base.init();
 
-    //void Start()
-    //{
-    //    character = GetComponent<FootmanCharacter>();
-
-    //    rb = GetComponent<Rigidbody>();
-    //    rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-    //    //InvokeRepeating("Turn", 1, 3);
-    //}
+        character.playerName = playerInfo.playerName;
+    }
 
     void FixedUpdate()
     {

@@ -11,7 +11,7 @@ public class LoginEvent  {
 
 public class MainSceneEvent
 {
-    public static string ReleaseSkill = "TriggerSkill";
+    public static string ReleaseSkill = "ReleaseSkill";
 
     public static string CharacterDie = "CharacterDie";
 

@@ -1,26 +1,19 @@
 ﻿using UnityEngine;
 using System;
-//不是很懂为什么set、get不能写成简写的形式
-public class StateMachineParams : MonoBehaviour
+
+public class StateMachineParams 
 {
 
-    //[SerializeField]
-    //private int _playerId;
-    //public int playerId
-    //{
-    //    set { _playerId = value; }
-    //    get { return _playerId; }
-    //}
+    public StateMachineParams()
+    {
+        isLive = true;
+        speed = 0;
+        moveVelocity = Vector3.zero;
+        stayState = (int)FootmanStateMachine.StayStateType.Idle;
+        triggerOnceAction = false;
+        onceActionType = (int)FootmanStateMachine.OnceActionType.TakeDamage;
+    }
 
-    //[SerializeField]
-    //private string _playerName;
-    //public string playerName
-    //{
-    //    set { _playerName = value; }
-    //    get { return _playerName; }
-    //}
-
-    [SerializeField]
     private bool _isLive;
     public bool isLive
     {
@@ -34,20 +27,15 @@ public class StateMachineParams : MonoBehaviour
         }
     }
 
-    [SerializeField]
     private float _speed;
     public float speed
     {
         set
         {
             _speed = value;
-            //if (playerId == 0)
-            //    Debug.Log("playerId->" + playerId + "-----speed  set->" + _speed);
         }
         get
         {
-            //if (playerId == 0 && _speed > 0.2)
-            //    Debug.Log("playerId->" + playerId + "-----speed  get->" + _speed);
             return _speed;
         }
     }
@@ -59,7 +47,6 @@ public class StateMachineParams : MonoBehaviour
         get { return _moveVelocity; }
     }
 
-    [SerializeField]
     private int _stayState;
     public int stayState
     {
@@ -67,13 +54,6 @@ public class StateMachineParams : MonoBehaviour
         get { return _stayState; }
     }
 
-    //[SerializeField]
-    //private bool _onceActionBegain;
-    //public bool onceActionBegain
-    //{
-    //    set { _onceActionBegain = value; }
-    //    get { return _onceActionBegain; }
-    //}
     
     private bool _triggerOnceAction;
     public bool triggerOnceAction
@@ -82,7 +62,6 @@ public class StateMachineParams : MonoBehaviour
         get { return _triggerOnceAction; }
     }
 
-    [SerializeField]
     private int _onceActionType;
     public int onceActionType
     {
@@ -92,7 +71,7 @@ public class StateMachineParams : MonoBehaviour
 
     public bool canMove()
     {
-        if (speed > FootmanCharacter.STAY_OFFSET)
+        if (speed > FootmanStateMachine.STAY_OFFSET)
         {
             return true;
         }
@@ -102,32 +81,4 @@ public class StateMachineParams : MonoBehaviour
         }
     }
 
-    //public void Idle()
-    //{
-    //    speed = 0;
-    //    moveVelocity = Vector3.zero;
-    //    stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
-    //}
-
-    //public void ChangeOnceAction(int type)
-    //{
-    //    onceActionType = type;
-    //    triggerOnceAction = true;
-    //}
-
-    //public void TakeDamage()
-    //{
-    //    onceActionType = Convert.ToInt16(CharacterStateMachine.OnceActionType.TakeDamage);
-    //    triggerOnceAction = true;
-    //}
-
-    //public void Die()
-    //{
-    //    isLive = false;
-    //}
-
-    //public void Live()
-    //{
-    //    isLive = true;
-    //}
 }

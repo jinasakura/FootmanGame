@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StateMachine : MonoBehaviour {
+public class StateMachine : MonoBehaviour
+{
 
-	public virtual State currentState
+    public virtual State currentState
     {
         get { return _currentState; }
         set { Transition(value); }

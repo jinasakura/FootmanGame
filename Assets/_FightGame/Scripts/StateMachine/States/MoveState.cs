@@ -13,25 +13,17 @@ public class MoveState : RoleState
     
     private bool canMove = false;
 
-    //void Awake()
-    //{
-    //    animator = GetComponentInChildren<Animator>();
-    //    stateParams = GetComponent<StateMachineParams>();
-    //    //this.name = /*stateParams.playerId+*/"MoveState";
-    //    //Debug.Log(this.name);
-    //}
 
     protected override void init()
     {
         base.init();
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
     }
 
     void FixedUpdate()
     {
-        //if (stateParams != null)
-        //    Debug.Log("确实移动 speed->" + stateParams.speed);
         if (canMove)
         {
             PerformMovement();
@@ -40,39 +32,32 @@ public class MoveState : RoleState
 
     private void PerformMovement()
     {
-        //Debug.Log("确实移动 speed->" + stateParams.speed);
-        //if (stateParams.speed > PlayerDetail.StayOffset)
-        //{
         rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
-        //}
     }
 
-    protected override void AddListeners()
+    public override void Enter()
     {
-        //NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
-        base.AddListeners();
+        base.Enter();
+        //Debug.Log("移动");
         canMove = true;
     }
 
-    protected override void RemoveListeners()
+    public override void Exit()
     {
-        //NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
-        base.RemoveListeners();
+        base.Exit();
+        //这里需要清一下数据，不然实际状态机的状态还是在move，而状态机代码实际已经是静止了
+        //目前不知道为什么会残留有数据
+        animator.SetFloat("speed", stateParams.speed);
         canMove = false;
     }
 
-    void HandleParamers()//NotificationCenter.Notification info
+    public override void HandleParamers(object info)
     {
-        //stateParams = (StateMachineParams)info.data;
-        //if (stateParams.playerId == 0)
-        //{
+        base.HandleParamers(info);
         if (!stateParams.isLive)
             animator.SetBool("isLive", stateParams.isLive);
         animator.SetFloat("speed", stateParams.speed);
-        //Debug.Log("speed->" + stateParams.speed);
-        //}
-        //if (stateParams.playerId == 0)
-        //    Debug.Log("MoveState里------speed->" + stateParams.speed);//"---MoveState---playerId->" + stateParams.playerId + 
     }
+
 
 }

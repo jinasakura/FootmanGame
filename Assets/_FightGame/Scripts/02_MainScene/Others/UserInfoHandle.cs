@@ -30,12 +30,12 @@ public class UserInfoHandle : MonoBehaviour {
 	void UserHpChange(NotificationCenter.Notification info)
     {
         int amount = (int)info.data;
-        healthSlider.TakeDamage(amount);
+        healthSlider.UpdateValue(amount);
     }
 
     void UserMpChange(NotificationCenter.Notification info)
     {
         int amount = (int)info.data;
-        mpSlider.TakeDamage(amount);
+        mpSlider.UpdateValue(amount);
     }
 }

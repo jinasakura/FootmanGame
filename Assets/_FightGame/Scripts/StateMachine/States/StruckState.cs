@@ -6,33 +6,16 @@ using System.Collections;
 /// </summary>
 public class StruckState : OnceActionState {
 
-    private SimpleColorSlider healthSlider;
-    private PlayerInfo playerInfo;
-    private FootmanSkill skill;
-
     protected override void init()
     {
         base.init();
 
-        playerInfo = GetComponent<PlayerInfo>();
-        skill = GetComponent<FootmanSkill>();
-
-        SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
-        foreach (SimpleColorSlider slider in sliders)
-        {
-            if (slider.name == "HealthSlider") healthSlider = slider;
-        }
+        //特效
     }
 
-    protected override void HandleParamers()
+    public override void HandleParamers(object info)
     {
-        base.HandleParamers();
-
-        float amount = SkillModel.GetSkillById(skill.skillInfo.careerId, skill.skillInfo.id).damageHp;
-        healthSlider.TakeDamage(amount);
-        playerInfo.detail.DeductHp(amount);
-
-        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
-            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserHpChange, amount);
+        base.HandleParamers(info);
     }
+
 }

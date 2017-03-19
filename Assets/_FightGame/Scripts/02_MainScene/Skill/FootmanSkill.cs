@@ -7,7 +7,7 @@ public class FootmanSkill : MonoBehaviour {
     public SkillLevelItem skillInfo { set; get; }
 
     private int casterPlayerId;
-    private FootmanCharacter charater;
+    private FootmanStateMachine charater;
     private FootmanRoleFight fight;
 
     private bool _skillBegain;
@@ -15,11 +15,13 @@ public class FootmanSkill : MonoBehaviour {
 
     void Start()
     {
-        charater = GetComponent<FootmanCharacter>();
+        charater = GetComponent<FootmanStateMachine>();
         fight = GetComponent<FootmanRoleFight>();
     }
 
-    public void ReleaseSkill(string skillName)
+    //这里的函数名不能和加入notification里的监听函数重名
+    //不然就会报一个莫名其妙的错误：missing method exception
+    public void OnReleaseSkill(string skillName)
     {
         skillInfo = SkillModel.GetSkillLevelByName(skillName);
      }

@@ -28,4 +28,10 @@ public abstract class State : MonoBehaviour {
 
     }
 
+    //原来并未提供有参数传入的情况
+    public virtual void HandleParamers(object info)
+    {
+
+    }
+
 }

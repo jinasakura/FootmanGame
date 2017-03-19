@@ -13,22 +13,12 @@ public class RoleState : State {
     protected virtual void init()
     {
         animator = GetComponentInChildren<Animator>();
-        stateParams = GetComponent<StateMachineParams>();
+        //stateParams = GetComponent<StateMachineParams>();
     }
 
-    protected override void AddListeners()
+    public override void HandleParamers(object info)
     {
-        NotificationCenter.DefaultCenter.AddObserver(this, StateMachineEvent.HandleParamers);
-    }
-
-    protected override void RemoveListeners()
-    {
-        NotificationCenter.DefaultCenter.RemoveObserver(this, StateMachineEvent.HandleParamers);
-    }
-
-    protected virtual void HandleParamers()
-    {
-
+        stateParams = (StateMachineParams)info;
     }
 
 }

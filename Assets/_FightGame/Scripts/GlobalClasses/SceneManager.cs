@@ -19,8 +19,10 @@ public class SceneManager : MonoBehaviour {
         }
     }
 
+    //摄像机这个改了三遍了
+    //为什么放到这里：因为放到controller里我没法（不知道）对prefab在运行时赋值
     [SerializeField]
-    private GameObject playerCamera;
+    private GameObject cameraPrefab;
 
     public Transform[] respawns;
 
@@ -36,10 +38,10 @@ public class SceneManager : MonoBehaviour {
         initAllPlayers();
     }
 	
-    public FootmanCharacter GetCharacterById(int playerId)
+    public FootmanStateMachine GetCharacterById(int playerId)
     {
         GameObject player = playersDict[playerId];
-        return player.GetComponent<FootmanCharacter>();
+        return player.GetComponent<FootmanStateMachine>();
     }
 
     private void initAllPlayers()
@@ -53,28 +55,29 @@ public class SceneManager : MonoBehaviour {
         //}
 
         int i = 0;
-        GameObject player;
+        GameObject playerGo;
         PlayerInfo playerInfo;
+        
         foreach (Transform item in respawns)
         {
-            player = Instantiate(model, item.transform.position, item.transform.rotation) as GameObject;
-            playerInfo = player.GetComponent<PlayerInfo>();
+            playerGo = Instantiate(model, item.transform.position, item.transform.rotation) as GameObject;
+            playerInfo = playerGo.GetComponent<PlayerInfo>();
             playerInfo.playerId = i;
             playerInfo.playerName = "Player " + i;
             playerInfo.careerId = LoginUserInfo.playerInfo.careerId;
             playerInfo.detail = new PlayerDetailInfo();
             playerInfo.detail.level = 1;
-            player.AddComponent<FootmanCharacter>();
             if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
             {
-                FootmanUserController userController = player.AddComponent<FootmanUserController>();
-                Instantiate(playerCamera, playerCamera.transform.position, playerCamera.transform.rotation, player.transform);
+                Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, playerGo.transform);
+                FootmanRoleController input = playerGo.AddComponent<FootmanRoleController>();
             }
             else
             {
-                player.AddComponent<FootmanAIController>();
+                FootmanAIController aiInput = playerGo.AddComponent<FootmanAIController>();
             }
-            playersDict[i] = player;
+            
+            playersDict[i] = playerGo;
 
             i++;
             

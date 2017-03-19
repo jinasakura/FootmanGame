@@ -6,7 +6,7 @@ using System.Collections;
 /// 因为Character里不应区分玩家与非玩家的操作
 /// 输入、少量执行
 /// </summary>
-public class FootmanUserController : RoleInputController
+public class FootmanRoleController : RoleInputController
 {
 
     private float currentCameraRotationX = 0f;
@@ -19,14 +19,26 @@ public class FootmanUserController : RoleInputController
     private float lookSensitivity = 4f;//镜头上下旋转的系数
     [SerializeField]
     private float rotationSensitivity = 8f;//人物左右旋转系数
-    private Camera playerCamera;
 
+
+    private Camera playerCamera;
 
     protected override void init()
     {
         base.init();
+        
+        playerCamera = gameObject.GetComponentInChildren<Camera>();
         currentCameraRotationX = playerCamera.transform.localEulerAngles.x;
+        
+        character.playerName = playerInfo.playerName;
+
+        //只要保证了是自己才能接收消息就行
+        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
+        {
+            NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.ReleaseSkill);
+        }
     }
+
 
     private void FixedUpdate()
     {
@@ -34,7 +46,7 @@ public class FootmanUserController : RoleInputController
         float v = Input.GetAxis("Vertical");
         //float h = UltimateJoystick.GetHorizontalAxis("Move");
         //float v = UltimateJoystick.GetVerticalAxis("Move");
-        if (!GetComponent<FootmanSkill>().skillBegain)
+        if (!skill.skillBegain)
         {
             character.Move(h, v);
         }
@@ -49,18 +61,8 @@ public class FootmanUserController : RoleInputController
             float offsetY = Input.GetAxis("Mouse Y");
             PerformCameraRotation(offsetY * lookSensitivity);
         }
+
     }
-
-
-    ////左右旋转rigidbody
-    //private void PerformBodyRotation(float offsetRot)
-    //{
-    //    Vector3 offset = new Vector3(0f, offsetRot, 0f);
-    //    //四元数相乘代表什么？
-    //    Quaternion q = rb.rotation * Quaternion.Euler(offset);
-    //    rb.MoveRotation(q);
-
-    //}
 
     //上下旋转镜头
     private void PerformCameraRotation(float offsetY)
@@ -68,10 +70,15 @@ public class FootmanUserController : RoleInputController
         currentCameraRotationX -= offsetY;
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, cameraLowerLimit, cameraUpperLimit);
         playerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
-
     }
 
-   
+    //如果直接把事件交给skill，会打破人物整个类的层次
+    private void ReleaseSkill(NotificationCenter.Notification info)
+    {
+        string skillName = (string)info.data;
+        skill.OnReleaseSkill(skillName);
+    }
+
 }
 
 

@@ -33,7 +33,7 @@ public class HandleLoginInfo : MonoBehaviour {
 
     private void initLoginInfo()
     {
-        LoginUserInfo.playerInfo = new PlayerInfo();
+        LoginUserInfo.playerInfo = gameObject.AddComponent<PlayerInfo>();
 
         LoginUserInfo.playerInfo.playerId = 0;
         LoginUserInfo.playerInfo.playerName = "Test";
