@@ -37,7 +37,7 @@ public class FootmanStateMachine : StateMachine
         {
             stateParams.speed = 0;
             stateParams.moveVelocity = Vector3.zero;
-            stateParams.stayState = Convert.ToInt16(CharacterStateMachine.StayStateType.Idle);
+            stateParams.stayState = Convert.ToInt16(StayStateType.Idle);
         }
         else
         {

@@ -65,8 +65,8 @@ public class AllInfoModel : MonoBehaviour {
                     careers[i].levels[j] = new CareerLevelItem();
                     careers[i].levels[j].id = Int32.Parse(skill.ChildNodes.Item(0).InnerText);
                     careers[i].levels[j].exp = Int32.Parse(skill.ChildNodes.Item(1).InnerText);
-                    careers[i].levels[j].hp = Int32.Parse(skill.ChildNodes.Item(2).InnerText);
-                    careers[i].levels[j].mp = Int32.Parse(skill.ChildNodes.Item(3).InnerText);
+                    careers[i].levels[j].maxHp = Int32.Parse(skill.ChildNodes.Item(2).InnerText);
+                    careers[i].levels[j].maxMp = Int32.Parse(skill.ChildNodes.Item(3).InnerText);
                     j++;
                 }
             }

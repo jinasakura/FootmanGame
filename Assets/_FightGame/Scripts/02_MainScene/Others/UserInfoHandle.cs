@@ -11,7 +11,7 @@ public class UserInfoHandle : MonoBehaviour {
     [SerializeField]
     private SimpleColorSlider mpSlider;
 
-	void OnEnable() {
+	void Start() {
         userName.text = LoginUserInfo.playerInfo.playerName;
         SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
         foreach (SimpleColorSlider slider in sliders)
@@ -19,9 +19,8 @@ public class UserInfoHandle : MonoBehaviour {
             if (slider.name == "HealthSlider") healthSlider = slider;
             else mpSlider = slider;
         }
-        CareerLevelItem item = CareerModel.GetLevelItem(LoginUserInfo.playerInfo.careerId, LoginUserInfo.playerInfo.detail.level);
-        healthSlider.maxValue = item.hp;
-        mpSlider.maxValue = item.mp;
+        healthSlider.maxValue = LoginUserInfo.playerInfo.detail.currentHp;
+        mpSlider.maxValue = LoginUserInfo.playerInfo.detail.currentMp;
 
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserHpChange);
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserMpChange);
@@ -29,13 +28,14 @@ public class UserInfoHandle : MonoBehaviour {
 	
 	void UserHpChange(NotificationCenter.Notification info)
     {
-        int amount = (int)info.data;
+        float amount = (float)info.data;
         healthSlider.UpdateValue(amount);
     }
 
     void UserMpChange(NotificationCenter.Notification info)
     {
-        int amount = (int)info.data;
+        float amount = (float)info.data;
         mpSlider.UpdateValue(amount);
+        
     }
 }

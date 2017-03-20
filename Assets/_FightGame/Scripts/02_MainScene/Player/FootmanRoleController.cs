@@ -36,6 +36,8 @@ public class FootmanRoleController : RoleInputController
         if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
         {
             NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.ReleaseSkill);
+            LoginUserInfo.playerInfo.detail.currentHp = playerInfo.detail.currentHp;
+            LoginUserInfo.playerInfo.detail.currentMp = playerInfo.detail.currentMp;
         }
     }
 
@@ -46,7 +48,7 @@ public class FootmanRoleController : RoleInputController
         float v = Input.GetAxis("Vertical");
         //float h = UltimateJoystick.GetHorizontalAxis("Move");
         //float v = UltimateJoystick.GetVerticalAxis("Move");
-        if (!skill.skillBegain)
+        if (!fight.skillBegain)
         {
             character.Move(h, v);
         }
@@ -72,11 +74,17 @@ public class FootmanRoleController : RoleInputController
         playerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
     }
 
-    //如果直接把事件交给skill，会打破人物整个类的层次
+    //如果直接把事件交给skill，会打破人物整个类的层次(需不需要这么死板？)
     private void ReleaseSkill(NotificationCenter.Notification info)
     {
         string skillName = (string)info.data;
-        skill.OnReleaseSkill(skillName);
+        skillInfo = SkillModel.GetSkillLevelByName(skillName);
+        if (skillInfo.CheckCondition(playerInfo.detail))
+        {
+            character.TriggerSkill(skillInfo.id);
+            fight.TriggerSkill(skillInfo.mp);
+        }
+        
     }
 
 }

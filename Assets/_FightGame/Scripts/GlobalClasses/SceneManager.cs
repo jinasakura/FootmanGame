@@ -67,6 +67,9 @@ public class SceneManager : MonoBehaviour {
             playerInfo.careerId = LoginUserInfo.playerInfo.careerId;
             playerInfo.detail = new PlayerDetailInfo();
             playerInfo.detail.level = 1;
+            CareerLevelItem careerLevel = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.detail.level);
+            playerInfo.detail.currentHp = careerLevel.maxHp;
+            playerInfo.detail.currentMp = careerLevel.maxMp;
             if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
             {
                 Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, playerGo.transform);

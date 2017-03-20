@@ -11,7 +11,7 @@ public class SimpleColorSlider : MonoBehaviour
     private Color fullHealthColor = Color.green;
     //public Color zeroHealthColor = Color.red;
 
-    public float currentValue;
+    private float currentValue;
     public float maxValue;
 
     //这里不能OnEnable,因为会造成这里先运行，而playerInfo还没初始化好，娶不到数据
@@ -23,6 +23,10 @@ public class SimpleColorSlider : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// amount-减数
+    /// </summary>
+    /// <param name="amount"></param>
     public void UpdateValue(float amount)
     {
         if (currentValue - amount > 0)
@@ -33,6 +37,12 @@ public class SimpleColorSlider : MonoBehaviour
         {
             currentValue = 0;
         }
+        UpdateSliderValue();
+    }
+
+    public void UpdateCurrentValue(float curAmount)
+    {
+        currentValue = curAmount;
         UpdateSliderValue();
     }
 

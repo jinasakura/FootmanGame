@@ -11,11 +11,18 @@ public class SkillLevelItem
     public int careerId;
     public string skillName;
 
-    //消耗敌人hp
+    
+    /// <summary>
+    /// 技能消耗hp
+    /// </summary>
     public float damageHp;
 
     //技能限制等级，对应CareerLevelItem里的id
     public int level;
+
+    /// <summary>
+    /// 技能消耗mp
+    /// </summary>
     public float mp;
 
     //0-主动技能-false ; 1-被动技能-true
@@ -24,6 +31,21 @@ public class SkillLevelItem
     //1-单人；2-群人；3-对地
     public int skillType;
 
+    public bool CheckCondition(PlayerDetailInfo playerRequirement)
+    {
+        bool use = false;
+        if (level <= playerRequirement.level)
+        {
+            use = true;
+            if (playerRequirement.currentMp >= mp)
+            {
+                use = true;
+            }
+            else { use = false; }
+        }
+        else { use = false; }
+        return use;
+    }
 }
 
 public class SkillItem

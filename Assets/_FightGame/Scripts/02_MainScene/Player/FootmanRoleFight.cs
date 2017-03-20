@@ -3,6 +3,8 @@ using System.Collections;
 
 public class FootmanRoleFight : MonoBehaviour
 {
+    //private SkillLevelItem _skillInfo;
+    //public SkillLevelItem skillInfo {private set; get; }
 
     private PlayerInfo playerInfo;
 
@@ -10,10 +12,11 @@ public class FootmanRoleFight : MonoBehaviour
     private SimpleColorSlider mpSlider;
 
     //private CapsuleCollider bodyCollider;
-    //private CapsuleCollider swordCollider;
+    private CapsuleCollider swordCollider;
     private CapsuleCollider[] colliders;
 
-    private bool skillBegain;
+    private bool _skillBegain;
+    public bool skillBegain { private set; get; }
 
     void Start()
     {
@@ -26,35 +29,29 @@ public class FootmanRoleFight : MonoBehaviour
             else mpSlider = slider;
         }
 
-        CareerLevelItem careerLevel = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.detail.level);
-        healthSlider.maxValue = careerLevel.hp;
-        mpSlider.maxValue = careerLevel.mp;
-
-        playerInfo.detail.currentHp = careerLevel.hp;
-        playerInfo.detail.currentMp = careerLevel.mp;
+        healthSlider.maxValue = playerInfo.detail.currentHp;
+        mpSlider.maxValue = playerInfo.detail.currentMp;
 
         colliders = GetComponentsInChildren<CapsuleCollider>();
-        //foreach (CapsuleCollider item in colliders)
-        //{
-        //    if (item.gameObject.tag == "Weapon")
-        //    {
-        //        swordCollider = item;
-        //    }
-        //    else
-        //    {
-        //        bodyCollider = item;
-        //    }
-        //}
+        foreach (CapsuleCollider item in colliders)
+        {
+            if (item.gameObject.tag == "Weapon") swordCollider = item;
+        }
     }
 
-    public void TriggerSkill(SkillLevelItem info)
+
+    public void TriggerSkill(float mp)
     {
-        float amount = info.damageHp;
-        healthSlider.UpdateValue(amount);
-        playerInfo.detail.DeductHp(amount);
+        //skillInfo = info;
+        //float amount = skillInfo.damageHp;
+        mpSlider.UpdateValue(mp);
+        playerInfo.detail.DeductMp(mp);
 
         if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
-            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserHpChange, amount);
+        {
+            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, mp);
+            LoginUserInfo.playerInfo.detail.DeductMp(mp);
+        }
     }
 
     //一个动作期间：是否要区分主、被动技能
@@ -64,35 +61,56 @@ public class FootmanRoleFight : MonoBehaviour
         if (skillBegain)
         {
             ChangeColliderState(true);
+            //Debug.Log("开始技能");
         }
         else//没有砍人时也要关闭
         {
-            ChangeColliderState(true);
+            
+            ChangeColliderState(false);
+            //Debug.Log("结束技能");
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    //这里只检测受击对象
+    void OnTriggerStay(Collider other)
     {
-        if (skillBegain && other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        //Debug.Log(other.gameObject.tag+"   "+ skillBegain);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (other.gameObject.tag == "Body")
+            if (other.gameObject.tag == "Weapon")
             {
+                //Debug.Log(other.gameObject.tag);
+                ChangeColliderState(false);
                 GameObject enemy = other.gameObject;
-                FootmanStateMachine person = enemy.GetComponent<FootmanStateMachine>();
+                FootmanRoleController role = enemy.GetComponentInParent<FootmanRoleController>();
+                SkillLevelItem enemySkill = role.skillInfo;
+                TakeDamage(enemySkill.damageHp);
             }
-            else if(other.gameObject.tag == "Weapon")
-            {
+        }
+    }
 
-            }
+    void TouchEnemy(int skillId)
+    {
+        Debug.Log("攻击：" + skillId);
+    }
 
+    private void TakeDamage(float amount)
+    {
+        healthSlider.UpdateValue(amount);
+        playerInfo.detail.DeductHp(amount);
+        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
+        {
+            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, amount);
+            LoginUserInfo.playerInfo.detail.DeductHp(amount);
         }
     }
 
     private void ChangeColliderState(bool state)
     {
-        foreach (CapsuleCollider collider in colliders)
-        {
-            collider.enabled = state;
-        }
+        //foreach (CapsuleCollider collider in colliders)
+        //{
+        //    collider.enabled = state;
+        //}
+        swordCollider.enabled = state;
     }
 }

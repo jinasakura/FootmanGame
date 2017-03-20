@@ -8,10 +8,11 @@ using System.Collections;
 public class RoleInputController : MonoBehaviour {
 
     protected PlayerInfo playerInfo;
+    public SkillLevelItem skillInfo;
 
     protected FootmanStateMachine character;
     protected FootmanRoleFight fight;
-    protected FootmanSkill skill;
+    //protected FootmanSkill skill;
 
     protected Rigidbody rb;//其实照理来说人物转向也应该放到状态机里
 
@@ -22,7 +23,7 @@ public class RoleInputController : MonoBehaviour {
     protected virtual void init()
     {
         character = GetComponent<FootmanStateMachine>();
-        skill = GetComponent<FootmanSkill>();
+        //skill = GetComponent<FootmanSkill>();
         fight = GetComponent<FootmanRoleFight>();
 
         playerInfo = GetComponent<PlayerInfo>();
