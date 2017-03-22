@@ -14,24 +14,12 @@ public class AllInfoModel : MonoBehaviour {
     public string carrerXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/xmls/CareerInfo.xml";
     public string skillXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/xmls/SkillInfo.xml";
 
-    //private static CareerItem[] careers;
 
-    //将模型名和模型对应起来
-    public static Dictionary<string, GameObject> modelDict;
-
-    //职业id与职业信息
-    //public static Dictionary<int, CareerItem> careerDict;
-    //public static Dictionary<int, SkillItem> skillDict;
-
-    [SerializeField]
-    private GameObject[] models;
 
     void Start()
     {
         HandleCareerXml();
         HandleSkillXml();
-
-        HandleModelInfo();
 
         NotificationCenter.DefaultCenter.PostNotification(this, LoginEvent.DataIsReady);
     }
@@ -123,14 +111,6 @@ public class AllInfoModel : MonoBehaviour {
         }
     }
 
-    private void HandleModelInfo()
-    {
-        //初始化模型数据
-        modelDict = new Dictionary<string, GameObject>();
-        foreach (GameObject item in models)
-        {
-            modelDict[item.name] = item;
-        }
-    }
+
 
 }

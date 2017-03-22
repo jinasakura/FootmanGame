@@ -3,7 +3,7 @@
     <career>
         <id>1</id>
         <name>Knight</name>
-        <modelName>PlayerKnight</modelName>
+        <modelName>Knight-Purple</modelName>
         <levels>
         	<level>
         		<id>1</id>
@@ -28,7 +28,57 @@
     <career>
         <id>2</id>
         <name>Wizard</name>
-        <modelName>PlayerWizard</modelName>
+        <modelName>Wizard-Red</modelName>
+        <levels>
+        	<level>
+        		<id>1</id>
+        		<exp>100</exp>
+        		<hp>100</hp>
+        		<mp>100</mp>
+        	</level>
+        	<level>
+        		<id>2</id>
+        		<exp>150</exp>
+        		<hp>150</hp>
+        		<mp>150</mp>
+        	</level>
+        	<level>
+        		<id>3</id>
+        		<exp>200</exp>
+        		<hp>200</hp>
+        		<mp>200</mp>
+        	</level>
+        </levels>
+    </career>
+    <career>
+        <id>3</id>
+        <name>Barbarian</name>
+        <modelName>Barbarian-Brown</modelName>
+        <levels>
+        	<level>
+        		<id>1</id>
+        		<exp>100</exp>
+        		<hp>100</hp>
+        		<mp>100</mp>
+        	</level>
+        	<level>
+        		<id>2</id>
+        		<exp>150</exp>
+        		<hp>150</hp>
+        		<mp>150</mp>
+        	</level>
+        	<level>
+        		<id>3</id>
+        		<exp>200</exp>
+        		<hp>200</hp>
+        		<mp>200</mp>
+        	</level>
+        </levels>
+    </career>
+    <career>
+        <id>4</id>
+        <name>Elven Archer</name>
+        <modelName>Elven Archer-Red</modelName>
         <levels>
         	<level>
         		<id>1</id>

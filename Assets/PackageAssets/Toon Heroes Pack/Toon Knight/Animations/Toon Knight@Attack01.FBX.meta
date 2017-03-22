@@ -152,8 +152,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.6722222
+      - time: 0.5265079
         functionName: TouchEnemy
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1001
+        messageOptions: 0
+      - time: 0.7031701
+        functionName: LeaveEnemy
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

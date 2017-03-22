@@ -24,6 +24,15 @@ public class SceneManager : MonoBehaviour {
     [SerializeField]
     private GameObject cameraPrefab;
 
+    [SerializeField]
+    private GameObject roleBasePrefab;
+
+    [SerializeField]
+    private GameObject[] models;
+
+    //将模型名和模型对应起来
+    public Dictionary<string, GameObject> modelDict;
+
     public Transform[] respawns;
 
     [HideInInspector]
@@ -34,6 +43,7 @@ public class SceneManager : MonoBehaviour {
 
     void Awake ()
     {
+        HandleModelInfo();
         //随机N个地点(随后加上)
         initAllPlayers();
     }
@@ -46,22 +56,18 @@ public class SceneManager : MonoBehaviour {
 
     private void initAllPlayers()
     {
-        GameObject model = AllInfoModel.modelDict[LoginUserInfo.playerInfo.modelName];
+        GameObject model = modelDict[LoginUserInfo.playerInfo.modelName];
         playersDict = new Dictionary<int, GameObject>();
-        //if (Camera.main)
-        //{
-        //    Camera mainCam = Camera.main;
-        //    mainCam.gameObject.SetActive(false);
-        //}
 
         int i = 0;
         GameObject playerGo;
         PlayerInfo playerInfo;
-        
+        GameObject roleBase;
         foreach (Transform item in respawns)
         {
-            playerGo = Instantiate(model, item.transform.position, item.transform.rotation) as GameObject;
-            playerInfo = playerGo.GetComponent<PlayerInfo>();
+            roleBase = Instantiate(roleBasePrefab, item.transform.position, item.transform.rotation) as GameObject;
+            playerGo = Instantiate(model, item.transform.position, item.transform.rotation, roleBase.transform) as GameObject;
+            playerInfo = roleBase.GetComponent<PlayerInfo>();
             playerInfo.playerId = i;
             playerInfo.playerName = "Player " + i;
             playerInfo.careerId = LoginUserInfo.playerInfo.careerId;
@@ -72,19 +78,29 @@ public class SceneManager : MonoBehaviour {
             playerInfo.detail.currentMp = careerLevel.maxMp;
             if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
             {
-                Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, playerGo.transform);
-                FootmanRoleController input = playerGo.AddComponent<FootmanRoleController>();
+                Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
+                FootmanRoleController input = roleBase.AddComponent<FootmanRoleController>();
             }
             else
             {
-                FootmanAIController aiInput = playerGo.AddComponent<FootmanAIController>();
+                FootmanAIController aiInput = roleBase.AddComponent<FootmanAIController>();
             }
             
-            playersDict[i] = playerGo;
+            playersDict[i] = roleBase;
 
             i++;
             
         }
     }
-	
+
+    private void HandleModelInfo()
+    {
+        //初始化模型数据
+        modelDict = new Dictionary<string, GameObject>();
+        foreach (GameObject item in models)
+        {
+            modelDict[item.name] = item;
+        }
+    }
+
 }

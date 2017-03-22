@@ -12,8 +12,9 @@ public class FootmanRoleFight : MonoBehaviour
     private SimpleColorSlider mpSlider;
 
     //private CapsuleCollider bodyCollider;
-    private CapsuleCollider swordCollider;
-    private CapsuleCollider[] colliders;
+    private Collider _weaponCollider;
+    public Collider weaponCollider { private set; get; }
+    //private CapsuleCollider[] colliders;
 
     private bool _skillBegain;
     public bool skillBegain { private set; get; }
@@ -32,10 +33,10 @@ public class FootmanRoleFight : MonoBehaviour
         healthSlider.maxValue = playerInfo.detail.currentHp;
         mpSlider.maxValue = playerInfo.detail.currentMp;
 
-        colliders = GetComponentsInChildren<CapsuleCollider>();
-        foreach (CapsuleCollider item in colliders)
+        Collider[] colliders = GetComponentsInChildren<CapsuleCollider>();
+        foreach (Collider item in colliders)
         {
-            if (item.gameObject.tag == "Weapon") swordCollider = item;
+            if (item.gameObject.tag == "Weapon") weaponCollider = item;
         }
     }
 
@@ -60,13 +61,13 @@ public class FootmanRoleFight : MonoBehaviour
         skillBegain = begain;
         if (skillBegain)
         {
-            ChangeColliderState(true);
+            ChangeWeaponColliderState(weaponCollider, true);
             //Debug.Log("开始技能");
         }
         else//没有砍人时也要关闭
         {
             
-            ChangeColliderState(false);
+            ChangeWeaponColliderState(weaponCollider, false);
             //Debug.Log("结束技能");
         }
     }
@@ -77,22 +78,27 @@ public class FootmanRoleFight : MonoBehaviour
         //Debug.Log(other.gameObject.tag+"   "+ skillBegain);
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (other.gameObject.tag == "Weapon")
+            //Debug.Log("攻击中");
+            GameObject enemy = other.gameObject;//以武器所在gameobject为中心
+            CheckActionTouch checkTouch = enemy.GetComponentInParent<CheckActionTouch>();
+            FootmanRoleController role = enemy.GetComponentInParent<FootmanRoleController>();
+            if (checkTouch != null && role != null)
             {
-                //Debug.Log(other.gameObject.tag);
-                ChangeColliderState(false);
-                GameObject enemy = other.gameObject;
-                FootmanRoleController role = enemy.GetComponentInParent<FootmanRoleController>();
-                SkillLevelItem enemySkill = role.skillInfo;
-                TakeDamage(enemySkill.damageHp);
+                //Debug.Log("值 ！= null");
+                if (role.skillInfo.id == checkTouch.skillId)//确定碰撞的同一个技能
+                {
+                    FootmanRoleFight fight = enemy.GetComponentInParent<FootmanRoleFight>();
+                    if (fight != null)
+                    {
+                        //Debug.Log("打中");
+                        ChangeWeaponColliderState(fight.weaponCollider, false);
+                        TakeDamage(role.skillInfo.damageHp);
+                    }
+                }
             }
         }
     }
 
-    void TouchEnemy(int skillId)
-    {
-        Debug.Log("攻击：" + skillId);
-    }
 
     private void TakeDamage(float amount)
     {
@@ -105,12 +111,9 @@ public class FootmanRoleFight : MonoBehaviour
         }
     }
 
-    private void ChangeColliderState(bool state)
+    public void ChangeWeaponColliderState(Collider weapon, bool state)
     {
-        //foreach (CapsuleCollider collider in colliders)
-        //{
-        //    collider.enabled = state;
-        //}
-        swordCollider.enabled = state;
+        //把bodyCollider关了，人就掉下去了
+        weapon.enabled = state;
     }
 }
