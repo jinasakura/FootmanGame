@@ -109,7 +109,11 @@ public class FootmanStateMachine : StateMachine
         stateParams.triggerOnceAction = true;
     }
 
-
+    public void TakeDamageAction()
+    {
+        stateParams.onceActionType = (int)OnceActionType.TakeDamage;
+        stateParams.triggerOnceAction = true;
+    }
 
 
 

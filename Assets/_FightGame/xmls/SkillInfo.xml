@@ -91,4 +91,104 @@
             </level>
 		</levels>
 	</career>
+	<career>
+		<careerId>3</careerId>
+		<levels>
+			<level>
+                <id>3001</id>
+                <skillName>Left Claw Attack</skillName>
+                <damage>10</damage>
+                <level>1</level>
+                <mp>10</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>3002</id>
+                <skillName>Right Claw Attack</skillName>
+                <damage>10</damage>
+                <level>1</level>
+                <mp>10</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>3003</id>
+                <skillName>Rapid Attack</skillName>
+                <damage>20</damage>
+                <level>2</level>
+                <mp>20</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>3004</id>
+                <skillName>Cast Spell</skillName>
+                <damage>30</damage>
+                <level>3</level>
+                <mp>25</mp>
+                <passive>true</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>3005</id>
+                <skillName>Spin Attack</skillName>
+                <damage>30</damage>
+                <level>3</level>
+                <mp>25</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>3006</id>
+                <skillName>Row Attack</skillName>
+                <damage>40</damage>
+                <level>4</level>
+                <mp>30</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+		</levels>
+	</career>
+	<career>
+		<careerId>4</careerId>
+		<levels>
+			<level>
+                <id>4001</id>
+                <skillName>Arrow Attack</skillName>
+                <damage>10</damage>
+                <level>1</level>
+                <mp>10</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>4002</id>
+                <skillName>Multiple Shots Attack</skillName>
+                <damage>15</damage>
+                <level>1</level>
+                <mp>15</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>4003</id>
+                <skillName>Projectile Attack</skillName>
+                <damage>20</damage>
+                <level>2</level>
+                <mp>20</mp>
+                <passive>false</passive>
+                <skillType>1</skillType>
+            </level>
+            <level>
+                <id>4004</id>
+                <skillName>Cast Spell</skillName>
+                <damage>30</damage>
+                <level>3</level>
+                <mp>25</mp>
+                <passive>true</passive>
+                <skillType>1</skillType>
+            </level>
+		</levels>
+	</career>
 </info>

@@ -2,7 +2,6 @@
 
 public class CameraFacingBillboard : MonoBehaviour
 {
-    [SerializeField]
     private Camera faceCamera;
 
     void Start()

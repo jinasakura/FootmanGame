@@ -3,8 +3,7 @@ using System.Collections;
 
 public class FootmanRoleFight : MonoBehaviour
 {
-    //private SkillLevelItem _skillInfo;
-    //public SkillLevelItem skillInfo {private set; get; }
+    private FootmanStateMachine character;
 
     private PlayerInfo playerInfo;
 
@@ -22,6 +21,7 @@ public class FootmanRoleFight : MonoBehaviour
     void Start()
     {
         playerInfo = GetComponent<PlayerInfo>();
+        character = GetComponent<FootmanStateMachine>();
 
         SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
         foreach (SimpleColorSlider slider in sliders)
@@ -36,7 +36,11 @@ public class FootmanRoleFight : MonoBehaviour
         Collider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         foreach (Collider item in colliders)
         {
-            if (item.gameObject.tag == "Weapon") weaponCollider = item;
+            if (item.gameObject.tag == "Weapon")
+            {
+                weaponCollider = item;
+                weaponCollider.enabled = false;
+            }
         }
     }
 
@@ -47,6 +51,7 @@ public class FootmanRoleFight : MonoBehaviour
         //float amount = skillInfo.damageHp;
         mpSlider.UpdateValue(mp);
         playerInfo.detail.DeductMp(mp);
+        //character.TakeDamageAction();
 
         if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
         {
@@ -93,6 +98,7 @@ public class FootmanRoleFight : MonoBehaviour
                         //Debug.Log("打中");
                         ChangeWeaponColliderState(fight.weaponCollider, false);
                         TakeDamage(role.skillInfo.damageHp);
+                        //enemy.GetComponentInParent<FootmanStateMachine>().TakeDamageAction();
                     }
                 }
             }

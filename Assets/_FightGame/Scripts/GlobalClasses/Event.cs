@@ -19,6 +19,7 @@ public class MainSceneEvent
 
     public static string UserMpChange = "UserMpChange";
 
+
 }
 
 public class StateMachineEvent
