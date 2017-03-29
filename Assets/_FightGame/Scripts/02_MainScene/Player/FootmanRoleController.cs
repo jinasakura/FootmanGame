@@ -20,8 +20,17 @@ public class FootmanRoleController : RoleInputController
     [SerializeField]
     private float rotationSensitivity = 8f;//人物左右旋转系数
 
-
     private Camera playerCamera;
+
+    //public bool CheckTouchedInFight()
+    //{
+    //    return fight.CheckSkillTouched();
+    //}
+
+    public void RoleTakeDamage()
+    {
+        character.TakeDamageAction();
+    }
 
     protected override void init()
     {

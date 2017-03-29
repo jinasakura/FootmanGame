@@ -3,8 +3,7 @@ using System.Collections;
 
 public class FootmanRoleFight : MonoBehaviour
 {
-    private FootmanStateMachine character;
-
+    
     private PlayerInfo playerInfo;
 
     private SimpleColorSlider healthSlider;
@@ -21,7 +20,6 @@ public class FootmanRoleFight : MonoBehaviour
     void Start()
     {
         playerInfo = GetComponent<PlayerInfo>();
-        character = GetComponent<FootmanStateMachine>();
 
         SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
         foreach (SimpleColorSlider slider in sliders)
@@ -67,15 +65,23 @@ public class FootmanRoleFight : MonoBehaviour
         if (skillBegain)
         {
             ChangeWeaponColliderState(weaponCollider, true);
-            //Debug.Log("开始技能");
         }
         else//没有砍人时也要关闭
         {
             
             ChangeWeaponColliderState(weaponCollider, false);
-            //Debug.Log("结束技能");
         }
     }
+
+    //public bool CheckSkillTouched()
+    //{
+    //    return checkTouch.touched;
+    //}
+
+    //public int CheckTouchedSkillId()
+    //{
+    //    return checkTouch.skillId;
+    //}
 
     //这里只检测受击对象
     void OnTriggerStay(Collider other)
@@ -85,23 +91,27 @@ public class FootmanRoleFight : MonoBehaviour
         {
             //Debug.Log("攻击中");
             GameObject enemy = other.gameObject;//以武器所在gameobject为中心
-            CheckActionTouch checkTouch = enemy.GetComponentInParent<CheckActionTouch>();
+            //CheckActionTouch checkTouch = enemy.GetComponentInParent<CheckActionTouch>();
             FootmanRoleController role = enemy.GetComponentInParent<FootmanRoleController>();
-            if (checkTouch != null && role != null)
-            {
-                //Debug.Log("值 ！= null");
-                if (role.skillInfo.id == checkTouch.skillId)//确定碰撞的同一个技能
-                {
-                    FootmanRoleFight fight = enemy.GetComponentInParent<FootmanRoleFight>();
-                    if (fight != null)
-                    {
-                        //Debug.Log("打中");
-                        ChangeWeaponColliderState(fight.weaponCollider, false);
-                        TakeDamage(role.skillInfo.damageHp);
-                        //enemy.GetComponentInParent<FootmanStateMachine>().TakeDamageAction();
-                    }
-                }
-            }
+            //if (role && role.CheckTouchedInFight())
+            //{
+            //    Debug.Log("peng");
+            //}
+            //if (checkTouch != null && role != null)
+            //{
+            //    //Debug.Log("值 ！= null");
+            //    if (role.skillInfo.id == checkTouch.skillId)//确定碰撞的同一个技能
+            //    {
+            //        FootmanRoleFight fight = enemy.GetComponentInParent<FootmanRoleFight>();
+            //        if (fight != null)
+            //        {
+            //            //Debug.Log("打中");
+            //            ChangeWeaponColliderState(fight.weaponCollider, false);
+            //            TakeDamage(role.skillInfo.damageHp);
+            //            //enemy.GetComponentInParent<FootmanStateMachine>().TakeDamageAction();
+            //        }
+            //    }
+            //}
         }
     }
 

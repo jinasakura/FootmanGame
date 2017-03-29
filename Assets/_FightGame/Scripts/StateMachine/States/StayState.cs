@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StayState : RoleState
+public class StayState : NewState
 {
+    public StayState(Animator ani)
+    {
+        animator = ani;
+    }
 
     public override void Enter()
     {

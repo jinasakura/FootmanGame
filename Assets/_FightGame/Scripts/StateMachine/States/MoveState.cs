@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MoveState : RoleState
+public class MoveState : NewState
 {
 
     //private Animator animator;
@@ -9,17 +9,20 @@ public class MoveState : RoleState
     [SerializeField]
     private float speedMultiplier = 2f;
 
-    private Rigidbody rb;
+    private Rigidbody rigidbody;
     
     private bool canMove = false;
 
-
-    protected override void init()
+    //protected override void init()
+    //{
+    //    base.init();
+    //    rb = GetComponent<Rigidbody>();
+    //    rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+    //}
+    public MoveState(Animator ani,Rigidbody rb)
     {
-        base.init();
-        rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
+        animator = ani;
+        rigidbody = rb;
     }
 
     void FixedUpdate()
@@ -32,7 +35,7 @@ public class MoveState : RoleState
 
     private void PerformMovement()
     {
-        rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
+        rigidbody.MovePosition(rigidbody.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
     }
 
     public override void Enter()
