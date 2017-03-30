@@ -18,6 +18,12 @@ public class RoleStateMachine : MonoBehaviour
     private StateType _currentStateType;
     public StateType currentStateType { private set; get; }
 
+    private NewState _currentState;
+    public NewState currentState {
+        get { return _currentState; }
+        set { Transition(value); }
+    }
+
     private bool _inTransition = false;
     private StateMachineParams stateParams;
     private Animator animator;
@@ -27,22 +33,13 @@ public class RoleStateMachine : MonoBehaviour
     void Start()
     {
         stateParams = new StateMachineParams();
+        stateDict = new Dictionary<StateType, NewState>();
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-
-        initStates();
     }
 
-    private void initStates()
-    {
-        stateDict = new Dictionary<StateType, NewState>();
-        stateDict[StateType.Stay] = new StayState(GetComponent<Animator>());
-    }
 
-    void FixedUpdate()
-    {
-        ChangeState<State>();
-    }
 
     public void Move(float h, float v)
     {
@@ -60,66 +57,73 @@ public class RoleStateMachine : MonoBehaviour
             stateParams.speed = Mathf.Max(tmpH, tmpV);
         }
         //Debug.Log("---状态机前---playerId->" + playerName + "===speed->" + stateParams.speed);
-
     }
 
-    
+    void FixedUpdate()
+    {
+        ChangeState();
+    }
 
     public NewState GetState()
     {
         NewState target = stateDict[currentStateType];
         if (target == null)
         {
+            Animator ani = GetComponent<Animator>();
             switch (currentStateType)
             {
                 case StateType.Stay:
-                    target= new StayState(GetComponent<Animator>());
+                    target= new StayState(ani);
                     break;
                 case StateType.Move:
-                    target = new MoveState(GetComponent<Animator>(),GetComponent<Rigidbody>());
+                    Rigidbody rbd = GetComponent<Rigidbody>();
+                    target = new MoveState(ani, rbd);
                     break;
                 case StateType.Die:
+                    target = new DieState(ani);
                     break;
                 case StateType.NomalOnceAction:
+                    target = new OnceActionState(ani);
                     break;
                 case StateType.Stuck:
+                    target = new StruckState(ani);
                     break;
             }
+            stateDict[currentStateType] = target;
         }
         return target;
     }
 
-    public void ChangeState<T>()
+    public void ChangeState()
     {
-        //if (currentState != null) currentState.enabled = false;
         if (stateParams.isLive)
         {
             if (stateParams.triggerOnceAction)
             {
                 if (stateParams.onceActionType == (int)OnceActionType.TakeDamage)//受击
                 {
-                    //currentState = GetState<StruckState>();
+                    currentStateType = StateType.Stuck;
                 }
                 else
                 {
-                    //currentState = GetState<OnceActionState>();
+                    currentStateType = StateType.NomalOnceAction;
                 }
             }
             else if (stateParams.canMove())
             {
-                //currentState = GetState<MoveState>();
+                currentStateType = StateType.Move;
             }
             else
             {
-                //currentState = GetState<StayState>();
+                currentStateType = StateType.Stay;
             }
         }
         else
         {
-            //currentState = GetState<DieState>();
+            currentStateType = StateType.Die;
         }
-
-        //currentState.HandleParamers(stateParams);
+        currentState = GetState();
+        currentState.HandleParamers(stateParams);
     }
 
     public void Die()
@@ -144,17 +148,17 @@ public class RoleStateMachine : MonoBehaviour
         stateParams.triggerOnceAction = true;
     }
 
-    private void Transition(StateType value)
+    private void Transition(NewState value)
     {
-        if (currentStateType == value || _inTransition) return;
+        if (_currentState == value || _inTransition) return;
 
         _inTransition = true;
 
-        //if (_currentState != null) _currentState.Exit();
+        if (_currentState != null) _currentState.Exit();
 
-        //_currentState = value;
+        _currentState = value;
 
-        //if (_currentState != null) _currentState.Enter();
+        if (_currentState != null) _currentState.Enter();
 
         _inTransition = false;
     }

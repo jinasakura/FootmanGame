@@ -6,11 +6,9 @@ using System.Collections;
 /// </summary>
 public class StruckState : OnceActionState {
 
-    protected override void init()
+    public StruckState(Animator ani) : base(ani)
     {
-        base.init();
-
-        //特效
+        animator = ani;
     }
 
     public override void HandleParamers(object info)

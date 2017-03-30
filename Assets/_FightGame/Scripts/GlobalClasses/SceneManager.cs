@@ -79,11 +79,11 @@ public class SceneManager : MonoBehaviour {
             if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
             {
                 Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
-                FootmanRoleController input = roleBase.AddComponent<FootmanRoleController>();
+                UserCameraController input = roleBase.AddComponent<UserCameraController>();
             }
             else
             {
-                FootmanAIController aiInput = roleBase.AddComponent<FootmanAIController>();
+                AIMoveController aiInput = roleBase.AddComponent<AIMoveController>();
             }
             
             playersDict[i] = roleBase;

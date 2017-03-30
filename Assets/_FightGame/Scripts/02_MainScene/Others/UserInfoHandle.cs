@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// 主屏幕上左上角的血条和蓝条
+/// </summary>
 public class UserInfoHandle : MonoBehaviour {
 
     [SerializeField]

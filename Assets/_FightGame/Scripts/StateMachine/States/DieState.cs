@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 
-public class DieState : RoleState
+public class DieState : NewState
 {
+    public DieState(Animator ani) : base(ani)
+    {
+        animator = ani;
+    }
 
     public override void HandleParamers(object info)
     {

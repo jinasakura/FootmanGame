@@ -5,10 +5,10 @@ public abstract class NewState  {
 
     protected Animator animator;
     protected StateMachineParams stateParams;
-    //public NewState(Animator ani)
-    //{
-    //    animator = ani;
-    //}
+    public NewState(Animator ani)
+    {
+        animator = ani;
+    }
 
     public virtual void Enter()
     {

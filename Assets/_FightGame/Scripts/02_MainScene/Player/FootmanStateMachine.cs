@@ -3,7 +3,7 @@ using System;
 
 
 /// <summary>
-/// 判断状态机
+/// 判断状态机（废弃）
 /// </summary>
 public class FootmanStateMachine : StateMachine
 {
@@ -71,25 +71,25 @@ public class FootmanStateMachine : StateMachine
             {
                 if (stateParams.onceActionType == 0)//受击
                 {
-                    currentState = GetState<StruckState>();
+                    //currentState = GetState<StruckState>();
                 }
                 else
                 {
-                    currentState = GetState<OnceActionState>();
+                    //currentState = GetState<OnceActionState>();
                 }
             }
             else if (stateParams.canMove())
             {
-                currentState = GetState<MoveState>();
+                //currentState = GetState<MoveState>();
             }
             else
             {
-                currentState = GetState<StayState>();
+                //currentState = GetState<StayState>();
             }
         }
         else
         {
-            currentState = GetState<DieState>();
+            //currentState = GetState<DieState>();
         }
 
         //currentState.enabled = true;

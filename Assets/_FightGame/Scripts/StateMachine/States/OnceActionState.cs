@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnceActionState : RoleState
+public class OnceActionState : NewState
 {
+    public OnceActionState(Animator ani) : base(ani)
+    {
+        animator = ani;
+    }
+
     public override void HandleParamers(object info)
     {
         base.HandleParamers(info);

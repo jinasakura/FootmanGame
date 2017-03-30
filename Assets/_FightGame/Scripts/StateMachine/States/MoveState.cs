@@ -19,7 +19,7 @@ public class MoveState : NewState
     //    rb = GetComponent<Rigidbody>();
     //    rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     //}
-    public MoveState(Animator ani,Rigidbody rb)
+    public MoveState(Animator ani,Rigidbody rb):base(ani)
     {
         animator = ani;
         rigidbody = rb;

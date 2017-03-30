@@ -3,16 +3,16 @@ using System.Collections;
 
 public class StayState : NewState
 {
-    public StayState(Animator ani)
+    public StayState(Animator ani):base(ani)
     {
         animator = ani;
     }
 
-    public override void Enter()
-    {
-        base.Enter();
-        //Debug.Log("静止");
-    }
+    //public override void Enter()
+    //{
+    //    base.Enter();
+    //    //Debug.Log("静止");
+    //}
 
     public override void HandleParamers(object info)
     {

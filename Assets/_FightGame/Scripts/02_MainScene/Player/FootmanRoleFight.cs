@@ -92,7 +92,7 @@ public class FootmanRoleFight : MonoBehaviour
             //Debug.Log("攻击中");
             GameObject enemy = other.gameObject;//以武器所在gameobject为中心
             //CheckActionTouch checkTouch = enemy.GetComponentInParent<CheckActionTouch>();
-            FootmanRoleController role = enemy.GetComponentInParent<FootmanRoleController>();
+            UserCameraController role = enemy.GetComponentInParent<UserCameraController>();
             //if (role && role.CheckTouchedInFight())
             //{
             //    Debug.Log("peng");

@@ -3,7 +3,7 @@ using System.Collections;
 
 
 /// <summary>
-/// 检测技能动作发生期间是否碰到敌人
+/// 检测技能动作发生期间,动作属于击中的一段时间
 /// </summary>
 public class CheckActionTouch : MonoBehaviour {
 
