@@ -29,19 +29,21 @@ public class MoveState : NewState
     {
         if (canMove)
         {
-            PerformMovement();
+            //PerformMovement();
+            Debug.Log(stateParams.moveVelocity);
+            rigidbody.MovePosition(rigidbody.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
         }
     }
 
-    private void PerformMovement()
-    {
-        rigidbody.MovePosition(rigidbody.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
-    }
+    //private void PerformMovement()
+    //{
+        
+    //}
 
     public override void Enter()
     {
         base.Enter();
-        //Debug.Log("移动");
+        Debug.Log("移动");
         canMove = true;
     }
 
@@ -52,6 +54,7 @@ public class MoveState : NewState
         //目前不知道为什么会残留有数据
         animator.SetFloat("speed", stateParams.speed);
         canMove = false;
+        Debug.Log("停止移动");
     }
 
     public override void HandleParamers(object info)

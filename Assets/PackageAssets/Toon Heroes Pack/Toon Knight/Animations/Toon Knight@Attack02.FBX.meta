@@ -153,14 +153,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.471233
-        functionName: TouchEnemy
+        functionName: SkillFireStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1002
         messageOptions: 0
       - time: 0.64240783
-        functionName: LeaveEnemy
+        functionName: SkillFireEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -26,7 +26,7 @@ public class RoleMoveController : MonoBehaviour
 
     protected virtual void Init()
     {
-        character = GetComponentInChildren<RoleStateMachine>();
+        character = GetComponentInChildren<RoleStateMachine>();//在子类里控制状态机
 
         rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;

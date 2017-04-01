@@ -14,10 +14,7 @@ public class UserMoveController : RoleMoveController
         float v = Input.GetAxis("Vertical");
         //float h = UltimateJoystick.GetHorizontalAxis("Move");
         //float v = UltimateJoystick.GetVerticalAxis("Move");
-        //if (!fight.skillBegain)
-        //{
         character.Move(h, v);
-        //}
     }
 
     protected override void TurnMode()
@@ -30,15 +27,15 @@ public class UserMoveController : RoleMoveController
         }
     }
 
-    void FixedUpdate()
-    {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        //float h = UltimateJoystick.GetHorizontalAxis("Move");
-        //float v = UltimateJoystick.GetVerticalAxis("Move");
-        //if (!fight.skillBegain)
-        //{
-            character.Move(h, v);
-        //}
-    }
+    //void FixedUpdate()
+    //{
+    //    float h = Input.GetAxis("Horizontal");
+    //    float v = Input.GetAxis("Vertical");
+    //    //float h = UltimateJoystick.GetHorizontalAxis("Move");
+    //    //float v = UltimateJoystick.GetVerticalAxis("Move");
+    //    //if (!fight.skillBegain)
+    //    //{
+    //        character.Move(h, v);
+    //    //}
+    //}
 }

@@ -8,7 +8,16 @@ public class PlayerInfo : MonoBehaviour
 {
     public int playerId;
 
-    public string playerName;
+    private string _playerName;
+    public string playerName
+    {
+        get { return _playerName; }
+        set
+        {
+            _playerName = value;
+            gameObject.name = value;
+        }
+    }
 
     public string modelName;
 

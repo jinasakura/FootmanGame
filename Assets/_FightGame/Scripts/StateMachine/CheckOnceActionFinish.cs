@@ -3,12 +3,12 @@ using System.Collections;
 
 public class CheckOnceActionFinish : StateMachineBehaviour {
 
-    private FootmanRoleFight skill;
+    private RoleStateMachine role;
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (skill == null) { skill = animator.gameObject.GetComponentInParent<FootmanRoleFight>(); }
-        skill.OnSkillStateChange(true);
+        if (role == null) { role = animator.gameObject.GetComponentInParent<RoleStateMachine>(); }
+        role.OnSkillState(true);
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -19,7 +19,7 @@ public class CheckOnceActionFinish : StateMachineBehaviour {
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        skill.OnSkillStateChange(false);
+        role.OnSkillState(false);
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine

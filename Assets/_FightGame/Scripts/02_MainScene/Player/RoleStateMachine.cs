@@ -13,21 +13,22 @@ public class RoleStateMachine : MonoBehaviour
     public enum OnceActionType { TakeDamage };
 
     //public enum StayStateType { Idle, Victory, Upset, Defend };
-    public enum StateType { Stay,Move,NomalOnceAction,Die,Stuck };
+    //public enum StateType { Stay,Move,NomalOnceAction,Die,Stuck };
 
-    private StateType _currentStateType;
-    public StateType currentStateType { private set; get; }
+    //private StateType _currentStateType;
+    //public StateType currentStateType { private set; get; }
 
-    private NewState _currentState;
-    public NewState currentState {
-        get { return _currentState; }
-        set { Transition(value); }
-    }
+    //private NewState _currentState;
+    //public NewState currentState {
+    //    get { return _currentState; }
+    //    set { Transition(value); }
+    //}
 
-    private bool _inTransition = false;
+    private bool inTransition = false;
+    private bool onSkill = false;//
     private StateMachineParams stateParams;
-    private Animator animator;
-    private Rigidbody rb;
+    //private Animator animator;
+    //private Rigidbody rb;
     private Dictionary<StateType, NewState> stateDict;
 
     void Start()
@@ -35,14 +36,19 @@ public class RoleStateMachine : MonoBehaviour
         stateParams = new StateMachineParams();
         stateDict = new Dictionary<StateType, NewState>();
 
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+        //animator = GetComponent<Animator>();
+        //rb = GetComponent<Rigidbody>();
+        RoleSkill skill = GetComponentInParent<RoleSkill>();
+        if (skill != null)
+        {
+            skill.OnSkillTrigger += TriggerSkill;
+        }
     }
-
-
 
     public void Move(float h, float v)
     {
+        if (onSkill) return;//技能和移动是互斥的
+
         float tmpH = Mathf.Abs(h);
         float tmpV = Mathf.Abs(v);
         if (tmpH <= STAY_OFFSET && tmpV <= STAY_OFFSET)
@@ -66,17 +72,17 @@ public class RoleStateMachine : MonoBehaviour
 
     public NewState GetState()
     {
-        NewState target = stateDict[currentStateType];
-        if (target == null)
+        if (!stateDict.ContainsKey(currentStateType))
         {
+            NewState target = null;
             Animator ani = GetComponent<Animator>();
             switch (currentStateType)
             {
                 case StateType.Stay:
-                    target= new StayState(ani);
+                    target = new StayState(ani);
                     break;
                 case StateType.Move:
-                    Rigidbody rbd = GetComponent<Rigidbody>();
+                    Rigidbody rbd = GetComponentInParent<Rigidbody>();
                     target = new MoveState(ani, rbd);
                     break;
                 case StateType.Die:
@@ -89,9 +95,9 @@ public class RoleStateMachine : MonoBehaviour
                     target = new StruckState(ani);
                     break;
             }
-            stateDict[currentStateType] = target;
+            stateDict.Add(currentStateType, target);
         }
-        return target;
+        return stateDict[currentStateType];
     }
 
     public void ChangeState()
@@ -136,8 +142,15 @@ public class RoleStateMachine : MonoBehaviour
         stateParams.isLive = true;
     }
 
+    //如果上一个技能动作还没结束不能开始下一个
+    public void OnSkillState(bool state)
+    {
+        onSkill = state;
+    }
+
     public void TriggerSkill(int skillId)
     {
+        if (onSkill) return;
         stateParams.onceActionType = skillId;
         stateParams.triggerOnceAction = true;
     }
@@ -150,9 +163,9 @@ public class RoleStateMachine : MonoBehaviour
 
     private void Transition(NewState value)
     {
-        if (_currentState == value || _inTransition) return;
+        if (_currentState == value || inTransition) return;
 
-        _inTransition = true;
+        inTransition = true;
 
         if (_currentState != null) _currentState.Exit();
 
@@ -160,7 +173,7 @@ public class RoleStateMachine : MonoBehaviour
 
         if (_currentState != null) _currentState.Enter();
 
-        _inTransition = false;
+        inTransition = false;
     }
 
 

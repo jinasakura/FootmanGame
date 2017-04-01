@@ -9,7 +9,7 @@ public class RoleHUDController : MonoBehaviour
 
     void Start()
     {
-        playerInfo = GetComponent<PlayerInfo>();
+        playerInfo = GetComponentInParent<PlayerInfo>();
 
         SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
         foreach (SimpleColorSlider slider in sliders)

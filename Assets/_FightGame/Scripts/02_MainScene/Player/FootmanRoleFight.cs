@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// (废弃)
+/// </summary>
 public class FootmanRoleFight : MonoBehaviour
 {
     

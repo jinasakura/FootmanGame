@@ -38,7 +38,7 @@ public class SkillButton : MonoBehaviour {
 
     void OnTriggerSkill()
     {
-        object info = (object)skillName;
-        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.ReleaseSkill, info);
+        //object info = (object)skillName;
+        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.ReleaseSkill, skillName);
     }
 }

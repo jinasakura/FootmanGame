@@ -19,12 +19,12 @@ public class FootmanStateMachine : StateMachine
     private string _playerName;
     public string playerName { set; private get; }
 
-    private CheckActionTouch checkTouch;
+    private SkillActionFire checkTouch;
 
     void Start()
     {
         stateParams = new StateMachineParams();
-        checkTouch = GetComponent<CheckActionTouch>();
+        checkTouch = GetComponent<SkillActionFire>();
     }
 
     void FixedUpdate()

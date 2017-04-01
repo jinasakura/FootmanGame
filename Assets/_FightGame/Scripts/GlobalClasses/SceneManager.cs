@@ -60,13 +60,13 @@ public class SceneManager : MonoBehaviour {
         playersDict = new Dictionary<int, GameObject>();
 
         int i = 0;
-        GameObject playerGo;
+        GameObject playerModel;
         PlayerInfo playerInfo;
         GameObject roleBase;
         foreach (Transform item in respawns)
         {
             roleBase = Instantiate(roleBasePrefab, item.transform.position, item.transform.rotation) as GameObject;
-            playerGo = Instantiate(model, item.transform.position, item.transform.rotation, roleBase.transform) as GameObject;
+            playerModel = Instantiate(model, item.transform.position, item.transform.rotation, roleBase.transform) as GameObject;
             playerInfo = roleBase.GetComponent<PlayerInfo>();
             playerInfo.playerId = i;
             playerInfo.playerName = "Player " + i;
@@ -79,11 +79,11 @@ public class SceneManager : MonoBehaviour {
             if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
             {
                 Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
-                UserCameraController input = roleBase.AddComponent<UserCameraController>();
+                roleBase.AddComponent<UserMoveController>();
             }
             else
             {
-                AIMoveController aiInput = roleBase.AddComponent<AIMoveController>();
+                roleBase.AddComponent<AIMoveController>();
             }
             
             playersDict[i] = roleBase;
