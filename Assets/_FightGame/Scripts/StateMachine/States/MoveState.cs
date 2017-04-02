@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MoveState : NewState
+public class MoveState : RoleState
 {
 
     //private Animator animator;
@@ -9,41 +9,37 @@ public class MoveState : NewState
     [SerializeField]
     private float speedMultiplier = 2f;
 
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
     
     private bool canMove = false;
 
-    //protected override void init()
-    //{
-    //    base.init();
-    //    rb = GetComponent<Rigidbody>();
-    //    rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-    //}
-    public MoveState(Animator ani,Rigidbody rb):base(ani)
+    protected override void init()
     {
-        animator = ani;
-        rigidbody = rb;
+        base.init();
+        rb = GetComponentInParent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
+
+    //public MoveState(Animator ani,Rigidbody rb):base(ani)
+    //{
+    //    animator = ani;
+    //    rigidbody = rb;
+    //}
 
     void FixedUpdate()
     {
         if (canMove)
         {
             //PerformMovement();
-            Debug.Log(stateParams.moveVelocity);
-            rigidbody.MovePosition(rigidbody.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + stateParams.moveVelocity * speedMultiplier * Time.fixedDeltaTime);
+            //Debug.Log(rb.position);
         }
     }
-
-    //private void PerformMovement()
-    //{
-        
-    //}
 
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("移动");
+        //Debug.Log("移动");
         canMove = true;
     }
 
@@ -54,7 +50,7 @@ public class MoveState : NewState
         //目前不知道为什么会残留有数据
         animator.SetFloat("speed", stateParams.speed);
         canMove = false;
-        Debug.Log("停止移动");
+        //Debug.Log("停止移动");
     }
 
     public override void HandleParamers(object info)

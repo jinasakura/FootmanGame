@@ -3,11 +3,11 @@ using System.Collections;
 
 public class CheckOnceActionFinish : StateMachineBehaviour {
 
-    private RoleStateMachine role;
+    private FootmanStateMachine role;
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (role == null) { role = animator.gameObject.GetComponentInParent<RoleStateMachine>(); }
+        if (role == null) { role = animator.gameObject.GetComponentInParent<FootmanStateMachine>(); }
         role.OnSkillState(true);
     }
 

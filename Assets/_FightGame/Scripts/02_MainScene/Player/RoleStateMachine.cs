@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 
 /// <summary>
-/// 新版判断状态机
+/// 新版判断状态机（可以废弃了）
 /// </summary>
 public class RoleStateMachine : MonoBehaviour
 {
@@ -13,16 +13,17 @@ public class RoleStateMachine : MonoBehaviour
     public enum OnceActionType { TakeDamage };
 
     //public enum StayStateType { Idle, Victory, Upset, Defend };
-    //public enum StateType { Stay,Move,NomalOnceAction,Die,Stuck };
+    public enum StateType { Stay, Move, NomalOnceAction, Die, Stuck };
 
-    //private StateType _currentStateType;
-    //public StateType currentStateType { private set; get; }
+    private StateType _currentStateType;
+    public StateType currentStateType { private set; get; }
 
-    //private NewState _currentState;
-    //public NewState currentState {
-    //    get { return _currentState; }
-    //    set { Transition(value); }
-    //}
+    private NewState _currentState;
+    public NewState currentState
+    {
+        get { return _currentState; }
+        set { Transition(value); }
+    }
 
     private bool inTransition = false;
     private bool onSkill = false;//
@@ -74,28 +75,28 @@ public class RoleStateMachine : MonoBehaviour
     {
         if (!stateDict.ContainsKey(currentStateType))
         {
-            NewState target = null;
-            Animator ani = GetComponent<Animator>();
-            switch (currentStateType)
-            {
-                case StateType.Stay:
-                    target = new StayState(ani);
-                    break;
-                case StateType.Move:
-                    Rigidbody rbd = GetComponentInParent<Rigidbody>();
-                    target = new MoveState(ani, rbd);
-                    break;
-                case StateType.Die:
-                    target = new DieState(ani);
-                    break;
-                case StateType.NomalOnceAction:
-                    target = new OnceActionState(ani);
-                    break;
-                case StateType.Stuck:
-                    target = new StruckState(ani);
-                    break;
-            }
-            stateDict.Add(currentStateType, target);
+            //NewState target = null;
+            //Animator ani = GetComponent<Animator>();
+            //switch (currentStateType)
+            //{
+            //    case StateType.Stay:
+            //        target = new StayState(ani);
+            //        break;
+            //    case StateType.Move:
+            //        Rigidbody rbd = GetComponentInParent<Rigidbody>();
+            //        target = new MoveState(ani, rbd);
+            //        break;
+            //    case StateType.Die:
+            //        target = new DieState(ani);
+            //        break;
+            //    case StateType.NomalOnceAction:
+            //        target = new OnceActionState(ani);
+            //        break;
+            //    case StateType.Stuck:
+            //        target = new StruckState(ani);
+            //        break;
+            //}
+            //stateDict.Add(currentStateType, target);
         }
         return stateDict[currentStateType];
     }

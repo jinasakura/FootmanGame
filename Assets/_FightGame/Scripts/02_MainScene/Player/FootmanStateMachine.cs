@@ -3,7 +3,9 @@ using System;
 
 
 /// <summary>
-/// 判断状态机（废弃）
+/// 判断状态机（不能不用）
+/// 为什么还是用状态继承自MonoBehaviour的？
+/// 因为
 /// </summary>
 public class FootmanStateMachine : StateMachine
 {
@@ -18,13 +20,21 @@ public class FootmanStateMachine : StateMachine
 
     private string _playerName;
     public string playerName { set; private get; }
+    //判断是否处于一个技能中
+    private bool onSkill = false;
 
     private SkillActionFire checkTouch;
 
     void Start()
     {
         stateParams = new StateMachineParams();
-        checkTouch = GetComponent<SkillActionFire>();
+        playerName = GetComponentInParent<PlayerInfo>().playerName;
+        //checkTouch = GetComponent<SkillActionFire>();
+        RoleSkill skill = GetComponentInParent<RoleSkill>();
+        if (skill != null)
+        {
+            skill.OnSkillTrigger += TriggerSkill;
+        }
     }
 
     void FixedUpdate()
@@ -34,9 +44,11 @@ public class FootmanStateMachine : StateMachine
 
     public void Move(float h, float v)
     {
+        //if (onSkill) return;//技能和移动是互斥的,但是千万不能写这，否则就没法转化到其他状态了
+
         float tmpH = Mathf.Abs(h);
         float tmpV = Mathf.Abs(v);
-        if (tmpH <= STAY_OFFSET && tmpV <= STAY_OFFSET)
+        if ((tmpH <= STAY_OFFSET && tmpV <= STAY_OFFSET) || onSkill)
         {
             stateParams.speed = 0;
             stateParams.moveVelocity = Vector3.zero;
@@ -71,20 +83,20 @@ public class FootmanStateMachine : StateMachine
             {
                 if (stateParams.onceActionType == 0)//受击
                 {
-                    //currentState = GetState<StruckState>();
+                    currentState = GetState<StruckState>();
                 }
                 else
                 {
-                    //currentState = GetState<OnceActionState>();
+                    currentState = GetState<OnceActionState>();
                 }
             }
             else if (stateParams.canMove())
             {
-                //currentState = GetState<MoveState>();
+                currentState = GetState<MoveState>();
             }
             else
             {
-                //currentState = GetState<StayState>();
+                currentState = GetState<StayState>();
             }
         }
         else
@@ -108,6 +120,7 @@ public class FootmanStateMachine : StateMachine
 
     public void TriggerSkill(int skillId)
     {
+        if (onSkill) return;
         stateParams.onceActionType = skillId;
         stateParams.triggerOnceAction = true;
     }
@@ -118,7 +131,11 @@ public class FootmanStateMachine : StateMachine
         stateParams.triggerOnceAction = true;
     }
 
-
+    //如果上一个技能动作还没结束不能开始下一个
+    public void OnSkillState(bool state)
+    {
+        onSkill = state;
+    }
 
 
 }

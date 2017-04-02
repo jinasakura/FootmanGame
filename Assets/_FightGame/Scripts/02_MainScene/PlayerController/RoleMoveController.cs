@@ -10,7 +10,7 @@ public class RoleMoveController : MonoBehaviour
     [SerializeField]
     protected float rotationSensitivity = 8f;//人物左右旋转系数
 
-    protected RoleStateMachine character;
+    protected FootmanStateMachine character;
     protected Rigidbody rb;
 
     void Start()
@@ -26,7 +26,7 @@ public class RoleMoveController : MonoBehaviour
 
     protected virtual void Init()
     {
-        character = GetComponentInChildren<RoleStateMachine>();//在子类里控制状态机
+        character = GetComponentInChildren<FootmanStateMachine>();//在子类里控制状态机
 
         rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;

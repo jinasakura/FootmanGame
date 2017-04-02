@@ -6,10 +6,10 @@ using System.Collections;
 /// </summary>
 public class StruckState : OnceActionState {
 
-    public StruckState(Animator ani) : base(ani)
-    {
-        animator = ani;
-    }
+    //public StruckState(Animator ani) : base(ani)
+    //{
+    //    animator = ani;
+    //}
 
     public override void HandleParamers(object info)
     {
