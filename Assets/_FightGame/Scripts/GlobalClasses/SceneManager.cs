@@ -29,20 +29,20 @@ public class SceneManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject[] models;
+    [SerializeField]
+    private Transform[] respawns;
+
+    [SerializeField]
+    private GameObject[] players;
 
     //将模型名和模型对应起来
-    public Dictionary<string, GameObject> modelDict;
+    public Dictionary<string, GameObject> modelDict = new Dictionary<string, GameObject>();
+    private Dictionary<int, GameObject> playersDict = new Dictionary<int, GameObject>();
+    private Dictionary<int, PlayerInfo> playerInfoDict = new Dictionary<int, PlayerInfo>();
 
-    public Transform[] respawns;
-
-    [HideInInspector]
-    public GameObject[] players;
-
-    private Dictionary<int, GameObject> playersDict;
-    //据说要在统一一个地方去刷新所有动作？
-
-    void Awake ()
+    void Start ()
     {
+
         HandleModelInfo();
         //随机N个地点(随后加上)
         initAllPlayers();
@@ -54,10 +54,16 @@ public class SceneManager : MonoBehaviour {
         return player.GetComponent<FootmanStateMachine>();
     }
 
+    public PlayerInfo GetPlayerInfoById(int playerId)
+    {
+        return playerInfoDict[playerId];
+    }
+
     private void initAllPlayers()
     {
-        GameObject model = modelDict[LoginUserInfo.playerInfo.modelName];
-        playersDict = new Dictionary<int, GameObject>();
+        GameObject model = modelDict[LoginUserInfo.modelName];
+        //playersDict = new Dictionary<int, GameObject>();
+        //playerInfoDict = new Dictionary<int, PlayerInfo>();
 
         int i = 0;
         GameObject playerModel;
@@ -70,13 +76,13 @@ public class SceneManager : MonoBehaviour {
             playerInfo = roleBase.GetComponent<PlayerInfo>();
             playerInfo.playerId = i;
             playerInfo.playerName = "Player " + i;
-            playerInfo.careerId = LoginUserInfo.playerInfo.careerId;
+            playerInfo.careerId = LoginUserInfo.careerId;
             playerInfo.detail = new PlayerDetailInfo();
             playerInfo.detail.level = 1;
             CareerLevelItem careerLevel = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.detail.level);
             playerInfo.detail.currentHp = careerLevel.maxHp;
             playerInfo.detail.currentMp = careerLevel.maxMp;
-            if (LoginUserInfo.playerInfo.playerId == playerInfo.playerId)
+            if (LoginUserInfo.playerId == playerInfo.playerId)
             {
                 Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
                 roleBase.AddComponent<UserMoveController>();
@@ -87,10 +93,11 @@ public class SceneManager : MonoBehaviour {
             }
             
             playersDict[i] = roleBase;
+            playerInfoDict[playerInfo.playerId] = playerInfo;
 
             i++;
-            
         }
+        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.MainSceneIsReady);
     }
 
     private void HandleModelInfo()

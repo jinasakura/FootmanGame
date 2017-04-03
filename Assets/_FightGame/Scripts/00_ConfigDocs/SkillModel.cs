@@ -1,10 +1,5 @@
 ﻿using System.Collections.Generic;
 
-public class SkillTpye
-{
-    public enum Attack { Single=0,Group,Ground };
-}
-
 public class SkillLevelItem
 {
     public int id;

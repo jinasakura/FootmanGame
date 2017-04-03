@@ -4,11 +4,18 @@
 /// </summary>
 public class LoginUserInfo {
 
+    public static int playerId;
 
-    public static PlayerInfo playerInfo;
+    public static string playerName;
 
-    public static CareerLevelItem careerLevel;
+    public static int careerId;
 
-    public static List<SkillLevelItem> skillLevels;
+    public static string modelName;
+
+    //public static PlayerInfo playerInfo;
+
+    //public static CareerLevelItem careerLevel;
+
+    //public static List<SkillLevelItem> skillLevels;
 
 }

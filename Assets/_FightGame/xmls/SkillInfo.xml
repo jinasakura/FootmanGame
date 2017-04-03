@@ -28,7 +28,7 @@
                 <level>2</level>
                 <mp>20</mp>
                 <passive>false</passive>
-                <skillType>1</skillType>
+                <skillType>2</skillType>
             </level>
             <level>
                 <id>1004</id>
@@ -37,7 +37,7 @@
                 <level>3</level>
                 <mp>25</mp>
                 <passive>true</passive>
-                <skillType>1</skillType>
+                <skillType>3</skillType>
             </level>
 		</levels>
 	</career>

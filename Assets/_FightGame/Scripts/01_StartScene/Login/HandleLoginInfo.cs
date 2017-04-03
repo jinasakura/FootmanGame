@@ -33,21 +33,21 @@ public class HandleLoginInfo : MonoBehaviour {
 
     private void initLoginInfo()
     {
-        LoginUserInfo.playerInfo = gameObject.AddComponent<PlayerInfo>();
+        //LoginUserInfo.playerInfo = gameObject.AddComponent<PlayerInfo>();
 
-        LoginUserInfo.playerInfo.playerId = 0;
-        LoginUserInfo.playerInfo.playerName = "Test";
-        LoginUserInfo.playerInfo.detail = new PlayerDetailInfo();
-        LoginUserInfo.playerInfo.detail.level = 1;
+        LoginUserInfo.playerId = 0;
+        LoginUserInfo.playerName = "Test";
+        //LoginUserInfo.playerInfo.detail = new PlayerDetailInfo();
+        //LoginUserInfo.playerInfo.detail.level = 1;
     }
 
     private void ChangeCareer(CareerItem item)
     {
-        LoginUserInfo.playerInfo.careerId = item.careerId;
-        LoginUserInfo.playerInfo.modelName = item.modelName;
+        LoginUserInfo.careerId = item.careerId;
+        LoginUserInfo.modelName = item.modelName;
 
-        LoginUserInfo.careerLevel = item.GetCareerLevel(LoginUserInfo.playerInfo.detail.level);
-        LoginUserInfo.skillLevels = SkillModel.GetAllSkillLevels(item.careerId, LoginUserInfo.playerInfo.detail.level);
+        //LoginUserInfo.careerLevel = item.GetCareerLevel(LoginUserInfo.playerInfo.detail.level);
+        //LoginUserInfo.skillLevels = SkillModel.GetAllSkillLevels(item.careerId, LoginUserInfo.playerInfo.detail.level);
     }
 
     void DataIsReady()
@@ -84,15 +84,15 @@ public class HandleLoginInfo : MonoBehaviour {
         ChangeCareer(career);
         foreach (CareerToggleBtn item in careerBtns)
         {
-            if(item.btnCareerInfo.careerId != LoginUserInfo.playerInfo.careerId) { item.setToggleOff(); }
+            if(item.btnCareerInfo.careerId != LoginUserInfo.careerId) { item.setToggleOff(); }
         }
     }
 
     void EnterGame()
     {
-        if (LoginUserInfo.playerInfo.playerName != "")
+        if (LoginUserInfo.playerName != "")
         {
-            if (LoginUserInfo.careerLevel != null)
+            if (LoginUserInfo.careerId != 0)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
             }
@@ -110,6 +110,6 @@ public class HandleLoginInfo : MonoBehaviour {
 
     void InputNameCheck()
     {
-        LoginUserInfo.playerInfo.playerName = inputName.text;
+        LoginUserInfo.playerName = inputName.text;
     }
 }

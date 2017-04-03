@@ -5,7 +5,9 @@ using System;
 /// <summary>
 /// 判断状态机（不能不用）
 /// 为什么还是用状态继承自MonoBehaviour的？
-/// 因为
+/// 因为不用寻找状态类型和状态的对应关系了，获取状态的操作简单
+/// 更重要的一点是，如果state不是MonoBehaviour,那么就只能封装那些变量，这样就不符合原来定的封装原则了
+/// 比如，没法把移动操作包装到MoveState里。
 /// </summary>
 public class FootmanStateMachine : StateMachine
 {
@@ -30,10 +32,10 @@ public class FootmanStateMachine : StateMachine
         stateParams = new StateMachineParams();
         playerName = GetComponentInParent<PlayerInfo>().playerName;
         //checkTouch = GetComponent<SkillActionFire>();
-        RoleSkill skill = GetComponentInParent<RoleSkill>();
-        if (skill != null)
+        RoleSkillController skillController = GetComponentInParent<RoleSkillController>();
+        if (skillController != null)
         {
-            skill.OnSkillTrigger += TriggerSkill;
+            skillController.OnSkillTrigger += TriggerSkill;
         }
     }
 
@@ -69,14 +71,13 @@ public class FootmanStateMachine : StateMachine
         if (target == null)
         {
             target = gameObject.AddComponent<T>();
-            gameObject.name = playerName;
+            gameObject.name = playerName+" Model";
         }
         return target;
     }
 
     public override void ChangeState<T>()
     {
-        //if (currentState != null) currentState.enabled = false;
         if (stateParams.isLive)
         {
             if (stateParams.triggerOnceAction)
@@ -101,10 +102,9 @@ public class FootmanStateMachine : StateMachine
         }
         else
         {
-            //currentState = GetState<DieState>();
+            currentState = GetState<DieState>();
         }
 
-        //currentState.enabled = true;
         currentState.HandleParamers(stateParams);
     }
 

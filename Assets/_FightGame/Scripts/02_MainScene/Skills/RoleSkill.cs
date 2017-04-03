@@ -2,27 +2,28 @@
 using System;
 using System.Collections;
 
+
+/// <summary>
+/// （4.3）还是先不要急着搞继承关系，先把功能捋清楚了，再来总结父类有什么功能
+/// </summary>
 public class RoleSkill : MonoBehaviour
 {
-    public Action<int> OnSkillTrigger { set; get; }
 
-    protected PlayerInfo playInfo;
+    protected PlayerInfo playerInfo;
     protected Collider weaponCollider;
-    //protected RoleStateMachine stateMachine;
     protected SkillActionFire actionFire;
     protected bool skillFire = false;
-    //public Collider weaponCollider { private set; get; }
+    public SkillLevelItem skillLevel;
 
     void Start()
     {
         init();
-        ReleaseSkillMode();
     }
 
     protected virtual void init()
     {
-        playInfo = GetComponent<PlayerInfo>();
-
+        playerInfo = GetComponent<PlayerInfo>();
+        
         Collider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         foreach (Collider item in colliders)
         {
@@ -32,32 +33,30 @@ public class RoleSkill : MonoBehaviour
                 item.enabled = false;//只能把武器的关了，body关了人就掉下去了
             }
         }
+
+        actionFire = GetComponentInChildren<SkillActionFire>();
+        actionFire.OnSkillFired += this.OnSkillFire;
     }
-
-    //从哪里收到释放技能的命令（还没释放呢！）
-    protected virtual void ReleaseSkillMode()
-    {
-
-    }
-
-    //protected virtual void TriggerSkillMode(SkillLevelItem item)
-    //{
-
-    //}
 
     protected virtual void OnSkillFire(bool fire)
     {
+        //Debug.Log("skillFire"+fire);
         skillFire = fire;
         weaponCollider.enabled = fire;
     }
 
-    void OnTriggerEnter(Collider other)
+    protected virtual void CloseWeapon()
     {
-        OnSkillTriggerHandler(other);
+        weaponCollider.enabled = false;
     }
 
-    protected virtual void OnSkillTriggerHandler(Collider other)
-    {
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    OnSkillTriggerHandler(other);
+    //}
 
-    }
+    //protected virtual void OnSkillTriggerHandler(Collider other)
+    //{
+
+    //}
 }

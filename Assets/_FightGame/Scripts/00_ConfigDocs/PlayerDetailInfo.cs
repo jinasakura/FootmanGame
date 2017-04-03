@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class PlayerDetailInfo
 {
@@ -23,53 +24,40 @@ public class PlayerDetailInfo
     public int level;
 
     private float _currentHp;
-    public float currentHp
-    {
-        get { return _currentHp; }
-        set
-        {
-            if (value != currentHp)
-            {
-                _currentHp = value;
-                //OnHpChange(this, new PlayerDetailArgs(value));
-                Action<float> localOnChange = OnHPChange;
-                if (localOnChange != null)
-                {
-                    localOnChange(value);
-                }
-            }
-        }
-    }
+    public float currentHp { set; get; }
 
     public void DeductHp(float amount)
     {
-        if (currentHp >= amount) { currentHp -= amount; }
+        if (currentHp >= amount) {
+            currentHp -= amount;
+        }
         else { currentHp = 0; }
+        Action<float> localOnChange = OnHPChange;
+        if (localOnChange != null)
+        {
+            localOnChange(currentHp);
+            Debug.Log("currentHp " + currentHp);
+        }
     }
 
     private float _currentMp;
     public float currentMp
     {
-        get { return _currentMp; }
-        set
-        {
-            if (value != currentMp)
-            {
-                _currentMp = value;
-                //OnMpChange(this, new PlayerDetailArgs(value));
-                Action<float> localOnChange = OnMpChange;
-                if (localOnChange != null)
-                {
-                    localOnChange(value);
-                }
-            }
-        }
+        set; get;
     }
 
     public void DeductMp(float amount)
     {
-        if (currentMp >= amount) { currentMp -= amount; }
+        if (currentMp >= amount)
+        {
+            currentMp -= amount;
+        }
         else { currentMp = 0; }
+        Action<float> localOnChange = OnMpChange;
+        if (localOnChange != null)
+        {
+            localOnChange(currentMp);
+        }
     }
 
 

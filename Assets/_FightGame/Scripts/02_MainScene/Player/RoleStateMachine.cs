@@ -37,12 +37,11 @@ public class RoleStateMachine : MonoBehaviour
         stateParams = new StateMachineParams();
         stateDict = new Dictionary<StateType, NewState>();
 
-        //animator = GetComponent<Animator>();
-        //rb = GetComponent<Rigidbody>();
-        RoleSkill skill = GetComponentInParent<RoleSkill>();
+        RoleSkillController skill = GetComponentInParent<RoleSkillController>();
         if (skill != null)
         {
             skill.OnSkillTrigger += TriggerSkill;
+            Debug.Log("zhuceskillle");
         }
     }
 

@@ -15,11 +15,11 @@ public class MainSceneEvent
 
     public static string CharacterDie = "CharacterDie";
 
-    public static string UserHpChange = "UserHpChange";
+    //public static string UserHpChange = "UserHpChange";
 
-    public static string UserMpChange = "UserMpChange";
+    //public static string UserMpChange = "UserMpChange";
 
-
+    public static string MainSceneIsReady = "MainSceneIsReady";
 }
 
 public class StateMachineEvent

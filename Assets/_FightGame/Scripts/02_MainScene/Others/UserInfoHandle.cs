@@ -5,7 +5,8 @@ using System.Collections;
 /// <summary>
 /// 主屏幕上左上角的血条和蓝条
 /// </summary>
-public class UserInfoHandle : MonoBehaviour {
+public class UserInfoHandle : MonoBehaviour
+{
 
     [SerializeField]
     private Text userName;
@@ -14,31 +15,45 @@ public class UserInfoHandle : MonoBehaviour {
     [SerializeField]
     private SimpleColorSlider mpSlider;
 
-	void Start() {
-        userName.text = LoginUserInfo.playerInfo.playerName;
-        SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
-        foreach (SimpleColorSlider slider in sliders)
-        {
-            if (slider.name == "HealthSlider") healthSlider = slider;
-            else mpSlider = slider;
-        }
-        healthSlider.maxValue = LoginUserInfo.playerInfo.detail.currentHp;
-        mpSlider.maxValue = LoginUserInfo.playerInfo.detail.currentMp;
-
-        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserHpChange);
-        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserMpChange);
-    }
-	
-	void UserHpChange(NotificationCenter.Notification info)
+    void Awake()
     {
-        float amount = (float)info.data;
-        healthSlider.UpdateValue(amount);
+        NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.MainSceneIsReady);
+
+
+        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserHpChange);
+        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserMpChange);
     }
 
-    void UserMpChange(NotificationCenter.Notification info)
+    private void MainSceneIsReady()
     {
-        float amount = (float)info.data;
-        mpSlider.UpdateValue(amount);
+        //Debug.Log("isReady");
+        //PlayerInfo playerInfo = SceneManager.instance.GetPlayerInfoById(LoginUserInfo.playerId);
+
+        //userName.text = playerInfo.playerName;
+        //SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
+        //foreach (SimpleColorSlider slider in sliders)
+        //{
+        //    if (slider.name == "HealthSlider") healthSlider = slider;
+        //    else mpSlider = slider;
+        //}
         
+        //healthSlider.maxValue = playerInfo.detail.currentHp;
+        //mpSlider.maxValue = playerInfo.detail.currentMp;
+
+        //playerInfo.detail.OnHPChange += healthSlider.UpdateCurrentValue;
+        //playerInfo.detail.OnMpChange += mpSlider.UpdateCurrentValue;
     }
+
+    //void UserHpChange(NotificationCenter.Notification info)
+    //{
+    //    float amount = (float)info.data;
+    //    healthSlider.UpdateValue(amount);
+    //}
+
+    //void UserMpChange(NotificationCenter.Notification info)
+    //{
+    //    float amount = (float)info.data;
+    //    mpSlider.UpdateValue(amount);
+
+    //}
 }

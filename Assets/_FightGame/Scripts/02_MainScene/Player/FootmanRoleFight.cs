@@ -55,11 +55,11 @@ public class FootmanRoleFight : MonoBehaviour
         playerInfo.detail.DeductMp(mp);
         //character.TakeDamageAction();
 
-        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
-        {
-            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, mp);
-            LoginUserInfo.playerInfo.detail.DeductMp(mp);
-        }
+        //if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
+        //{
+        //    NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, mp);
+        //    LoginUserInfo.playerInfo.detail.DeductMp(mp);
+        //}
     }
 
     //一个动作期间：是否要区分主、被动技能
@@ -124,11 +124,11 @@ public class FootmanRoleFight : MonoBehaviour
     {
         healthSlider.UpdateValue(amount);
         playerInfo.detail.DeductHp(amount);
-        if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
-        {
-            NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, amount);
-            LoginUserInfo.playerInfo.detail.DeductHp(amount);
-        }
+        //if (playerInfo.playerId == LoginUserInfo.playerInfo.playerId)
+        //{
+        //    NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.UserMpChange, amount);
+        //    LoginUserInfo.playerInfo.detail.DeductHp(amount);
+        //}
     }
 
     public void ChangeWeaponColliderState(Collider weapon, bool state)

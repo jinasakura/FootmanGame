@@ -20,8 +20,8 @@ public class RoleHUDController : MonoBehaviour
         healthSlider.maxValue = playerInfo.detail.currentHp;
         mpSlider.maxValue = playerInfo.detail.currentMp;
 
-        playerInfo.detail.OnHPChange += healthSlider.UpdateValue;
-        playerInfo.detail.OnMpChange += mpSlider.UpdateValue;
+        playerInfo.detail.OnHPChange += healthSlider.UpdateCurrentValue;
+        playerInfo.detail.OnMpChange += mpSlider.UpdateCurrentValue;
     }
 
     
