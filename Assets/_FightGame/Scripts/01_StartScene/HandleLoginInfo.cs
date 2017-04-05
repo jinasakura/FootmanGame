@@ -36,7 +36,8 @@ public class HandleLoginInfo : MonoBehaviour {
         //LoginUserInfo.playerInfo = gameObject.AddComponent<PlayerInfo>();
 
         LoginUserInfo.playerId = 0;
-        LoginUserInfo.playerName = "Test";
+        LoginUserInfo.playerName = "Player" + LoginUserInfo.playerId;
+        LoginUserInfo.level = 1;
         //LoginUserInfo.playerInfo.detail = new PlayerDetailInfo();
         //LoginUserInfo.playerInfo.detail.level = 1;
     }
@@ -58,7 +59,8 @@ public class HandleLoginInfo : MonoBehaviour {
         //初始化对的职业按钮
         careerBtns = new CareerToggleBtn[CareerModel.GetCareerCount()];
         int i = 0;
-        Dictionary<int, CareerItem>.ValueCollection values = CareerModel.GetAllCareerItem();
+        //Dictionary<int, CareerItem>.ValueCollection values = CareerModel.GetAllCareerItem();
+        List<CareerItem> values = CareerModel.GetAllCareerItems();
         foreach (CareerItem item in values)
         {
             GameObject cbtn = Instantiate(careerBtn, Vector3.zero, Quaternion.identity, careerBtnPanel) as GameObject;

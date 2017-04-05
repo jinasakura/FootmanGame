@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System;
 
-public class NormalAttackSkill : RoleSkill
+
+/// <summary>
+/// Attack.CloseSingle->普通近战攻击（武器必须接触到对方）
+/// </summary>
+public class ACloseSingleSkill : RoleSkill
 {
 
 

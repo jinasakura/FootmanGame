@@ -12,7 +12,7 @@ public class HandleSkillBtnsInfo : MonoBehaviour {
 	
 	void initBtns()
     {
-        List<SkillLevelItem> items = SkillModel.GetAllSkillLevels(LoginUserInfo.careerId, 1);
+        List<SkillLevelItem> items = SkillModel.GetAllSkillType();
         if (items == null)
         {
             Debug.Log("没有技能数据，无法创建技能按钮！");

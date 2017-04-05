@@ -21,7 +21,7 @@ public class PlayerInfo : MonoBehaviour
 
     public string modelName;
 
-    public int careerId;
+    //public int careerId;
 
     public PlayerDetailInfo detail;
 

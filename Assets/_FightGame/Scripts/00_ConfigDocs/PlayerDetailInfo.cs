@@ -22,6 +22,7 @@ public class PlayerDetailInfo
     public Action<float> OnMpChange { set; get; }
 
     public int level;
+    public int careerId;
 
     private float _currentHp;
     public float currentHp { set; get; }
@@ -32,11 +33,36 @@ public class PlayerDetailInfo
             currentHp -= amount;
         }
         else { currentHp = 0; }
+        InvokeHpChange();
+        //Action<float> localOnChange = OnHPChange;
+        //if (localOnChange != null)
+        //{
+        //    localOnChange(currentHp);
+        //    //Debug.Log("currentHp " + currentHp);
+        //}
+    }
+
+    public void AddHp(float amount)
+    {
+        CareerItem careerLevel = CareerModel.GetLevelItem(careerId, level);
+        if (currentHp + amount > careerLevel.maxHp)
+        {
+            currentHp = careerLevel.maxHp;
+        }
+        else
+        {
+            currentHp += amount;
+        }
+        InvokeHpChange();
+    }
+
+    private void InvokeHpChange()
+    {
         Action<float> localOnChange = OnHPChange;
         if (localOnChange != null)
         {
             localOnChange(currentHp);
-            Debug.Log("currentHp " + currentHp);
+            //Debug.Log("currentHp " + currentHp);
         }
     }
 
@@ -60,5 +86,26 @@ public class PlayerDetailInfo
         }
     }
 
+    public void AddMp(float amount)
+    {
+        CareerItem careerLevel = CareerModel.GetLevelItem(careerId, level);
+        if (currentMp + amount > careerLevel.maxMp)
+        {
+            currentMp = careerLevel.maxMp;
+        }
+        else
+        {
+            currentMp += amount;
+        }
+        InvokeMpChange();
+    }
 
+    private void InvokeMpChange()
+    {
+        Action<float> localOnChange = OnMpChange;
+        if (localOnChange != null)
+        {
+            localOnChange(currentMp);
+        }
+    }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<info>
+	<level>
+    	<id>1001</id>
+        <careerId>1</careerId>
+        <skillName>Attack 01</skillName>
+        <damage>10</damage>
+        <level>1</level>
+        <mp>10</mp>
+        <HealHp>0</HealHp>
+        <passive>false</passive>
+        <skillType>1</skillType>
+    </level>
+	<level>
+    	<id>1001</id>
+        <careerId>1</careerId>
+        <skillName>Attack 01</skillName>
+        <damage>10</damage>
+        <level>1</level>
+        <mp>10</mp>
+        <HealHp>0</HealHp>
+        <passive>false</passive>
+        <skillType>1</skillType>
+    </level>	
+
+</info>

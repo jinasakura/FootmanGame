@@ -19,6 +19,9 @@ public class SkillLevelItem
     /// 技能消耗mp
     /// </summary>
     public float mp;
+    
+    //被动治愈技能加多少血
+    public float healHp;
 
     //0-主动技能-false ; 1-被动技能-true
     public bool passive;
@@ -43,58 +46,78 @@ public class SkillLevelItem
     }
 }
 
-public class SkillItem
-{
+//public class SkillItem
+//{
 
-    public int careerId;
-    public SkillLevelItem[] levels;
+//    public int careerId;
+//    public SkillLevelItem[] levels;
 
-    public List<SkillLevelItem> GetSkillLevels(int level)
-    {
-        List<SkillLevelItem> skillLevels = new List<SkillLevelItem>();
-        foreach (SkillLevelItem item in levels)
-        {
-            if (item.level <= level)
-            {
-                skillLevels.Add(item);
-            }
-            else
-            {
-                break;
-            }
-        }
-        return skillLevels;
-    }
-}
+//    public List<SkillLevelItem> GetSkillLevels(int level)
+//    {
+//        List<SkillLevelItem> skillLevels = new List<SkillLevelItem>();
+//        foreach (SkillLevelItem item in levels)
+//        {
+//            if (item.level <= level)
+//            {
+//                skillLevels.Add(item);
+//            }
+//            else
+//            {
+//                break;
+//            }
+//        }
+//        return skillLevels;
+//    }
+//}
 
 public class SkillModel {
     /// <summary>
     /// int-careerId
     /// </summary>
-    private static Dictionary<int, SkillItem> skillDict = new Dictionary<int, SkillItem>();
-    private static Dictionary<string, SkillLevelItem> skillInfoDict = new Dictionary<string, SkillLevelItem>();
+    private static Dictionary<int, List<SkillLevelItem>> skillDict = new Dictionary<int, List<SkillLevelItem>>();
+    private static Dictionary<string, SkillLevelItem> skillNameDict = new Dictionary<string, SkillLevelItem>();
+    //private static Dictionary<string, SkillLevelItem> skillInfoDict = new Dictionary<string, SkillLevelItem>();
+    private static List<SkillLevelItem> skillList = new List<SkillLevelItem>();
 
-    public static void SetSkillItem(int careerId,SkillItem item)
+    public static void SetSkillItem(int careerId,SkillLevelItem item)
     {
-        skillDict[careerId] = item;
+        skillList.Add(item);
+        skillNameDict[item.skillName] = item;
+
+        if (!skillDict.ContainsKey(careerId))
+        {
+            skillDict[careerId] = new List<SkillLevelItem>();
+        }
+        List<SkillLevelItem> items = skillDict[careerId];
+        items.Add(item);
     }
 
-    public static void SetSkillInfoByName(string skillName,SkillLevelItem item)
-    {
-        skillInfoDict[skillName] = item;
-    }
+    //public static void SetSkillInfoByName(string skillName,SkillLevelItem item)
+    //{
+    //    skillInfoDict[skillName] = item;
+    //}
 
-    public static List<SkillLevelItem> GetAllSkillLevels(int careerId,int level)
+    public static List<SkillLevelItem> GetAllSkillType()
     {
-        SkillItem item = skillDict[careerId];
-        return item.GetSkillLevels(level);
+        //SkillLevelItem item = skillDict[careerId];
+        List<SkillLevelItem> items = new List<SkillLevelItem>();
+        int flagCareerId = 0;
+        foreach (SkillLevelItem item in skillList)
+        {
+            if(flagCareerId != item.careerId)
+            {
+                items.Add(item);
+                flagCareerId = item.careerId;
+            }
+        }
+        return items;
     }
 
     public static SkillLevelItem GetSkillById(int careerId,int skillId)
     {
-        SkillItem skillItem = skillDict[careerId];
+        List<SkillLevelItem> items = skillDict[careerId];
         SkillLevelItem level = null;
-        foreach (SkillLevelItem item in skillItem.levels)
+        foreach (SkillLevelItem item in items)
         {
             if(item.id == skillId)
             {
@@ -108,7 +131,7 @@ public class SkillModel {
     public static SkillLevelItem GetSkillLevelByName(string skillName)
     {
         SkillLevelItem result;
-        if (skillInfoDict.TryGetValue(skillName, out result))
+        if (skillNameDict.TryGetValue(skillName, out result))
         {
             return result;
         }

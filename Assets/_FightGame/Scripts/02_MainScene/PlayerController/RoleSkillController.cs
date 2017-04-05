@@ -9,8 +9,8 @@ public class RoleSkillController : MonoBehaviour
 {
     public Action<int> OnSkillTrigger { set; get; }
 
-    public enum Attack { CloseSingle = 1, CloseGroup, Cure, Ground };
-    public enum Passive { CureSelf = 1, CureGroup };
+    public enum Attack { CloseSingle = 1, FarSingle , CloseGroup ,FarGroup ,CloseGround, FarGround };
+    public enum Passive { CureSelf = 1 ,CureOther , CureGroup ,DefenseSelf ,DefenseGroup };
 
     private PlayerInfo playerInfo;
     private RoleSkill skill;
@@ -36,15 +36,28 @@ public class RoleSkillController : MonoBehaviour
         SkillLevelItem skillLevel = SkillModel.GetSkillLevelByName(skillName);
         if (skillLevel.CheckCondition(playerInfo.detail))
         {
-            Attack type = (Attack)skillLevel.skillType;
-            switch (type)
+            if (!skillLevel.passive)
             {
-                case Attack.CloseSingle:
-                    skill = gameObject.AddComponent<NormalAttackSkill>();
-                    break;
-                    //case Attack.CloseGroup:
-                    //    break;
-                    
+                Attack type = (Attack)skillLevel.skillType;
+                switch (type)
+                {
+                    case Attack.CloseSingle:
+                        skill = gameObject.AddComponent<ACloseSingleSkill>();
+                        break;
+                    case Attack.CloseGroup:
+                        break;
+
+                }
+            }
+            else
+            {
+                Passive type = (Passive)skillLevel.skillType;
+                switch (type)
+                {
+                    case Passive.CureSelf:
+                        skill = gameObject.AddComponent<PCureSelfSkill>();
+                        break;
+                }
             }
             skill.skillLevel = skillLevel;
             Action<int> localOnChange = OnSkillTrigger;

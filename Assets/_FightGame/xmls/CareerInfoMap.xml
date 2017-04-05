@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<info>
+    <career>
+        <id>1</id>
+        <careerId>1</careerId>
+        <name>Knight</name>
+        <modelName>Knight-Purple</modelName>
+        <level>1</level>
+        <exp>100</exp>
+        <hp>100</hp>
+        <mp>100</mp>
+    </career>
+    <career>
+        <id>2</id>
+        <careerId>1</careerId>
+        <name>Knight</name>
+        <modelName>Knight-Purple</modelName>
+        <level>1</level>
+        <exp>100</exp>
+        <hp>100</hp>
+        <mp>100</mp>
+    </career>
+</info>

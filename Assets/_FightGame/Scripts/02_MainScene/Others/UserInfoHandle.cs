@@ -18,42 +18,26 @@ public class UserInfoHandle : MonoBehaviour
     void Awake()
     {
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.MainSceneIsReady);
-
-
-        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserHpChange);
-        //NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.UserMpChange);
     }
 
     private void MainSceneIsReady()
     {
         //Debug.Log("isReady");
-        //PlayerInfo playerInfo = SceneManager.instance.GetPlayerInfoById(LoginUserInfo.playerId);
+        PlayerInfo playerInfo = PlayerModel.GetPlayerInfoInfoById(LoginUserInfo.playerId);
 
-        //userName.text = playerInfo.playerName;
-        //SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
-        //foreach (SimpleColorSlider slider in sliders)
-        //{
-        //    if (slider.name == "HealthSlider") healthSlider = slider;
-        //    else mpSlider = slider;
-        //}
-        
-        //healthSlider.maxValue = playerInfo.detail.currentHp;
-        //mpSlider.maxValue = playerInfo.detail.currentMp;
+        userName.text = playerInfo.playerName;
+        SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
+        foreach (SimpleColorSlider slider in sliders)
+        {
+            if (slider.name == "HealthSlider") healthSlider = slider;
+            else mpSlider = slider;
+        }
 
-        //playerInfo.detail.OnHPChange += healthSlider.UpdateCurrentValue;
-        //playerInfo.detail.OnMpChange += mpSlider.UpdateCurrentValue;
+        healthSlider.maxValue = playerInfo.detail.currentHp;
+        mpSlider.maxValue = playerInfo.detail.currentMp;
+
+        playerInfo.detail.OnHPChange += healthSlider.UpdateCurrentValue;
+        playerInfo.detail.OnMpChange += mpSlider.UpdateCurrentValue;
     }
 
-    //void UserHpChange(NotificationCenter.Notification info)
-    //{
-    //    float amount = (float)info.data;
-    //    healthSlider.UpdateValue(amount);
-    //}
-
-    //void UserMpChange(NotificationCenter.Notification info)
-    //{
-    //    float amount = (float)info.data;
-    //    mpSlider.UpdateValue(amount);
-
-    //}
 }

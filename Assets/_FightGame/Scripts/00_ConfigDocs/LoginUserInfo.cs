@@ -12,6 +12,8 @@ public class LoginUserInfo {
 
     public static string modelName;
 
+    public static int level;
+
     //public static PlayerInfo playerInfo;
 
     //public static CareerLevelItem careerLevel;
