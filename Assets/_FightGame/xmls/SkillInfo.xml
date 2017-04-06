@@ -7,9 +7,11 @@
 		<damage>10</damage>
 		<level>1</level>
 		<mp>10</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>1002</id>
@@ -18,9 +20,11 @@
 		<damage>15</damage>
 		<level>1</level>
 		<mp>15</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>1003</id>
@@ -29,9 +33,11 @@
 		<damage>20</damage>
 		<level>2</level>
 		<mp>20</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>2</skillType>
+		<skillType>3</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>1004</id>
@@ -40,9 +46,11 @@
 		<damage>30</damage>
 		<level>3</level>
 		<mp>25</mp>
-		<HealHp>0</HealHp>
+		<healHp>60</healHp>
+		<healMp>60</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>2001</id>
@@ -51,9 +59,11 @@
 		<damage>10</damage>
 		<level>1</level>
 		<mp>10</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>1</skillType>
+		<skillType>2</skillType>
+		<distance>50</distance>
 	</level>
 	<level>
 		<id>2002</id>
@@ -62,9 +72,11 @@
 		<damage>15</damage>
 		<level>1</level>
 		<mp>15</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>2003</id>
@@ -73,9 +85,11 @@
 		<damage>20</damage>
 		<level>2</level>
 		<mp>20</mp>
-		<HealHp>0</HealHp>
+		<healHp>60</healHp>
+		<healMp>60</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>2004</id>
@@ -84,9 +98,11 @@
 		<damage>30</damage>
 		<level>3</level>
 		<mp>25</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>2005</id>
@@ -95,9 +111,11 @@
 		<damage>30</damage>
 		<level>3</level>
 		<mp>25</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>3001</id>
@@ -106,9 +124,11 @@
 		<damage>10</damage>
 		<level>1</level>
 		<mp>10</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>3002</id>
@@ -117,9 +137,11 @@
 		<damage>10</damage>
 		<level>1</level>
 		<mp>10</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>3003</id>
@@ -128,9 +150,11 @@
 		<damage>20</damage>
 		<level>2</level>
 		<mp>20</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>3004</id>
@@ -139,9 +163,11 @@
 		<damage>30</damage>
 		<level>3</level>
 		<mp>25</mp>
-		<HealHp>0</HealHp>
+		<healHp>50</healHp>
+		<healMp>50</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>3005</id>
@@ -150,9 +176,11 @@
 		<damage>30</damage>
 		<level>3</level>
 		<mp>25</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>3006</id>
@@ -161,9 +189,11 @@
 		<damage>40</damage>
 		<level>3</level>
 		<mp>30</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>4001</id>
@@ -172,9 +202,11 @@
 		<damage>10</damage>
 		<level>1</level>
 		<mp>10</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>4002</id>
@@ -183,9 +215,11 @@
 		<damage>15</damage>
 		<level>1</level>
 		<mp>15</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>4003</id>
@@ -194,9 +228,11 @@
 		<damage>20</damage>
 		<level>2</level>
 		<mp>20</mp>
-		<HealHp>0</HealHp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 	<level>
 		<id>4004</id>
@@ -205,8 +241,10 @@
 		<damage>30</damage>
 		<level>3</level>
 		<mp>25</mp>
-		<HealHp>0</HealHp>
+		<healHp>60</healHp>
+		<healMp>60</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
+		<distance>0</distance>
 	</level>
 </info>

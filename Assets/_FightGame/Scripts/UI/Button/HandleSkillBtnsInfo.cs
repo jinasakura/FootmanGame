@@ -12,7 +12,7 @@ public class HandleSkillBtnsInfo : MonoBehaviour {
 	
 	void initBtns()
     {
-        List<SkillLevelItem> items = SkillModel.GetAllSkillType();
+        List<SkillLevelItem> items = SkillModel.GetAllSkillByCondition(LoginUserInfo.careerId, LoginUserInfo.level);
         if (items == null)
         {
             Debug.Log("没有技能数据，无法创建技能按钮！");
@@ -23,7 +23,7 @@ public class HandleSkillBtnsInfo : MonoBehaviour {
             {
                 GameObject cbtn = Instantiate(skillButton, Vector3.zero, Quaternion.identity, this.transform) as GameObject;
                 SkillButton carBtn = cbtn.GetComponent<SkillButton>();
-                carBtn.skillName = item.skillName;
+                carBtn.btnskillInfo = item;
             }
         }
         

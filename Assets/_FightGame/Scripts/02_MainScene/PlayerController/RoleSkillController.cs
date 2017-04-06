@@ -9,7 +9,10 @@ public class RoleSkillController : MonoBehaviour
 {
     public Action<int> OnSkillTrigger { set; get; }
 
+    //CloseSingle-接触攻击单人，FarSingle-某距离内攻击单人，CloseGroup-接触攻击某范围内群体，FarGroup-远程攻击某范围内群体
+    //CloseGround-(再议)，FarGround-再议
     public enum Attack { CloseSingle = 1, FarSingle , CloseGroup ,FarGroup ,CloseGround, FarGround };
+    //CureSelf-治愈自己，CureOther-治愈他人（这个人离我的远近？），DefenseSelf-自己加防御，DefenseGroup-防御某范围内一群人
     public enum Passive { CureSelf = 1 ,CureOther , CureGroup ,DefenseSelf ,DefenseGroup };
 
     private PlayerInfo playerInfo;
@@ -32,44 +35,56 @@ public class RoleSkillController : MonoBehaviour
 
     public void ReleaseSkill(NotificationCenter.Notification info)
     {
-        string skillName = (string)info.data;
-        SkillLevelItem skillLevel = SkillModel.GetSkillLevelByName(skillName);
-        if (skillLevel.CheckCondition(playerInfo.detail))
+        int skillId = (int)info.data;
+        SkillLevelItem skillInfo = SkillModel.GetSkillLevelByName(skillId);
+        if (skillInfo.CheckCondition(playerInfo.detail))
         {
-            if (!skillLevel.passive)
+            if (!skillInfo.passive)
             {
-                Attack type = (Attack)skillLevel.skillType;
+                Attack type = (Attack)skillInfo.skillType;
                 switch (type)
                 {
                     case Attack.CloseSingle:
-                        skill = gameObject.AddComponent<ACloseSingleSkill>();
+                        skill = GetSkill<ACloseSingleSkill>();
                         break;
-                    case Attack.CloseGroup:
+                    case Attack.FarSingle:
+                        skill = GetSkill<AMeleeAttackSkill>();
                         break;
 
                 }
             }
             else
             {
-                Passive type = (Passive)skillLevel.skillType;
+                Passive type = (Passive)skillInfo.skillType;
                 switch (type)
                 {
                     case Passive.CureSelf:
-                        skill = gameObject.AddComponent<PCureSelfSkill>();
+                        skill = GetSkill<PCureSelfSkill>();
                         break;
                 }
             }
-            skill.skillLevel = skillLevel;
+            skill.skillInfo = skillInfo;
             Action<int> localOnChange = OnSkillTrigger;
             if (localOnChange != null)
             {
-                localOnChange(skillLevel.id);
+                localOnChange(skillInfo.id);
             }
         }
         else
         {
-            Debug.Log("技能  "+skillName + "  不符合释放条件");
+            Debug.Log("技能  "+skillInfo.skillName + "  不符合释放条件");
         }
+    }
+
+    private T GetSkill<T>() where T : RoleSkill
+    {
+        T target = gameObject.GetComponent<T>();
+        if (target == null)
+        {
+            target = gameObject.AddComponent<T>();
+            gameObject.name = playerInfo.playerName;
+        }
+        return target;
     }
 
 }

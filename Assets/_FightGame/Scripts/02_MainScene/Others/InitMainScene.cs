@@ -61,6 +61,7 @@ public class InitMainScene : MonoBehaviour {
             playerInfo.detail.currentMp = careerLevel.maxMp;
             if (LoginUserInfo.playerId == playerInfo.playerId)
             {
+                playerInfo.playerName = LoginUserInfo.playerName;
                 Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
                 roleBase.AddComponent<UserMoveController>();
             }

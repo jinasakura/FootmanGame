@@ -12,8 +12,8 @@ public class RoleSkill : MonoBehaviour
     protected PlayerInfo playerInfo;
     protected Collider weaponCollider;
     protected SkillActionFire actionFire;
-    protected bool skillFire = false;
-    public SkillLevelItem skillLevel;
+    protected bool skillActionStart = false;
+    public SkillLevelItem skillInfo;
 
     void Start()
     {
@@ -41,7 +41,7 @@ public class RoleSkill : MonoBehaviour
     protected virtual void OnSkillFire(bool fire)
     {
         //Debug.Log("skillFire"+fire);
-        skillFire = fire;
+        skillActionStart = fire;
         weaponCollider.enabled = fire;
     }
 

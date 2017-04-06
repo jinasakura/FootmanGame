@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PCureSelfSkill : RoleSkill {
+public class PCureSelfSkill : RoleSkill
+{
+    private bool isAttack = false;
 
     void Update()
     {
-        if (skillFire)
+        if (skillActionStart && !isAttack)
         {
-            playerInfo.detail.AddHp(skillLevel.mp);
+            playerInfo.detail.AddHp(skillInfo.healHp);
+            playerInfo.detail.AddMp(skillInfo.healMp);
+            isAttack = true;
         }
     }
 }

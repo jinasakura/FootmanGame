@@ -7,9 +7,11 @@
         <damage>10</damage>
         <level>1</level>
         <mp>10</mp>
-        <HealHp>0</HealHp>
+        <healHp>0</healHp>
+        <healMp>0</healMp>
         <passive>false</passive>
         <skillType>1</skillType>
+        <distance>0</distance>
     </level>
 	<level>
     	<id>1001</id>
@@ -18,9 +20,11 @@
         <damage>10</damage>
         <level>1</level>
         <mp>10</mp>
-        <HealHp>0</HealHp>
+        <healHp>0</healHp>
+        <healMp>0</healMp>
         <passive>false</passive>
         <skillType>1</skillType>
+        <distance>0</distance>
     </level>	
 
 </info>

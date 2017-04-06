@@ -73,9 +73,10 @@ public class LoadAllInfo : MonoBehaviour {
             item.level = Int32.Parse(nodeChild.Item(4).InnerText);
             item.mp = float.Parse(nodeChild.Item(5).InnerText);
             item.healHp = float.Parse(nodeChild.Item(6).InnerText);
-            item.passive = bool.Parse(nodeChild.Item(7).InnerText);
-            item.skillType = Int32.Parse(nodeChild.Item(8).InnerText);
-
+            item.healMp = float.Parse(nodeChild.Item(7).InnerText);
+            item.passive = bool.Parse(nodeChild.Item(8).InnerText);
+            item.skillType = Int32.Parse(nodeChild.Item(9).InnerText);
+            SkillModel.SetSkillItem(item.careerId, item);
         }
     }
 

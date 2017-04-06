@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class SkillLevelItem
 {
@@ -6,7 +7,7 @@ public class SkillLevelItem
     public int careerId;
     public string skillName;
 
-    
+
     /// <summary>
     /// 技能消耗hp
     /// </summary>
@@ -19,9 +20,10 @@ public class SkillLevelItem
     /// 技能消耗mp
     /// </summary>
     public float mp;
-    
+
     //被动治愈技能加多少血
     public float healHp;
+    public float healMp;
 
     //0-主动技能-false ; 1-被动技能-true
     public bool passive;
@@ -70,19 +72,19 @@ public class SkillLevelItem
 //    }
 //}
 
-public class SkillModel {
+public class SkillModel
+{
     /// <summary>
     /// int-careerId
     /// </summary>
     private static Dictionary<int, List<SkillLevelItem>> skillDict = new Dictionary<int, List<SkillLevelItem>>();
-    private static Dictionary<string, SkillLevelItem> skillNameDict = new Dictionary<string, SkillLevelItem>();
-    //private static Dictionary<string, SkillLevelItem> skillInfoDict = new Dictionary<string, SkillLevelItem>();
+    private static Dictionary<int, SkillLevelItem> skillIdDict = new Dictionary<int, SkillLevelItem>();
     private static List<SkillLevelItem> skillList = new List<SkillLevelItem>();
 
-    public static void SetSkillItem(int careerId,SkillLevelItem item)
+    public static void SetSkillItem(int careerId, SkillLevelItem item)
     {
         skillList.Add(item);
-        skillNameDict[item.skillName] = item;
+        skillIdDict[item.id] = item;
 
         if (!skillDict.ContainsKey(careerId))
         {
@@ -97,6 +99,24 @@ public class SkillModel {
     //    skillInfoDict[skillName] = item;
     //}
 
+    public static List<SkillLevelItem> GetAllSkillByCondition(int careerId,int level=1)
+    {
+        List<SkillLevelItem> items = new List<SkillLevelItem>();
+        if (!skillDict.ContainsKey(careerId)) { Debug.Log("找不到职业id为->" + careerId + "的技能！"); }
+        else
+        {
+            List<SkillLevelItem> skills = skillDict[careerId];
+            foreach (SkillLevelItem item in skills)
+            {
+                if (item.level <= level)
+                {
+                    items.Add(item);
+                }
+            }
+        }
+        return items;
+    }
+
     public static List<SkillLevelItem> GetAllSkillType()
     {
         //SkillLevelItem item = skillDict[careerId];
@@ -104,7 +124,7 @@ public class SkillModel {
         int flagCareerId = 0;
         foreach (SkillLevelItem item in skillList)
         {
-            if(flagCareerId != item.careerId)
+            if (flagCareerId != item.careerId)
             {
                 items.Add(item);
                 flagCareerId = item.careerId;
@@ -113,13 +133,13 @@ public class SkillModel {
         return items;
     }
 
-    public static SkillLevelItem GetSkillById(int careerId,int skillId)
+    public static SkillLevelItem GetSkillById(int careerId, int skillId)
     {
         List<SkillLevelItem> items = skillDict[careerId];
         SkillLevelItem level = null;
         foreach (SkillLevelItem item in items)
         {
-            if(item.id == skillId)
+            if (item.id == skillId)
             {
                 level = item;
                 break;
@@ -128,10 +148,10 @@ public class SkillModel {
         return level;
     }
 
-    public static SkillLevelItem GetSkillLevelByName(string skillName)
+    public static SkillLevelItem GetSkillLevelByName(int skillId)
     {
         SkillLevelItem result;
-        if (skillNameDict.TryGetValue(skillName, out result))
+        if (skillIdDict.TryGetValue(skillId, out result))
         {
             return result;
         }
