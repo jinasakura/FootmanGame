@@ -63,7 +63,7 @@
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>2</skillType>
-		<distance>50</distance>
+		<distance>3.5</distance>
 	</level>
 	<level>
 		<id>2002</id>

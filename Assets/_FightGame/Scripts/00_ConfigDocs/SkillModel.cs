@@ -25,6 +25,8 @@ public class SkillLevelItem
     public float healHp;
     public float healMp;
 
+    public float distance;
+
     //0-主动技能-false ; 1-被动技能-true
     public bool passive;
 

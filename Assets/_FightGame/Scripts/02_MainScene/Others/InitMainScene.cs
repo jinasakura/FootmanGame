@@ -21,6 +21,8 @@ public class InitMainScene : MonoBehaviour {
     [SerializeField]
     private Transform[] respawns;//测试使用，出生点位置
 
+    public GameObject fireBall;
+
 
     void Start ()
     {

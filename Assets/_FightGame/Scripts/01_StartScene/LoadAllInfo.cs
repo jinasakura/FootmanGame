@@ -76,6 +76,7 @@ public class LoadAllInfo : MonoBehaviour {
             item.healMp = float.Parse(nodeChild.Item(7).InnerText);
             item.passive = bool.Parse(nodeChild.Item(8).InnerText);
             item.skillType = Int32.Parse(nodeChild.Item(9).InnerText);
+            item.distance = float.Parse(nodeChild.Item(10).InnerText);
             SkillModel.SetSkillItem(item.careerId, item);
         }
     }
