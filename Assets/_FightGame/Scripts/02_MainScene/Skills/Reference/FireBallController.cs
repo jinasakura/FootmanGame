@@ -24,7 +24,7 @@ public class FireBallController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.velocity = start.forward * speed;
         startPoint = start.position;
-        Debug.Log("velocity->" + rb.velocity + "   startPoint->" + startPoint);
+        //Debug.Log("velocity->" + rb.velocity + "   startPoint->" + startPoint);
     }
 
     public void SetOwnerId(int id)
@@ -44,13 +44,8 @@ public class FireBallController : MonoBehaviour
         //Debug.Log(distance+"      "+range);
         if (distance > range)
         {
-            //Debug.Log("消失！         " + distance);
             Destroy(gameObject);
         }
-        //else
-        //{
-
-        //}
     }
 
 }

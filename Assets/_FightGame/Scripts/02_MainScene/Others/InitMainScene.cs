@@ -54,7 +54,7 @@ public class InitMainScene : MonoBehaviour {
             playerModel = Instantiate(model, item.transform.position, item.transform.rotation, roleBase.transform) as GameObject;
             playerInfo = roleBase.GetComponent<PlayerInfo>();
             playerInfo.playerId = i;
-            //playerInfo.playerName = "Player " + i;
+            playerInfo.modelName = LoginUserInfo.modelName;
             playerInfo.detail = new PlayerDetailInfo();
             playerInfo.detail.careerId = LoginUserInfo.careerId;
             playerInfo.detail.level = LoginUserInfo.level;

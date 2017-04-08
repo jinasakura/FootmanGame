@@ -36,7 +36,7 @@ public class HandleLoginInfo : MonoBehaviour {
         //LoginUserInfo.playerInfo = gameObject.AddComponent<PlayerInfo>();
 
         LoginUserInfo.playerId = 0;
-        LoginUserInfo.playerName = "Player " + LoginUserInfo.playerId;
+        inputName.text = LoginUserInfo.playerName = "Player " + LoginUserInfo.playerId;
         LoginUserInfo.level = 3;
         //LoginUserInfo.playerInfo.detail = new PlayerDetailInfo();
         //LoginUserInfo.playerInfo.detail.level = 1;

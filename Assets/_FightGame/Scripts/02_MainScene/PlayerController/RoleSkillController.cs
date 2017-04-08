@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 
 /// <summary>
@@ -37,6 +38,7 @@ public class RoleSkillController : MonoBehaviour
     {
         int skillId = (int)info.data;
         SkillLevelItem skillInfo = SkillModel.GetSkillLevelByName(skillId);
+        CancelAllSubscriber();
         if (skillInfo.CheckCondition(playerInfo.detail))
         {
             if (!skillInfo.passive)
@@ -64,6 +66,7 @@ public class RoleSkillController : MonoBehaviour
                 }
             }
             skill.skillInfo = skillInfo;
+            skill.SubscribActionFire();
             Action<int> localOnChange = OnSkillTrigger;
             if (localOnChange != null)
             {
@@ -83,8 +86,18 @@ public class RoleSkillController : MonoBehaviour
         {
             target = gameObject.AddComponent<T>();
             gameObject.name = playerInfo.playerName;
+            target.init();
         }
         return target;
+    }
+
+    private void CancelAllSubscriber()
+    {
+        RoleSkill[] ary = GetComponents<RoleSkill>();
+        foreach (RoleSkill item in ary)
+        {
+            item.CancelSubscrib();
+        }
     }
 
 }

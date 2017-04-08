@@ -13,14 +13,15 @@ public class RoleSkill : MonoBehaviour
     protected Collider weaponCollider;
     protected SkillActionFire actionFire;
     protected bool skillActionStart = false;
-    public SkillLevelItem skillInfo;
+    private SkillLevelItem _skillInfo;
+    public SkillLevelItem skillInfo { protected get; set; }
 
-    void Start()
-    {
-        init();
-    }
+    //void Start()
+    //{
+    //    init();
+    //}
 
-    protected virtual void init()
+    public virtual void init()
     {
         playerInfo = GetComponent<PlayerInfo>();
         
@@ -35,12 +36,22 @@ public class RoleSkill : MonoBehaviour
         }
 
         actionFire = GetComponentInChildren<SkillActionFire>();
+        
+    }
+
+    public void SubscribActionFire()
+    {
         actionFire.OnSkillFired += this.OnSkillFire;
+    }
+
+    public void CancelSubscrib()
+    {
+        actionFire.OnSkillFired -= this.OnSkillFire;
     }
 
     protected virtual void OnSkillFire(bool fire)
     {
-        //Debug.Log("skillFire"+fire);
+        //Debug.Log(skillInfo.skillName+"----skillFire->" + fire);
         skillActionStart = fire;
         weaponCollider.enabled = fire;
     }

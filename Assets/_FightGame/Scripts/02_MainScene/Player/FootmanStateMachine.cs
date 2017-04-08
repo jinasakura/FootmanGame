@@ -120,7 +120,11 @@ public class FootmanStateMachine : StateMachine
 
     public void TriggerSkill(int skillId)
     {
-        if (onSkill) return;
+        if (onSkill)
+        {
+            //Debug.Log("技能中……" + skillId + "被过滤掉");
+            return;
+        }
         stateParams.onceActionType = skillId;
         stateParams.triggerOnceAction = true;
     }

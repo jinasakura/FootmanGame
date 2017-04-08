@@ -18,7 +18,7 @@ public class SkillActionFire : MonoBehaviour
         {
             _touched = value;
             Action<bool> localOnChange = OnSkillFired;
-            if (localOnChange != null)
+            if (localOnChange != null)//如果没有订阅，这里会一直为空
             {
                 localOnChange(value);
             }
@@ -39,6 +39,7 @@ public class SkillActionFire : MonoBehaviour
     {
         touched = true;
         skillId = id;
+        //Debug.Log(id + "    " + touched);
     }
 
     void SkillFireEnd(int id)

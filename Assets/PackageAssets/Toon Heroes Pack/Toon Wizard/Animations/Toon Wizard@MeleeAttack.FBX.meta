@@ -147,14 +147,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.5173232
+      - time: 0.50369185
         functionName: SkillFireStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 2001
         messageOptions: 0
-      - time: 0.6722217
+      - time: 0.6680204
         functionName: SkillFireEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
