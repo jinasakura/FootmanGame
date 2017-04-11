@@ -4,8 +4,6 @@ using System.Collections;
 public class AMeleeAttackSkill : RoleSkill
 {
 
-    //private GameObject ball;
-    //private FireBallController controller;
     private WizardWeaponController weaponController;
     private Transform rolePoint;
 
@@ -22,15 +20,15 @@ public class AMeleeAttackSkill : RoleSkill
         if (skillActionStart)
         {
             GameObject ballPrefab = weaponController.FireBall;
-            //Debug.Log(rolePoint.position + "      " + weaponController.firePoint.localPosition);
             Vector3 des = rolePoint.position + weaponController.firePoint.localPosition;
-            //Debug.Log(des);
-            GameObject ball = Instantiate(ballPrefab, des, weaponController.weaponPoint.rotation) as GameObject;
+            GameObject ball = Instantiate(ballPrefab, weaponController.firePoint.position, rolePoint.rotation) as GameObject;
 
             FireBallController controller = ball.GetComponent<FireBallController>();
             controller.Fire(weaponController.firePoint);
             controller.SetOwnerId(playerInfo.playerId);
-            controller.SetRange(skillInfo.distance);
+            controller.skillInfo = skillInfo;
+
+            playerInfo.detail.DeductMp(skillInfo.mp);
         }
     }
 
