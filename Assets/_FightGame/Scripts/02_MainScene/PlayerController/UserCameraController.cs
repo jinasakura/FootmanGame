@@ -17,6 +17,22 @@ public class UserCameraController : MonoBehaviour
     [SerializeField]
     private float lookSensitivity = 4f;//镜头上下旋转的系数
 
+    //[SerializeField]
+    //private float zLower = -3.37f;
+    //[SerializeField]
+    //private float zUpper = -1.63f;
+    //private float currentZ;
+    //[SerializeField]
+    //private float zSensitivity = 0.5f;
+
+    //[SerializeField]
+    //private float yLower = 1.94f;
+    //[SerializeField]
+    //private float yUpper = 2.97f;
+    //private float currentY;
+    //[SerializeField]
+    //private float ySensitivity = 0.5f;
+
 
     private Camera playerCamera;
 
@@ -24,6 +40,8 @@ public class UserCameraController : MonoBehaviour
     {
         playerCamera = Camera.main;
         currentCameraRotationX = playerCamera.transform.localEulerAngles.x;
+        //currentZ = playerCamera.transform.localPosition.z;
+        //currentY = playerCamera.transform.localPosition.y;
     }
 
 
@@ -35,7 +53,9 @@ public class UserCameraController : MonoBehaviour
             //float offsetX = Input.GetAxis("Mouse X");
             //PerformBodyRotation(offsetX * rotationSensitivity);
             float offsetY = Input.GetAxis("Mouse Y");
+            //Debug.Log(offsetY);
             PerformCameraRotation(offsetY * lookSensitivity);
+            //UpDownCamera(offsetY);
         }
 
     }
@@ -46,20 +66,18 @@ public class UserCameraController : MonoBehaviour
         currentCameraRotationX -= offsetY;
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, cameraLowerLimit, cameraUpperLimit);
         playerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+
     }
 
-    ////如果直接把事件交给skill，会打破人物整个类的层次(需不需要这么死板？)
-    //private void ReleaseSkill(NotificationCenter.Notification info)
+    //private void UpDownCamera(float offset)
     //{
-    //    string skillName = (string)info.data;
-    //    skillInfo = SkillModel.GetSkillLevelByName(skillName);
-    //    if (skillInfo.CheckCondition(playerInfo.detail))
-    //    {
-    //        character.TriggerSkill(skillInfo.id);
-    //        fight.TriggerSkill(skillInfo.mp);
-    //    }
-        
+    //    currentZ -= offset*zSensitivity;
+    //    currentZ= Mathf.Clamp(currentZ, zLower, zUpper);
+    //    currentY -= offset*ySensitivity;
+    //    currentY = Mathf.Clamp(currentY, yLower, yUpper);
+    //    playerCamera.transform.position = new Vector3(0f, currentY, currentZ);
     //}
+
 
 }
 

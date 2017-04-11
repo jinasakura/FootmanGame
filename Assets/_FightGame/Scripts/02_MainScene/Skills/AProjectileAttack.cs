@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AMeleeAttackSkill : RoleSkill
-{
+public class AProjectileAttack : RoleSkill {
 
     private WizardWeaponController weaponController;
     private Transform rolePoint;
@@ -23,13 +22,12 @@ public class AMeleeAttackSkill : RoleSkill
             Vector3 des = rolePoint.position + weaponController.firePoint.localPosition;
             GameObject ball = Instantiate(ballPrefab, weaponController.firePoint.position, rolePoint.rotation) as GameObject;
 
-            FireBallController controller = ball.GetComponent<FireBallController>();
-            controller.Fire(weaponController.firePoint);
-            controller.SetOwnerId(playerInfo.playerId);
-            controller.skillInfo = skillInfo;
+            //FireBallController controller = ball.GetComponent<FireBallController>();
+            //controller.Fire(weaponController.firePoint);
+            //controller.SetOwnerId(playerInfo.playerId);
+            //controller.skillInfo = skillInfo;
 
-            playerInfo.detail.DeductMp(skillInfo.mp);
+            //playerInfo.detail.DeductMp(skillInfo.mp);
         }
     }
-
 }

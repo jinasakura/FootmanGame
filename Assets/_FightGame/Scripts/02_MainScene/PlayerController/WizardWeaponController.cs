@@ -3,7 +3,8 @@ using System.Collections;
 
 public class WizardWeaponController : MonoBehaviour {
 
-    public GameObject FireBall;
+    public GameObject FireBallSmall;
+    public GameObject FireBallLarge;
 
     public Transform weaponPoint;
     public Transform firePoint;
