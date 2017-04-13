@@ -4,247 +4,323 @@
 		<id>1001</id>
 		<careerId>1</careerId>
 		<skillName>Attack 01</skillName>
-		<damage>10</damage>
+		<damageHp>10</damageHp>
 		<level>1</level>
 		<mp>10</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>1002</id>
 		<careerId>1</careerId>
 		<skillName>Attack 02</skillName>
-		<damage>15</damage>
+		<damageHp>15</damageHp>
 		<level>1</level>
 		<mp>15</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>1003</id>
 		<careerId>1</careerId>
 		<skillName>Double Attack</skillName>
-		<damage>20</damage>
+		<damageHp>20</damageHp>
 		<level>2</level>
 		<mp>20</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>3</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>1004</id>
 		<careerId>1</careerId>
 		<skillName>Cast Spell</skillName>
-		<damage>30</damage>
+		<damageHp>30</damageHp>
 		<level>3</level>
 		<mp>25</mp>
 		<healHp>60</healHp>
 		<healMp>60</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>2001</id>
 		<careerId>2</careerId>
 		<skillName>Melee Attack</skillName>
-		<damage>10</damage>
+		<damageHp>10</damageHp>
 		<level>1</level>
 		<mp>10</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>2</skillType>
-		<distance>3.5</distance>
+		<releaseDistance>3.5</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>1</damagePeople>
+		<releaseSpeed>5.5</releaseSpeed>
+		<lancherName>FireBallSmall</lancherName>
 	</level>
 	<level>
 		<id>2002</id>
 		<careerId>2</careerId>
 		<skillName>Projectile Attack</skillName>
-		<damage>15</damage>
+		<damageHp>40</damageHp>
 		<level>1</level>
 		<mp>15</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>1</skillType>
-		<distance>0</distance>
+		<skillType>2</skillType>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>5</damageRadius>
+		<damagePeople>3</damagePeople>
+		<releaseSpeed>8</releaseSpeed>
+		<lancherName>FireBallLarge</lancherName>
 	</level>
 	<level>
 		<id>2003</id>
 		<careerId>2</careerId>
-		<skillName>Cast Spell 02</skillName>
-		<damage>20</damage>
+		<skillName>Cast Spell</skillName>
+		<damageHp>20</damageHp>
 		<level>2</level>
 		<mp>20</mp>
 		<healHp>60</healHp>
 		<healMp>60</healMp>
-		<passive>false</passive>
+		<passive>true</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>2004</id>
 		<careerId>2</careerId>
 		<skillName>Channeling</skillName>
-		<damage>30</damage>
+		<damageHp>30</damageHp>
 		<level>3</level>
 		<mp>25</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>2005</id>
 		<careerId>2</careerId>
 		<skillName>Shockwave Attack</skillName>
-		<damage>30</damage>
+		<damageHp>30</damageHp>
 		<level>3</level>
 		<mp>25</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>3001</id>
 		<careerId>3</careerId>
 		<skillName>Left Claw Attack</skillName>
-		<damage>10</damage>
+		<damageHp>10</damageHp>
 		<level>1</level>
 		<mp>10</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>3002</id>
 		<careerId>3</careerId>
 		<skillName>Right Claw Attack</skillName>
-		<damage>10</damage>
+		<damageHp>10</damageHp>
 		<level>1</level>
 		<mp>10</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>3003</id>
 		<careerId>3</careerId>
 		<skillName>Rapid Attack</skillName>
-		<damage>20</damage>
+		<damageHp>20</damageHp>
 		<level>2</level>
 		<mp>20</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>3004</id>
 		<careerId>3</careerId>
 		<skillName>Cast Spell</skillName>
-		<damage>30</damage>
+		<damageHp>30</damageHp>
 		<level>3</level>
 		<mp>25</mp>
 		<healHp>50</healHp>
 		<healMp>50</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>3005</id>
 		<careerId>3</careerId>
 		<skillName>Spin Attack</skillName>
-		<damage>30</damage>
+		<damageHp>30</damageHp>
 		<level>3</level>
 		<mp>25</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>3006</id>
 		<careerId>3</careerId>
 		<skillName>Row Attack</skillName>
-		<damage>40</damage>
+		<damageHp>40</damageHp>
 		<level>3</level>
 		<mp>30</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>4001</id>
 		<careerId>4</careerId>
 		<skillName>Arrow Attack</skillName>
-		<damage>10</damage>
+		<damageHp>10</damageHp>
 		<level>1</level>
 		<mp>10</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>4002</id>
 		<careerId>4</careerId>
 		<skillName>Multiple Shots Attack</skillName>
-		<damage>15</damage>
+		<damageHp>15</damageHp>
 		<level>1</level>
 		<mp>15</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>4003</id>
 		<careerId>4</careerId>
 		<skillName>Projectile Attack</skillName>
-		<damage>20</damage>
+		<damageHp>20</damageHp>
 		<level>2</level>
 		<mp>20</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 	<level>
 		<id>4004</id>
 		<careerId>4</careerId>
 		<skillName>Cast Spell</skillName>
-		<damage>30</damage>
+		<damageHp>30</damageHp>
 		<level>3</level>
 		<mp>25</mp>
 		<healHp>60</healHp>
 		<healMp>60</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
-		<distance>0</distance>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>0</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
 	</level>
 </info>

@@ -5,29 +5,24 @@ using System.Collections.Generic;
 
 /// <summary>
 /// 职责：接受释放技能的命令后，判断应该创建哪个skill类
+/// 技能类型不能和职业挂钩，而应该与技能特点挂钩
 /// </summary>
 public class RoleSkillController : MonoBehaviour
 {
     public Action<int> OnSkillTrigger { set; get; }
-
-    //CloseSingle-接触攻击单人，FarSingle-某距离内攻击单人，CloseGroup-接触攻击某范围内群体，FarGroup-远程攻击某范围内群体
-    //CloseGround-(再议)，FarGround-再议
-    public enum Attack { CloseSingle = 1, FarSingle , CloseGroup ,FarGroup ,CloseGround, FarGround };
-    //CureSelf-治愈自己，CureOther-治愈他人（这个人离我的远近？），DefenseSelf-自己加防御，DefenseGroup-防御某范围内一群人
-    public enum Passive { CureSelf = 1 ,CureOther , CureGroup ,DefenseSelf ,DefenseGroup };
 
     private PlayerInfo playerInfo;
     private RoleSkill skill;
 
     void Start()
     {
+        playerInfo = GetComponent<PlayerInfo>();
         ReleaseSkillMode();
     }
 
     //从哪里收到释放技能的命令（还没释放呢！）
     protected virtual void ReleaseSkillMode()
     {
-        playerInfo = GetComponent<PlayerInfo>();
         if (playerInfo.playerId == LoginUserInfo.playerId)
         {
             NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.ReleaseSkill);
@@ -43,24 +38,24 @@ public class RoleSkillController : MonoBehaviour
         {
             if (!skillInfo.passive)
             {
-                Attack type = (Attack)skillInfo.skillType;
+                SkillRef.Attack type = (SkillRef.Attack)skillInfo.skillType;
                 switch (type)
                 {
-                    case Attack.CloseSingle:
+                    case SkillRef.Attack.TouchPerson:
                         skill = GetSkill<ACloseSingleSkill>();
                         break;
-                    case Attack.FarSingle:
-                        skill = GetSkill<AMeleeAttackSkill>();
+                    case SkillRef.Attack.UniObject:
+                        skill = GetSkill<LancherSkill>();
                         break;
 
                 }
             }
             else
             {
-                Passive type = (Passive)skillInfo.skillType;
+                SkillRef.Passive type = (SkillRef.Passive)skillInfo.skillType;
                 switch (type)
                 {
-                    case Passive.CureSelf:
+                    case SkillRef.Passive.CureSelf:
                         skill = GetSkill<PCureSelfSkill>();
                         break;
                 }

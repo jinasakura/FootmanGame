@@ -12,15 +12,6 @@ public class ACloseSingleSkill : RoleSkill
     //第三次攻击，血量改变三次60、50、40
     //初步怀疑是OnTriggerStay被多次调用，为什么这样暂时不知道
     private bool isAttack = false;
-    //public bool isAttack
-    //{
-    //    set {
-    //        _isAttack = value;
-    //        if (_isAttack == false)
-    //        { Debug.Log("有问题"); }
-    //    }
-    //    get { return _isAttack; }
-    //}
 
     protected override void OnSkillFire(bool fire)
     {
@@ -34,8 +25,8 @@ public class ACloseSingleSkill : RoleSkill
         if (skillActionStart)
         {
             //从攻击者的角度来看
-            if (enemyCollider.gameObject.layer == LayerMask.NameToLayer("Player")
-                && enemyCollider.gameObject.tag == "Body")
+            if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer)
+                && enemyCollider.gameObject.tag == SkillRef.BodyTag)
             {
                 GameObject enemy = enemyCollider.gameObject;
                 PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();

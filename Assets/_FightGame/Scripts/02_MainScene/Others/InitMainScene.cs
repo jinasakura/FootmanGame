@@ -21,7 +21,8 @@ public class InitMainScene : MonoBehaviour {
     [SerializeField]
     private Transform[] respawns;//测试使用，出生点位置
 
-    public GameObject fireBall;
+    [SerializeField]
+    private GameObject[] lanchers;
 
 
     void Start ()
@@ -29,6 +30,7 @@ public class InitMainScene : MonoBehaviour {
         HandleModelInfo();
         //随机N个地点(随后加上)
         initAllPlayers();
+        initAllLanchers();
     }
 
     private void HandleModelInfo()
@@ -82,6 +84,15 @@ public class InitMainScene : MonoBehaviour {
         NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.MainSceneIsReady);
     }
 
-
+    private void initAllLanchers()
+    {
+        foreach (GameObject item in lanchers)
+        {
+            if (item != null)
+            {
+                LanchersController.SetLancher(item.name, item);
+            }
+        }
+    }
 
 }

@@ -7,7 +7,6 @@ public class SkillLevelItem
     public int careerId;
     public string skillName;
 
-
     /// <summary>
     /// 技能消耗hp
     /// </summary>
@@ -25,13 +24,18 @@ public class SkillLevelItem
     public float healHp;
     public float healMp;
 
-    public float distance;
 
     //0-主动技能-false ; 1-被动技能-true
     public bool passive;
 
-    //1-单人；2-群人；3-对地
+    //解释参考RoleSkillController
     public int skillType;
+
+    public float damageRadius;
+    public int damagePeople;
+    public float releaseSpeed;
+    public float releaseDistance;
+    public string lancherName;
 
     public bool CheckCondition(PlayerDetailInfo playerRequirement)
     {

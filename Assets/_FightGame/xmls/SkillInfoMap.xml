@@ -4,27 +4,35 @@
     	<id>1001</id>
         <careerId>1</careerId>
         <skillName>Attack 01</skillName>
-        <damage>10</damage>
+        <damageHp>10</damageHp>
         <level>1</level>
         <mp>10</mp>
         <healHp>0</healHp>
         <healMp>0</healMp>
         <passive>false</passive>
         <skillType>1</skillType>
-        <distance>0</distance>
+        <releaseDistance>0</releaseDistance>
+        <damageRadius>0</damageRadius>
+        <damagePeople>0</damagePeople>
+        <releaseSpeed>0</releaseSpeed>
+        <lancherName>Fireball</lancherName>
     </level>
 	<level>
     	<id>1001</id>
         <careerId>1</careerId>
         <skillName>Attack 01</skillName>
-        <damage>10</damage>
+        <damageHp>10</damageHp>
         <level>1</level>
         <mp>10</mp>
         <healHp>0</healHp>
         <healMp>0</healMp>
         <passive>false</passive>
         <skillType>1</skillType>
-        <distance>0</distance>
+        <releaseDistance>0</releaseDistance>
+        <damageRadius>0</damageRadius>
+        <damagePeople>0</damagePeople>
+        <releaseSpeed>0</releaseSpeed>
+        <lancherName>Fireball</lancherName>
     </level>	
 
 </info>

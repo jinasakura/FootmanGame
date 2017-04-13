@@ -76,7 +76,11 @@ public class LoadAllInfo : MonoBehaviour {
             item.healMp = float.Parse(nodeChild.Item(7).InnerText);
             item.passive = bool.Parse(nodeChild.Item(8).InnerText);
             item.skillType = Int32.Parse(nodeChild.Item(9).InnerText);
-            item.distance = float.Parse(nodeChild.Item(10).InnerText);
+            item.releaseDistance = float.Parse(nodeChild.Item(10).InnerText);
+            item.damageRadius = float.Parse(nodeChild.Item(11).InnerText);
+            item.damagePeople = Int16.Parse(nodeChild.Item(12).InnerText);
+            item.releaseSpeed = float.Parse(nodeChild.Item(13).InnerText);
+            item.lancherName = nodeChild.Item(14).InnerText;
             SkillModel.SetSkillItem(item.careerId, item);
         }
     }
