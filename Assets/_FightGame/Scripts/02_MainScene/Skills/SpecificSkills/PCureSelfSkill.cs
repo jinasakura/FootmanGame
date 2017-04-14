@@ -7,7 +7,7 @@ public class PCureSelfSkill : RoleSkill
 
     void Update()
     {
-        if (skillActionStart && !isAttack)
+        if (skillFireStart && !isAttack)
         {
             playerInfo.detail.AddHp(skillInfo.healHp);
             playerInfo.detail.AddMp(skillInfo.healMp);

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-
-public static partial class ExtentionMethod
+//这里用partial来修饰class是因为，这个class需要多人协同写，每个人写的都是类的一部分，但是却分布在不同的文件里
+public static partial class GetObjectByMethods
 {
     /// <summary>  
     /// 获取子对象变换集合  

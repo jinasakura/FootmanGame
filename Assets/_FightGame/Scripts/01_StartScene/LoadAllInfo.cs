@@ -81,6 +81,7 @@ public class LoadAllInfo : MonoBehaviour {
             item.damagePeople = Int16.Parse(nodeChild.Item(12).InnerText);
             item.releaseSpeed = float.Parse(nodeChild.Item(13).InnerText);
             item.lancherName = nodeChild.Item(14).InnerText;
+            item.firePoint = Int16.Parse(nodeChild.Item(15).InnerText);
             SkillModel.SetSkillItem(item.careerId, item);
         }
     }

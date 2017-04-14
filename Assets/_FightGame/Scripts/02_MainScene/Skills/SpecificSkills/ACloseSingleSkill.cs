@@ -22,7 +22,7 @@ public class ACloseSingleSkill : RoleSkill
     //没事别乱用继承，这样会被调用两次
     void OnTriggerStay(Collider enemyCollider)
     {
-        if (skillActionStart)
+        if (skillFireStart)
         {
             //从攻击者的角度来看
             if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer)

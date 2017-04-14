@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LancherSkill : RoleSkill {
+public class AUniLancherSkill : RoleSkill {
 
     protected Transform firePoint;
     protected Transform rolePoint;
@@ -9,7 +9,8 @@ public class LancherSkill : RoleSkill {
     public override void init()
     {
         base.init();
-        firePoint = weaponCollider.gameObject.transform.GetChild(0);
+        string lanchPoint = SkillRef.FirePoint + playerInfo.playerId.ToString() + skillInfo.firePoint.ToString();
+        firePoint = GameObject.Find(lanchPoint).transform;
         rolePoint = GetComponentInParent<PlayerInfo>().gameObject.transform;
     }
 
@@ -17,7 +18,7 @@ public class LancherSkill : RoleSkill {
     {
         base.OnSkillFire(fire);
 
-        if (skillActionStart)
+        if (skillFireStart)
         {
             GameObject ballPrefab = LanchersController.GetLancherByName(skillInfo.lancherName);
             GameObject ball = Instantiate(ballPrefab, firePoint.position, rolePoint.rotation) as GameObject;

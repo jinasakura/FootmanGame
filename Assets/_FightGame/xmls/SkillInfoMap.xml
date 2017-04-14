@@ -16,6 +16,7 @@
         <damagePeople>0</damagePeople>
         <releaseSpeed>0</releaseSpeed>
         <lancherName>Fireball</lancherName>
+        <FirePoint>1</FirePoint>
     </level>
 	<level>
     	<id>1001</id>
@@ -33,6 +34,7 @@
         <damagePeople>0</damagePeople>
         <releaseSpeed>0</releaseSpeed>
         <lancherName>Fireball</lancherName>
+        <FirePoint>1</FirePoint>
     </level>	
 
 </info>

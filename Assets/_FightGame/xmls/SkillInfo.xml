@@ -16,6 +16,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>1002</id>
@@ -33,6 +34,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>1003</id>
@@ -50,6 +52,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>1004</id>
@@ -67,6 +70,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>2001</id>
@@ -84,6 +88,7 @@
 		<damagePeople>1</damagePeople>
 		<releaseSpeed>5.5</releaseSpeed>
 		<lancherName>FireBallSmall</lancherName>
+		<FirePoint>1</FirePoint>
 	</level>
 	<level>
 		<id>2002</id>
@@ -101,6 +106,7 @@
 		<damagePeople>3</damagePeople>
 		<releaseSpeed>8</releaseSpeed>
 		<lancherName>FireBallLarge</lancherName>
+		<FirePoint>2</FirePoint>
 	</level>
 	<level>
 		<id>2003</id>
@@ -118,6 +124,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>2004</id>
@@ -128,13 +135,14 @@
 		<mp>25</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
-		<passive>true</passive>
-		<skillType>1</skillType>
-		<releaseDistance>0</releaseDistance>
+		<passive>false</passive>
+		<skillType>7</skillType>
+		<releaseDistance>4</releaseDistance>
 		<damageRadius>0</damageRadius>
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>2005</id>
@@ -152,6 +160,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>3001</id>
@@ -169,6 +178,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>3002</id>
@@ -186,6 +196,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>3003</id>
@@ -203,6 +214,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>3004</id>
@@ -220,6 +232,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>3005</id>
@@ -237,6 +250,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>3006</id>
@@ -254,6 +268,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>4001</id>
@@ -271,6 +286,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>4002</id>
@@ -288,6 +304,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>4003</id>
@@ -305,6 +322,7 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 	<level>
 		<id>4004</id>
@@ -322,5 +340,6 @@
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
 	</level>
 </info>

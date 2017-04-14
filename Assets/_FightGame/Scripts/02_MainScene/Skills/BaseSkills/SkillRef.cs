@@ -26,4 +26,6 @@
 
     public static string GroundLayer = "Ground";
 
+    public static string FirePoint = "FirePoint";
+
 }

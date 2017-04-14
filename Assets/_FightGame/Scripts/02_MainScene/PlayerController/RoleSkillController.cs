@@ -45,9 +45,11 @@ public class RoleSkillController : MonoBehaviour
                         skill = GetSkill<ACloseSingleSkill>();
                         break;
                     case SkillRef.Attack.UniObject:
-                        skill = GetSkill<LancherSkill>();
+                        skill = GetSkill<AUniLancherSkill>();
                         break;
-
+                    case SkillRef.Attack.CloneSelf:
+                        skill = GetSkill<ACloneSelfSkill>();
+                        break;
                 }
             }
             else
@@ -61,6 +63,7 @@ public class RoleSkillController : MonoBehaviour
                 }
             }
             skill.skillInfo = skillInfo;
+            skill.init();
             skill.SubscribActionFire();
             Action<int> localOnChange = OnSkillTrigger;
             if (localOnChange != null)
@@ -81,7 +84,6 @@ public class RoleSkillController : MonoBehaviour
         {
             target = gameObject.AddComponent<T>();
             gameObject.name = playerInfo.playerName;
-            target.init();
         }
         return target;
     }

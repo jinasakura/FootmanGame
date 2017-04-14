@@ -45,6 +45,7 @@ public class InitMainScene : MonoBehaviour {
     private void initAllPlayers()
     {
         GameObject model = PlayerModel.GetModelByName(LoginUserInfo.modelName);
+        PlayerModel.roleBasePrefab = roleBasePrefab;
 
         int i = 0;
         GameObject playerModel;

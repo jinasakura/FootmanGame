@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class PlayerModel  {
 
+    public static GameObject roleBasePrefab;
+
     //将模型名和模型对应起来
     private static Dictionary<string, GameObject> modelDict = new Dictionary<string, GameObject>();
     //private static Dictionary<int, GameObject> playersDict = new Dictionary<int, GameObject>();
