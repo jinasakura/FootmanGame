@@ -8,7 +8,7 @@ using System.Collections;
 public class ACloneSelfSkill : RoleSkill
 {
 
-    private GameObject roleBase;
+    private GameObject channelPlayer;
 
     protected override void OnSkillFire(bool fire)
     {
@@ -21,18 +21,19 @@ public class ACloneSelfSkill : RoleSkill
             Ray ray = new Ray(position, transform.forward);
             Debug.DrawRay(ray.origin, ray.direction * skillInfo.releaseDistance, Color.cyan, 10);
 
-            RaycastHit hitInfo;
+            RaycastHit hitInfo = new RaycastHit();
             if (!Physics.Raycast(ray, out hitInfo, skillInfo.releaseDistance))
             {
                 //Debug.Log(hitInfo.collider.gameObject.name);
                 //Debug.Log(hitInfo.distance);
                 Vector3 newPlayerPosition = transform.position;
-                newPlayerPosition.z += Mathf.Floor(skillInfo.releaseDistance / 2);
+                newPlayerPosition.z += skillInfo.releaseDistance / 2;
 
                 GameObject model = PlayerModel.GetModelByName(playerInfo.modelName);
-                roleBase = Instantiate(PlayerModel.roleBasePrefab, newPlayerPosition, transform.rotation) as GameObject;
-                GameObject playerModel = Instantiate(model, newPlayerPosition, transform.rotation, roleBase.transform) as GameObject;
-                PlayerInfo pInfo = roleBase.GetComponent<PlayerInfo>();
+                channelPlayer = Instantiate(PlayerModel.roleBasePrefab, newPlayerPosition, transform.rotation) as GameObject;
+                channelPlayer.gameObject.name = "Player"+playerInfo.playerId.ToString()+ "Channeling";
+                GameObject playerModel = Instantiate(model, newPlayerPosition, transform.rotation, channelPlayer.transform) as GameObject;
+                PlayerInfo pInfo = channelPlayer.GetComponent<PlayerInfo>();
                 pInfo.playerId = playerInfo.playerId;
                 playerInfo.playerName = "Player channeling";
                 pInfo.modelName = playerInfo.modelName;
@@ -43,7 +44,8 @@ public class ACloneSelfSkill : RoleSkill
                 pInfo.detail.currentHp = careerLevel.maxHp;
                 pInfo.detail.currentMp = careerLevel.maxMp;
 
-                roleBase.AddComponent<AIMoveController>();
+                channelPlayer.AddComponent<AIMoveController>();
+                Destroy(channelPlayer, 5);
 
                 playerInfo.detail.DeductMp(skillInfo.mp);
             }
