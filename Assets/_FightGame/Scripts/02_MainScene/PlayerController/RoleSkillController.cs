@@ -50,6 +50,9 @@ public class RoleSkillController : MonoBehaviour
                     case SkillRef.Attack.CloneSelf:
                         skill = GetSkill<ACloneSelfSkill>();
                         break;
+                    case SkillRef.Attack.UntouchPeopleInCloseScope:
+                        skill = GetSkill<AUntouchPeopleInCloseScopeSkill>();
+                        break;
                 }
             }
             else

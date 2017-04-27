@@ -58,9 +58,9 @@
 		<id>1004</id>
 		<careerId>1</careerId>
 		<skillName>Cast Spell</skillName>
-		<damageHp>30</damageHp>
+		<damageHp>0</damageHp>
 		<level>3</level>
-		<mp>25</mp>
+		<mp>0</mp>
 		<healHp>60</healHp>
 		<healMp>60</healMp>
 		<passive>true</passive>
@@ -112,9 +112,9 @@
 		<id>2003</id>
 		<careerId>2</careerId>
 		<skillName>Cast Spell</skillName>
-		<damageHp>20</damageHp>
+		<damageHp>0</damageHp>
 		<level>2</level>
-		<mp>20</mp>
+		<mp>0</mp>
 		<healHp>60</healHp>
 		<healMp>60</healMp>
 		<passive>true</passive>
@@ -150,14 +150,14 @@
 		<skillName>Shockwave Attack</skillName>
 		<damageHp>30</damageHp>
 		<level>3</level>
-		<mp>25</mp>
+		<mp>30</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>1</skillType>
-		<releaseDistance>0</releaseDistance>
-		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<skillType>5</skillType>
+		<releaseDistance>3.5</releaseDistance>
+		<damageRadius>3.5</damageRadius>
+		<damagePeople>3</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -220,9 +220,9 @@
 		<id>3004</id>
 		<careerId>3</careerId>
 		<skillName>Cast Spell</skillName>
-		<damageHp>30</damageHp>
+		<damageHp>0</damageHp>
 		<level>3</level>
-		<mp>25</mp>
+		<mp>0</mp>
 		<healHp>50</healHp>
 		<healMp>50</healMp>
 		<passive>true</passive>
@@ -328,9 +328,9 @@
 		<id>4004</id>
 		<careerId>4</careerId>
 		<skillName>Cast Spell</skillName>
-		<damageHp>30</damageHp>
+		<damageHp>0</damageHp>
 		<level>3</level>
-		<mp>25</mp>
+		<mp>0</mp>
 		<healHp>60</healHp>
 		<healMp>60</healMp>
 		<passive>true</passive>

@@ -50,6 +50,10 @@ public class RoleSkill : MonoBehaviour
         //Debug.Log(skillInfo.skillName+"----skillFire->" + fire);
         skillFireStart = fire;
         if (weaponCollider != null) { weaponCollider.enabled = fire; }
+        if (fire)
+        {
+            playerInfo.detail.DeductMp(skillInfo.mp);
+        }
     }
 
     protected virtual void CloseWeapon()

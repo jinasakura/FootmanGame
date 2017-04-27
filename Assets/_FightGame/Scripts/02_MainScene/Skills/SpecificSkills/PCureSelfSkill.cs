@@ -5,13 +5,16 @@ public class PCureSelfSkill : RoleSkill
 {
     private bool isAttack = false;
 
-    void Update()
+
+    protected override void OnSkillFire(bool fire)
     {
-        if (skillFireStart && !isAttack)
+        base.OnSkillFire(fire);
+
+        if (skillFireStart)
         {
             playerInfo.detail.AddHp(skillInfo.healHp);
             playerInfo.detail.AddMp(skillInfo.healMp);
-            isAttack = true;
+            //isAttack = true;
         }
     }
 }

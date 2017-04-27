@@ -10,6 +10,14 @@ public class FireBallController : MonoBehaviour {
     private SkillLevelItem _skillInfo;
     public SkillLevelItem skillInfo { get; set; }
 
+    //protected LayerMask damageMask;
+    //public float explosionForce;
+
+    //void Start()
+    //{
+    //    damageMask = LayerMask.NameToLayer(SkillRef.PlayersLayer);
+    //}
+
     public void Fire(Vector3 forward,Vector3 position)
     {
         rb = GetComponent<Rigidbody>();

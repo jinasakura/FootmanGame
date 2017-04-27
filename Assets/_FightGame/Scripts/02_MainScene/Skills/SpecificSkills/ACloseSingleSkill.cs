@@ -25,8 +25,7 @@ public class ACloseSingleSkill : RoleSkill
         if (skillFireStart)
         {
             //从攻击者的角度来看
-            if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer)
-                && enemyCollider.gameObject.tag == SkillRef.BodyTag)
+            if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer))
             {
                 GameObject enemy = enemyCollider.gameObject;
                 PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();
@@ -36,7 +35,7 @@ public class ACloseSingleSkill : RoleSkill
                     if (role != null && !isAttack)
                     {
                         //Debug.Log("Attack   " + isAttack);
-                        playerInfo.detail.DeductMp(skillInfo.mp);
+                        //playerInfo.detail.DeductMp(skillInfo.mp);
                         enemyInfo.detail.DeductHp(skillInfo.damageHp);
                         role.TakeDamageAction();
                         CloseWeapon();

@@ -31,9 +31,18 @@ public class SkillLevelItem
     //解释参考RoleSkillController
     public int skillType;
 
+
+    /// <summary>
+    /// 伤害半径和释放半径的区别？
+    /// 对于有发射物的来说：伤害半径是发射物的伤害半径
+    /// </summary>
     public float damageRadius;
     public int damagePeople;
     public float releaseSpeed;
+
+    /// <summary>
+    /// 仅仅技能释放半径
+    /// </summary>
     public float releaseDistance;
     public string lancherName;
     //发射点：1-武器上，2-头顶。目前不知道发射点和发射物是何种组合关系，先这样使用

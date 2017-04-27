@@ -12,7 +12,7 @@
     public enum Attack
     {
         TouchPerson = 1, UniObject, MutiObjectPerson, MutiObjectPeople, UntouchPeopleInCloseScope,
-        TouchPersonInCloseScope, CloneSelf
+        TouchPeopleInCloseScope, CloneSelf
     };
 
     //CureSelf-治愈自己，CureOther-治愈他人（这个人离我的远近？），DefenseSelf-自己加防御，DefenseGroup-防御某范围内一群人
@@ -22,9 +22,9 @@
 
     public static string BodyTag = "Body";
 
-    public static string PlayersLayer = "Players";
+    public static string PlayersLayer = "Players-Model";
 
-    public static string GroundLayer = "Ground";
+    public static string EnvironmentLayer = "Environment";
 
     public static string FirePoint = "FirePoint";
 

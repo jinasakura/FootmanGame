@@ -17,8 +17,7 @@ public class FireBallSmallController : FireBallController
 
     void OnTriggerStay(Collider enemyCollider)
     {
-        if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer)
-                && enemyCollider.gameObject.tag == SkillRef.BodyTag)
+        if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer))
         {
             GameObject enemy = enemyCollider.gameObject;
             PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();

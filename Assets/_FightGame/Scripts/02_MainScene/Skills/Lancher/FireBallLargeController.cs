@@ -4,33 +4,45 @@ using System.Collections;
 public class FireBallLargeController : FireBallController {
 
     [SerializeField]
-    private LayerMask damageMask;
+    protected LayerMask damageMask;
     public float explosionForce;
+
+    void Start()
+    {
+        damageMask = LayerMask.NameToLayer(SkillRef.PlayersLayer);
+    }
 
     void OnTriggerEnter(Collider enemyCollider)
     {
-        if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.GroundLayer))
+        if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.EnvironmentLayer))//球落到地上
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius, damageMask);
-            int num = Mathf.Min(colliders.Length, skillInfo.damagePeople);
-            for (int i = 0; i < num; i++)
+            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius);
+            //int num = Mathf.Min(colliders.Length, skillInfo.damagePeople);
+            for (int i = 0; i < colliders.Length; i++)
             {
-                Rigidbody targetRb = colliders[i].gameObject.GetComponentInParent<Rigidbody>();
-                if (!targetRb) continue;
-                targetRb.AddExplosionForce(explosionForce, transform.position, skillInfo.damageRadius);
+                if (colliders.Length == skillInfo.damagePeople) break;
 
-                GameObject enemy = colliders[i].gameObject;
-                PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();
-                if (enemyInfo != null && enemyInfo.playerId != LoginUserInfo.playerId)
+                if (colliders[i].gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer) && colliders[i].gameObject.tag != SkillRef.WeaponTag)
                 {
-                    FootmanStateMachine role = enemy.GetComponent<FootmanStateMachine>();
-                    if (role != null)
+                    //Debug.Log(colliders[i].name);
+                    Rigidbody targetRb = colliders[i].gameObject.GetComponentInParent<Rigidbody>();
+                    if (!targetRb) continue;
+                    targetRb.AddExplosionForce(explosionForce, transform.position, skillInfo.damageRadius);
+
+                    GameObject enemy = colliders[i].gameObject;
+                    PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();
+                    if (enemyInfo != null && enemyInfo.playerId != LoginUserInfo.playerId)
                     {
-                        float damage = CalculateDamage(role.transform.position);
-                        enemyInfo.detail.DeductHp(damage);
-                        role.TakeDamageAction();
+                        FootmanStateMachine role = enemy.GetComponent<FootmanStateMachine>();
+                        if (role != null)
+                        {
+                            float damage = CalculateDamage(role.transform.position);
+                            enemyInfo.detail.DeductHp(damage);
+                            role.TakeDamageAction();
+                        }
                     }
                 }
+                
             }
             Destroy(gameObject);
         }

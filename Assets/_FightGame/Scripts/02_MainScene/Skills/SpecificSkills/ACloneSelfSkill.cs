@@ -47,11 +47,11 @@ public class ACloneSelfSkill : RoleSkill
                 channelPlayer.AddComponent<AIMoveController>();
                 Destroy(channelPlayer, 5);
 
-                playerInfo.detail.DeductMp(skillInfo.mp);
+                
             }
             else
             {
-                Debug.Log("无法释放技能！");
+                Debug.Log("ACloneSelfSkill：无法释放技能——>Channeling");
             }
         }
     }

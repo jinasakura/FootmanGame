@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// 单发射物攻击
+/// </summary>
 public class AUniLancherSkill : RoleSkill {
 
     protected Transform firePoint;
@@ -29,7 +33,7 @@ public class AUniLancherSkill : RoleSkill {
             controller.playerId = playerInfo.playerId;
             controller.Fire(rolePoint.forward,firePoint.position);
 
-            playerInfo.detail.DeductMp(skillInfo.mp);
+            //playerInfo.detail.DeductMp(skillInfo.mp);
         }
     }
 
