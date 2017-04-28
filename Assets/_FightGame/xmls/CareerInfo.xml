@@ -78,7 +78,7 @@
 		<level>2</level>
 		<exp>150</exp>
 		<hp>150</hp>
-		<mp>150</mp>
+		<mp>200</mp>
 	</career>
 	<career>
 		<id>9</id>
@@ -88,7 +88,7 @@
 		<level>3</level>
 		<exp>200</exp>
 		<hp>200</hp>
-		<mp>200</mp>
+		<mp>300</mp>
 	</career>
 	<career>
 		<id>10</id>
@@ -108,7 +108,7 @@
 		<level>2</level>
 		<exp>150</exp>
 		<hp>150</hp>
-		<mp>150</mp>
+		<mp>200</mp>
 	</career>
 	<career>
 		<id>12</id>
@@ -118,6 +118,6 @@
 		<level>3</level>
 		<exp>200</exp>
 		<hp>200</hp>
-		<mp>200</mp>
+		<mp>300</mp>
 	</career>
 </info>

@@ -12,7 +12,7 @@ public class AUntouchPeopleInCloseScopeSkill : RoleSkill
             Ray ray = new Ray(transform.position, transform.forward);
             Debug.DrawRay(ray.origin, ray.direction * skillInfo.damageRadius, Color.cyan, 10);
 
-            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius,LayerMask.NameToLayer(SkillRef.EnvironmentLayer));
 
             //int num = Mathf.Max(colliders.Length, skillInfo.damagePeople);
             for (int i = 0; i < colliders.Length; i++)

@@ -3,7 +3,7 @@ using System.Collections;
 
 
 /// <summary>
-/// 在左边或右边复制出另一个自己
+/// 在前面复制出另一个自己
 /// </summary>
 public class ACloneSelfSkill : RoleSkill
 {
@@ -24,10 +24,7 @@ public class ACloneSelfSkill : RoleSkill
             RaycastHit hitInfo = new RaycastHit();
             if (!Physics.Raycast(ray, out hitInfo, skillInfo.releaseDistance))
             {
-                //Debug.Log(hitInfo.collider.gameObject.name);
-                //Debug.Log(hitInfo.distance);
-                Vector3 newPlayerPosition = transform.position;
-                newPlayerPosition.z += skillInfo.releaseDistance / 2;
+                Vector3 newPlayerPosition = transform.forward * skillInfo.releaseDistance / 2 + transform.position;
 
                 GameObject model = PlayerModel.GetModelByName(playerInfo.modelName);
                 channelPlayer = Instantiate(PlayerModel.roleBasePrefab, newPlayerPosition, transform.rotation) as GameObject;

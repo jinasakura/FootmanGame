@@ -48,6 +48,8 @@ public class SkillLevelItem
     //发射点：1-武器上，2-头顶。目前不知道发射点和发射物是何种组合关系，先这样使用
     public int firePoint;
 
+    public bool canMove;
+
     public bool CheckCondition(PlayerDetailInfo playerRequirement)
     {
         bool use = false;

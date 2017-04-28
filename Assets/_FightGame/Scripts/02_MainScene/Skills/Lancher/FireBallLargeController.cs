@@ -16,7 +16,7 @@ public class FireBallLargeController : FireBallController {
     {
         if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.EnvironmentLayer))//球落到地上
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius, LayerMask.NameToLayer(SkillRef.EnvironmentLayer));
             //int num = Mathf.Min(colliders.Length, skillInfo.damagePeople);
             for (int i = 0; i < colliders.Length; i++)
             {

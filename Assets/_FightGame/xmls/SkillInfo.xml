@@ -17,6 +17,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>1002</id>
@@ -35,6 +36,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>1003</id>
@@ -53,6 +55,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>1004</id>
@@ -71,6 +74,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>2001</id>
@@ -89,6 +93,7 @@
 		<releaseSpeed>5.5</releaseSpeed>
 		<lancherName>FireBallSmall</lancherName>
 		<FirePoint>1</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>2002</id>
@@ -107,6 +112,7 @@
 		<releaseSpeed>8</releaseSpeed>
 		<lancherName>FireBallLarge</lancherName>
 		<FirePoint>2</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>2003</id>
@@ -125,6 +131,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>2004</id>
@@ -143,6 +150,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>2005</id>
@@ -161,6 +169,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>3001</id>
@@ -179,6 +188,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>3002</id>
@@ -197,14 +207,15 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>3003</id>
 		<careerId>3</careerId>
 		<skillName>Rapid Attack</skillName>
-		<damageHp>20</damageHp>
+		<damageHp>25</damageHp>
 		<level>2</level>
-		<mp>20</mp>
+		<mp>15</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
@@ -215,16 +226,17 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>3004</id>
 		<careerId>3</careerId>
 		<skillName>Cast Spell</skillName>
 		<damageHp>0</damageHp>
-		<level>3</level>
+		<level>2</level>
 		<mp>0</mp>
-		<healHp>50</healHp>
-		<healMp>50</healMp>
+		<healHp>60</healHp>
+		<healMp>60</healMp>
 		<passive>true</passive>
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
@@ -233,32 +245,34 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>3005</id>
 		<careerId>3</careerId>
 		<skillName>Spin Attack</skillName>
-		<damageHp>30</damageHp>
+		<damageHp>15</damageHp>
 		<level>3</level>
-		<mp>25</mp>
+		<mp>15</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>1</skillType>
+		<skillType>6</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
 		<damagePeople>0</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>true</canMove>
 	</level>
 	<level>
 		<id>3006</id>
 		<careerId>3</careerId>
 		<skillName>Row Attack</skillName>
-		<damageHp>40</damageHp>
+		<damageHp>15</damageHp>
 		<level>3</level>
-		<mp>30</mp>
+		<mp>15</mp>
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
@@ -269,6 +283,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>4001</id>
@@ -287,6 +302,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>4002</id>
@@ -305,6 +321,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>4003</id>
@@ -323,6 +340,7 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 	<level>
 		<id>4004</id>
@@ -341,5 +359,6 @@
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
+		<canMove>false</canMove>
 	</level>
 </info>

@@ -53,6 +53,9 @@ public class RoleSkillController : MonoBehaviour
                     case SkillRef.Attack.UntouchPeopleInCloseScope:
                         skill = GetSkill<AUntouchPeopleInCloseScopeSkill>();
                         break;
+                    case SkillRef.Attack.TouchPeopleInCloseScope:
+                        skill = GetSkill<ATouchPeopleInCloseScopeSkill>();
+                        break;
                 }
             }
             else

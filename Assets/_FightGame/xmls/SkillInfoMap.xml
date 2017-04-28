@@ -17,6 +17,7 @@
         <releaseSpeed>0</releaseSpeed>
         <lancherName>Fireball</lancherName>
         <FirePoint>1</FirePoint>
+        <canMove></canMove>
     </level>
 	<level>
     	<id>1001</id>
@@ -35,6 +36,7 @@
         <releaseSpeed>0</releaseSpeed>
         <lancherName>Fireball</lancherName>
         <FirePoint>1</FirePoint>
+        <canMove></canMove>
     </level>	
 
 </info>

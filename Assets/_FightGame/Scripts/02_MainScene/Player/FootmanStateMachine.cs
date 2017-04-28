@@ -24,6 +24,7 @@ public class FootmanStateMachine : StateMachine
     public string playerName { set; private get; }
     //判断是否处于一个技能中
     private bool onSkill = false;
+    private bool canMoveSkill = false;//这个技能能不能动；
 
     private SkillActionFire checkTouch;
 
@@ -50,16 +51,16 @@ public class FootmanStateMachine : StateMachine
 
         float tmpH = Mathf.Abs(h);
         float tmpV = Mathf.Abs(v);
-        if ((tmpH <= STAY_OFFSET && tmpV <= STAY_OFFSET) || onSkill)
+        if((tmpH > STAY_OFFSET && tmpV > STAY_OFFSET) || !onSkill || canMoveSkill)
+        {
+            stateParams.moveVelocity = gameObject.transform.right * h + gameObject.transform.forward * v;
+            stateParams.speed = Mathf.Max(tmpH, tmpV);
+        }
+        else
         {
             stateParams.speed = 0;
             stateParams.moveVelocity = Vector3.zero;
             stateParams.stayState = Convert.ToInt16(StayStateType.Idle);
-        }
-        else
-        {
-            stateParams.moveVelocity = gameObject.transform.right * h + gameObject.transform.forward * v;
-            stateParams.speed = Mathf.Max(tmpH, tmpV);
         }
         //Debug.Log("---状态机前---playerId->" + playerName + "===speed->" + stateParams.speed);
 
@@ -139,6 +140,20 @@ public class FootmanStateMachine : StateMachine
     public void OnSkillState(bool state)
     {
         onSkill = state;
+
+        if (onSkill)
+        {
+            SkillLevelItem skillInfo = SkillModel.GetSkillById(LoginUserInfo.careerId, stateParams.onceActionType);
+            if (skillInfo != null)
+            {
+                canMoveSkill = skillInfo.canMove;
+            }
+        }
+        else
+        {
+            canMoveSkill = false;
+        }
+        //Debug.Log(onSkill + "-----" + canMoveSkill);
     }
 
 
