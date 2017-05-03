@@ -18,9 +18,9 @@ public class AUniLancherSkill : RoleSkill {
         rolePoint = GetComponentInParent<PlayerInfo>().gameObject.transform;
     }
 
-    protected override void OnSkillFire(bool fire)
+    protected override void OnSkillFire(int skillId,bool fire)
     {
-        base.OnSkillFire(fire);
+        base.OnSkillFire(skillId,fire);
 
         if (skillFireStart)
         {

@@ -50,6 +50,9 @@ public class SkillLevelItem
 
     public bool canMove;
 
+    //某些技能可能循环多次
+    public int loopTimes;
+
     public bool CheckCondition(PlayerDetailInfo playerRequirement)
     {
         bool use = false;
@@ -66,30 +69,6 @@ public class SkillLevelItem
         return use;
     }
 }
-
-//public class SkillItem
-//{
-
-//    public int careerId;
-//    public SkillLevelItem[] levels;
-
-//    public List<SkillLevelItem> GetSkillLevels(int level)
-//    {
-//        List<SkillLevelItem> skillLevels = new List<SkillLevelItem>();
-//        foreach (SkillLevelItem item in levels)
-//        {
-//            if (item.level <= level)
-//            {
-//                skillLevels.Add(item);
-//            }
-//            else
-//            {
-//                break;
-//            }
-//        }
-//        return skillLevels;
-//    }
-//}
 
 public class SkillModel
 {
@@ -112,11 +91,6 @@ public class SkillModel
         List<SkillLevelItem> items = skillDict[careerId];
         items.Add(item);
     }
-
-    //public static void SetSkillInfoByName(string skillName,SkillLevelItem item)
-    //{
-    //    skillInfoDict[skillName] = item;
-    //}
 
     public static List<SkillLevelItem> GetAllSkillByCondition(int careerId,int level=1)
     {
@@ -167,7 +141,7 @@ public class SkillModel
         return level;
     }
 
-    public static SkillLevelItem GetSkillLevelByName(int skillId)
+    public static SkillLevelItem GetSkillLevelById(int skillId)
     {
         SkillLevelItem result;
         if (skillIdDict.TryGetValue(skillId, out result))

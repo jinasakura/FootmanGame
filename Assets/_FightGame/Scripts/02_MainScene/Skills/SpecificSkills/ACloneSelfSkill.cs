@@ -10,9 +10,9 @@ public class ACloneSelfSkill : RoleSkill
 
     private GameObject channelPlayer;
 
-    protected override void OnSkillFire(bool fire)
+    protected override void OnSkillFire(int skillId,bool fire)
     {
-        base.OnSkillFire(fire);
+        base.OnSkillFire(skillId,fire);
 
         if (skillFireStart)
         {

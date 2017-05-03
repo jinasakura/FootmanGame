@@ -18,6 +18,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>1002</id>
@@ -37,6 +38,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>1003</id>
@@ -56,6 +58,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>1004</id>
@@ -75,6 +78,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>2001</id>
@@ -94,6 +98,7 @@
 		<lancherName>FireBallSmall</lancherName>
 		<FirePoint>1</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>2002</id>
@@ -113,6 +118,7 @@
 		<lancherName>FireBallLarge</lancherName>
 		<FirePoint>2</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>2003</id>
@@ -132,6 +138,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>2004</id>
@@ -151,6 +158,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>2005</id>
@@ -170,6 +178,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>3001</id>
@@ -189,6 +198,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>3002</id>
@@ -208,6 +218,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>3003</id>
@@ -227,6 +238,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>3004</id>
@@ -246,6 +258,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>3005</id>
@@ -265,6 +278,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>true</canMove>
+		<loopTimes>3</loopTimes>
 	</level>
 	<level>
 		<id>3006</id>
@@ -284,6 +298,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>4001</id>
@@ -303,6 +318,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>4002</id>
@@ -322,6 +338,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>4003</id>
@@ -341,6 +358,7 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 	<level>
 		<id>4004</id>
@@ -360,5 +378,6 @@
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
+		<loopTimes>1</loopTimes>
 	</level>
 </info>

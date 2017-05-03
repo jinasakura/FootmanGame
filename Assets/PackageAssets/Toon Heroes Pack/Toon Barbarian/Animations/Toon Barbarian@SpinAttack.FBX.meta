@@ -155,7 +155,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 3005
         messageOptions: 0
-      - time: 0.99666905
+      - time: 1
         functionName: SkillFireEnd
         data: 
         objectReferenceParameter: {instanceID: 0}

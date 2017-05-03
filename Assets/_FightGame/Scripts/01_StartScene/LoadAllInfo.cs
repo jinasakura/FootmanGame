@@ -83,6 +83,7 @@ public class LoadAllInfo : MonoBehaviour {
             item.lancherName = nodeChild.Item(14).InnerText;
             item.firePoint = Int16.Parse(nodeChild.Item(15).InnerText);
             item.canMove = Boolean.Parse(nodeChild.Item(16).InnerText);
+            item.loopTimes = Int16.Parse(nodeChild.Item(17).InnerText);
             SkillModel.SetSkillItem(item.careerId, item);
         }
     }

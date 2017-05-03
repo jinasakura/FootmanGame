@@ -49,7 +49,7 @@ public class RoleSkill : MonoBehaviour
         actionFire.OnSkillFired -= this.OnSkillFire;
     }
 
-    protected virtual void OnSkillFire(bool fire)
+    protected virtual void OnSkillFire(int skillId, bool fire)
     {
         //Debug.Log(skillInfo.skillName+"----skillFire->" + fire);
         skillFireStart = fire;

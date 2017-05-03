@@ -9,9 +9,9 @@ public class StateMachineParams
         isLive = true;
         speed = 0;
         moveVelocity = Vector3.zero;
-        stayState = (int)FootmanStateMachine.StayStateType.Idle;
+        stayState = (int)SkillRef.StayStateType.Idle;
         triggerOnceAction = false;
-        onceActionType = (int)FootmanStateMachine.OnceActionType.TakeDamage;
+        skillId = (int)SkillRef.SkillType.TakeDamage;
     }
 
     private bool _isLive;
@@ -54,6 +54,12 @@ public class StateMachineParams
         get { return _stayState; }
     }
 
+    private bool _isSkill;
+    public bool isSkill
+    {
+        set { _isSkill = value; }
+        get { return _isSkill; }
+    }
     
     private bool _triggerOnceAction;
     public bool triggerOnceAction
@@ -62,16 +68,16 @@ public class StateMachineParams
         get { return _triggerOnceAction; }
     }
 
-    private int _onceActionType;
-    public int onceActionType
+    private int _skillId;
+    public int skillId
     {
-        set { _onceActionType = value; }
-        get { return _onceActionType; }
+        set { _skillId = value; }
+        get { return _skillId; }
     }
 
     public bool canMove()
     {
-        if (speed > FootmanStateMachine.STAY_OFFSET)
+        if (speed > SkillRef.STAY_OFFSET)
         {
             return true;
         }
@@ -79,6 +85,13 @@ public class StateMachineParams
         {
             return false;
         }
+    }
+
+    private int _loopTimes;
+    public int loopTimes
+    {
+        set { _loopTimes = value; }
+        get { return _loopTimes; }
     }
 
 }

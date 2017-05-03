@@ -18,8 +18,8 @@ public class StayState : RoleState
     {
         base.HandleParamers(info);
         if (!stateParams.isLive)
-            animator.SetBool("isLive", stateParams.isLive);
-        animator.SetInteger("stayState", stateParams.stayState);
+            animator.SetBool(SkillRef.isLive, stateParams.isLive);
+        animator.SetInteger(SkillRef.stayState, stateParams.stayState);
     }
 
 

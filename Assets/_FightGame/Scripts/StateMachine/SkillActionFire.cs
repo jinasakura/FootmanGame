@@ -8,7 +8,7 @@ using System;
 public class SkillActionFire : MonoBehaviour
 {
 
-    public Action<bool> OnSkillFired { set; get; }
+    public Action<int,bool> OnSkillFired { set; get; }
 
     private bool _touched;
     public bool touched
@@ -17,10 +17,10 @@ public class SkillActionFire : MonoBehaviour
         set
         {
             _touched = value;
-            Action<bool> localOnChange = OnSkillFired;
+            Action<int,bool> localOnChange = OnSkillFired;
             if (localOnChange != null)//如果没有订阅，这里会一直为空
             {
-                localOnChange(value);
+                localOnChange(skillId,value);
             }
 
         }
@@ -39,7 +39,7 @@ public class SkillActionFire : MonoBehaviour
     {
         touched = true;
         skillId = id;
-        //Debug.Log(id + "    " + touched);
+
     }
 
     void SkillFireEnd(int id)

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 /// </summary>
 public class RoleSkillController : MonoBehaviour
 {
-    public Action<int> OnSkillTrigger { set; get; }
+    public Action<int,int> OnSkillTrigger { set; get; }
 
     private PlayerInfo playerInfo;
     private RoleSkill skill;
@@ -32,7 +32,7 @@ public class RoleSkillController : MonoBehaviour
     public void ReleaseSkill(NotificationCenter.Notification info)
     {
         int skillId = (int)info.data;
-        SkillLevelItem skillInfo = SkillModel.GetSkillLevelByName(skillId);
+        SkillLevelItem skillInfo = SkillModel.GetSkillLevelById(skillId);
         CancelAllSubscriber();
         if (skillInfo.CheckCondition(playerInfo.detail))
         {
@@ -71,15 +71,15 @@ public class RoleSkillController : MonoBehaviour
             skill.skillInfo = skillInfo;
             skill.init();
             skill.SubscribActionFire();
-            Action<int> localOnChange = OnSkillTrigger;
+            Action<int,int> localOnChange = OnSkillTrigger;
             if (localOnChange != null)
             {
-                localOnChange(skillInfo.id);
+                localOnChange(skillInfo.id,skillInfo.loopTimes);
             }
         }
         else
         {
-            Debug.Log("技能  "+skillInfo.skillName + "  不符合释放条件");
+            Debug.Log("技能  "+skillInfo.id + "  不符合释放条件");
         }
     }
 

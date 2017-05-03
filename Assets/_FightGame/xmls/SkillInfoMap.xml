@@ -18,6 +18,7 @@
         <lancherName>Fireball</lancherName>
         <FirePoint>1</FirePoint>
         <canMove></canMove>
+        <loopTimes>1</loopTimes>
     </level>
 	<level>
     	<id>1001</id>
@@ -37,6 +38,7 @@
         <lancherName>Fireball</lancherName>
         <FirePoint>1</FirePoint>
         <canMove></canMove>
+        <loopTimes>1</loopTimes>
     </level>	
 
 </info>

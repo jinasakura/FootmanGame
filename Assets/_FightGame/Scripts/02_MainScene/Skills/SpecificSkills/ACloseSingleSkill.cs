@@ -13,9 +13,9 @@ public class ACloseSingleSkill : RoleSkill
     //初步怀疑是OnTriggerStay被多次调用，为什么这样暂时不知道
     private bool isAttack = false;
 
-    protected override void OnSkillFire(bool fire)
+    protected override void OnSkillFire(int skillId,bool fire)
     {
-        base.OnSkillFire(fire);
+        base.OnSkillFire(skillId,fire);
         if (fire) { isAttack = false; }
     }
 
