@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CheckSkillFinish : StateMachineBehaviour {
+public class CheckSkillFinish : StateMachineBehaviour
+{
 
     private FootmanStateMachine role;
     private int skillId;
-    private int loopTimes;
+    //private int loopTimes;
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (role == null) { role = animator.gameObject.GetComponentInParent<FootmanStateMachine>(); }
         role.OnSkillState(true);
+        if (role.stateParams.skillId == (int)SkillRef.SkillType.TakeDamage) { return; }
         if (role.stateParams.skillId != skillId)
         {
-            loopTimes = 1;
+            skillId = role.stateParams.skillId;
         }
-        else { loopTimes += 1; }
-        skillId = role.stateParams.skillId;
+        role.stateParams.curLoopTimes += 1;
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -27,11 +28,19 @@ public class CheckSkillFinish : StateMachineBehaviour {
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (role.stateParams.loopTimes == loopTimes)
+        if (role.stateParams.skillId == (int)SkillRef.SkillType.TakeDamage)
         {
-            role.stateParams.isSkill = false;
-            animator.SetBool(SkillRef.isSkill, false);
             role.OnSkillState(false);
+            return;
+        }
+        if (role.stateParams.curLoopTimes == role.stateParams.totalLoopTimes)
+        {
+            role.OnSkillState(false);
+            role.stateParams.curLoopTimes = 0;
+        }
+        else
+        {
+            role.stateParams.triggerSkill = true;
         }
     }
 

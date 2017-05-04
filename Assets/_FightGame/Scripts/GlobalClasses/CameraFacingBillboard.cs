@@ -13,7 +13,7 @@ public class CameraFacingBillboard : MonoBehaviour
     {
         Vector3 fwd = faceCamera.transform.forward;
         //Debug.Log(fwd);
-        fwd.y = 0;
+        //fwd.y = 0;
         transform.rotation = Quaternion.LookRotation(fwd);
     }
 }

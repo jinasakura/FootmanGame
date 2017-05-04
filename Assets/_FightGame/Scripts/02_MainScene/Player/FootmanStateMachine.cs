@@ -14,8 +14,9 @@ public class FootmanStateMachine : StateMachine
     private StateMachineParams _stateParams;
     public StateMachineParams stateParams { set; get; }
 
-    private string _playerName;
-    public string playerName { set; private get; }
+    //private string _playerName;
+    //public string playerName { set; private get; }
+    private PlayerInfo playerInfo;
     //判断是否处于一个技能中
     private bool onSkill = false;
     private bool canMoveSkill = false;//这个技能能不能动；
@@ -25,7 +26,9 @@ public class FootmanStateMachine : StateMachine
     void Start()
     {
         stateParams = new StateMachineParams();
-        playerName = GetComponentInParent<PlayerInfo>().playerName;
+        //playerName = GetComponentInParent<PlayerInfo>().playerName;
+        playerInfo = GetComponentInParent<PlayerInfo>();
+        playerInfo.detail.OnHPDeductChange += RoleHpDeductChange;
         //checkTouch = GetComponent<SkillActionFire>();
         RoleSkillController skillController = GetComponentInParent<RoleSkillController>();
         if (skillController != null)
@@ -66,7 +69,7 @@ public class FootmanStateMachine : StateMachine
         if (target == null)
         {
             target = gameObject.AddComponent<T>();
-            gameObject.name = playerName+" Model";
+            gameObject.name = playerInfo.playerName+" Model";
         }
         return target;
     }
@@ -75,7 +78,7 @@ public class FootmanStateMachine : StateMachine
     {
         if (stateParams.isLive)
         {
-            if (stateParams.isSkill)
+            if (stateParams.triggerSkill)
             {
                 if (stateParams.skillId == (int)SkillRef.SkillType.TakeDamage)//受击
                 {
@@ -118,16 +121,14 @@ public class FootmanStateMachine : StateMachine
         if (onSkill){ return; }
         //Debug.Log("技能中……" + skillId);
         stateParams.skillId = skillId;
-        //stateParams.triggerOnceAction = true;
-        stateParams.isSkill = true;
-        stateParams.loopTimes = loopTimes;
+        stateParams.triggerSkill = true;
+        stateParams.totalLoopTimes = loopTimes;
     }
 
-    public void TakeDamageAction()
+    private void TakeDamageAction()
     {
         stateParams.skillId = (int)SkillRef.SkillType.TakeDamage;
-        //stateParams.triggerOnceAction = true;
-        stateParams.isSkill = true;
+        stateParams.triggerSkill = true;
     }
 
     //如果上一个技能动作还没结束不能开始下一个
@@ -150,6 +151,11 @@ public class FootmanStateMachine : StateMachine
         //Debug.Log(onSkill + "-----" + canMoveSkill);
     }
 
+    private void RoleHpDeductChange(float curHp)
+    {
+        if (curHp > 0) { TakeDamageAction(); }
+        else { Die(); }
+    }
 
 }
 

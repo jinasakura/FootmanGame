@@ -37,7 +37,7 @@ public class ACloseSingleSkill : RoleSkill
                         //Debug.Log("Attack   " + isAttack);
                         //playerInfo.detail.DeductMp(skillInfo.mp);
                         enemyInfo.detail.DeductHp(skillInfo.damageHp);
-                        role.TakeDamageAction();
+                        //role.TakeDamageAction();
                         CloseWeapon();
                         isAttack = true;
                     }

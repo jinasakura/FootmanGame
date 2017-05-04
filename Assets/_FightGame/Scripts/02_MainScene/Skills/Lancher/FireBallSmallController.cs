@@ -29,7 +29,7 @@ public class FireBallSmallController : FireBallController
                     //Debug.Log("Attack   " + isAttack);
                     //playerInfo.detail.DeductMp(skillInfo.mp);
                     enemyInfo.detail.DeductHp(skillInfo.damageHp);
-                    role.TakeDamageAction();
+                    //role.TakeDamageAction();
                     if (gameObject != null) { Destroy(gameObject); }
                 }
             }

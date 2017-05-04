@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerDetailInfo
 {
@@ -18,8 +19,10 @@ public class PlayerDetailInfo
     //public event EventHandler<PlayerDetailArgs> OnHpChange = delegate { };
     //public event EventHandler<PlayerDetailArgs> OnMpChange = delegate { };
 
-    public Action<float> OnHPChange { set; get; }
-    public Action<float> OnMpChange { set; get; }
+    public Action<float> OnHPAddChange { set; get; }
+    public Action<float> OnMpAddChange { set; get; }
+    public Action<float> OnHPDeductChange { set; get; }
+    public Action<float> OnMpDeductChange { set; get; }
 
     public int level;
     public int careerId;
@@ -27,19 +30,23 @@ public class PlayerDetailInfo
     private float _currentHp;
     public float currentHp { set; get; }
 
+    private float _currentMp;
+    public float currentMp{ set; get; }
+
+
     public void DeductHp(float amount)
     {
         if (currentHp >= amount) {
             currentHp -= amount;
         }
         else { currentHp = 0; }
-        InvokeHpChange();
-        //Action<float> localOnChange = OnHPChange;
-        //if (localOnChange != null)
-        //{
-        //    localOnChange(currentHp);
-        //    //Debug.Log("currentHp " + currentHp);
-        //}
+        //InvokeHpAddChange();
+        Action<float> localOnChange = OnHPDeductChange;
+        if (localOnChange != null)
+        {
+            localOnChange(currentHp);
+        }
+        //RegisterAction(OnHPDeductChange);
     }
 
     public void AddHp(float amount)
@@ -53,12 +60,13 @@ public class PlayerDetailInfo
         {
             currentHp += amount;
         }
-        InvokeHpChange();
+        InvokeHpAddChange();
+        //RegisterAction(OnHPAddChange);
     }
 
-    private void InvokeHpChange()
+    private void InvokeHpAddChange()
     {
-        Action<float> localOnChange = OnHPChange;
+        Action<float> localOnChange = OnHPAddChange;
         if (localOnChange != null)
         {
             localOnChange(currentHp);
@@ -66,11 +74,7 @@ public class PlayerDetailInfo
         }
     }
 
-    private float _currentMp;
-    public float currentMp
-    {
-        set; get;
-    }
+
 
     public void DeductMp(float amount)
     {
@@ -79,11 +83,12 @@ public class PlayerDetailInfo
             currentMp -= amount;
         }
         else { currentMp = 0; }
-        Action<float> localOnChange = OnMpChange;
+        Action<float> localOnChange = OnMpDeductChange;
         if (localOnChange != null)
         {
             localOnChange(currentMp);
         }
+        //RegisterAction(OnMpDeductChange);
     }
 
     public void AddMp(float amount)
@@ -97,15 +102,25 @@ public class PlayerDetailInfo
         {
             currentMp += amount;
         }
-        InvokeMpChange();
+        InvokeMpAddChange();
+        //RegisterAction(OnHPAddChange);
     }
 
-    private void InvokeMpChange()
+    private void InvokeMpAddChange()
     {
-        Action<float> localOnChange = OnMpChange;
+        Action<float> localOnChange = OnMpAddChange;
         if (localOnChange != null)
         {
             localOnChange(currentMp);
         }
     }
+
+    //private void RegisterAction(Action<float> numberChange)
+    //{
+    //    Action<float> localOnChange = numberChange;
+    //    if (localOnChange != null)
+    //    {
+    //        localOnChange(currentMp);
+    //    }
+    //}
 }

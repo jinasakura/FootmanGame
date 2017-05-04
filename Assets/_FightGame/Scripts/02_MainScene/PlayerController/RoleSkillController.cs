@@ -76,6 +76,7 @@ public class RoleSkillController : MonoBehaviour
             {
                 localOnChange(skillInfo.id,skillInfo.loopTimes);
             }
+            playerInfo.detail.DeductMp(skillInfo.mp);
         }
         else
         {

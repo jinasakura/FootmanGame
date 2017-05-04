@@ -38,7 +38,7 @@ public class FireBallLargeController : FireBallController {
                         {
                             float damage = CalculateDamage(role.transform.position);
                             enemyInfo.detail.DeductHp(damage);
-                            role.TakeDamageAction();
+                            //role.TakeDamageAction();
                         }
                     }
                 }

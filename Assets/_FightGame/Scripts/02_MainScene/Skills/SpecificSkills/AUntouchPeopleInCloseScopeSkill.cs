@@ -34,7 +34,7 @@ public class AUntouchPeopleInCloseScopeSkill : RoleSkill
                         {
                             //float damage = CalculateDamage(role.transform.position);
                             enemyInfo.detail.DeductHp(skillInfo.damageHp);
-                            role.TakeDamageAction();
+                            //role.TakeDamageAction();
                         }
                     }
                 }

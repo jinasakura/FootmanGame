@@ -10,7 +10,7 @@ public class StateMachineParams
         speed = 0;
         moveVelocity = Vector3.zero;
         stayState = (int)SkillRef.StayStateType.Idle;
-        triggerOnceAction = false;
+        triggerSkill = false;
         skillId = (int)SkillRef.SkillType.TakeDamage;
     }
 
@@ -54,18 +54,18 @@ public class StateMachineParams
         get { return _stayState; }
     }
 
-    private bool _isSkill;
-    public bool isSkill
-    {
-        set { _isSkill = value; }
-        get { return _isSkill; }
-    }
+    //private bool _isSkill;
+    //public bool isSkill
+    //{
+    //    set { _isSkill = value; }
+    //    get { return _isSkill; }
+    //}
     
-    private bool _triggerOnceAction;
-    public bool triggerOnceAction
+    private bool _triggerSkill;
+    public bool triggerSkill
     {
-        set { _triggerOnceAction = value; }
-        get { return _triggerOnceAction; }
+        set { _triggerSkill = value; }
+        get { return _triggerSkill; }
     }
 
     private int _skillId;
@@ -88,10 +88,13 @@ public class StateMachineParams
     }
 
     private int _loopTimes;
-    public int loopTimes
+    public int totalLoopTimes
     {
         set { _loopTimes = value; }
         get { return _loopTimes; }
     }
+
+    private int _curLoopTimes;
+    public int curLoopTimes { set; get; }
 
 }

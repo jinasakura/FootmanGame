@@ -263,26 +263,6 @@
 	<level>
 		<id>3005</id>
 		<careerId>3</careerId>
-		<skillName>Spin Attack</skillName>
-		<damageHp>15</damageHp>
-		<level>3</level>
-		<mp>15</mp>
-		<healHp>0</healHp>
-		<healMp>0</healMp>
-		<passive>false</passive>
-		<skillType>6</skillType>
-		<releaseDistance>0</releaseDistance>
-		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
-		<releaseSpeed>0</releaseSpeed>
-		<lancherName> </lancherName>
-		<FirePoint>0</FirePoint>
-		<canMove>true</canMove>
-		<loopTimes>3</loopTimes>
-	</level>
-	<level>
-		<id>3006</id>
-		<careerId>3</careerId>
 		<skillName>Row Attack</skillName>
 		<damageHp>15</damageHp>
 		<level>3</level>

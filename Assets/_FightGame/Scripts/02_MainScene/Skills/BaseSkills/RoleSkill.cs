@@ -21,6 +21,7 @@ public class RoleSkill : MonoBehaviour
     public virtual void init()
     {
         playerInfo = GetComponent<PlayerInfo>();
+        actionFire = GetComponentInChildren<SkillActionFire>();
 
         Collider[] colliders = GetComponentsInChildren<CapsuleCollider>();
         weaponColliders = new List<Collider>();
@@ -34,8 +35,6 @@ public class RoleSkill : MonoBehaviour
                 item.enabled = false;//只能把武器的关了，body关了人就掉下去了
             }
         }
-
-        actionFire = GetComponentInChildren<SkillActionFire>();
 
     }
 
@@ -61,10 +60,7 @@ public class RoleSkill : MonoBehaviour
                 item.enabled = fire ;
             }
         }
-        if (fire)
-        {
-            playerInfo.detail.DeductMp(skillInfo.mp);
-        }
+
     }
 
     protected virtual void CloseWeapon()
