@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AUntouchPeopleInCloseScopeSkill : RoleSkill
+public class AUntouchPeopleInCloseScopeSkill : FarCombatSkill
 {
 
     protected override void OnSkillFire(int skillId,bool fire)

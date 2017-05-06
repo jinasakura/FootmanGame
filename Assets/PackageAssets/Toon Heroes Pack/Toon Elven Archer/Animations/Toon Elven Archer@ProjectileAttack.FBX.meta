@@ -140,14 +140,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.33264723
-        functionName: OnSkillFired
+        functionName: SkillFireStart
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 4003
         messageOptions: 0
       - time: 0.5303379
-        functionName: OnSkillEnd
+        functionName: SkillFireEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

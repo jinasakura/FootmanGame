@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 public class SkillState : RoleState
 {
@@ -11,6 +11,8 @@ public class SkillState : RoleState
             animator.SetBool(SkillRef.isLive, stateParams.isLive);
         animator.SetInteger(SkillRef.skillId, stateParams.skillId);
         animator.SetTrigger(SkillRef.triggerSkill);
+        //TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        //Debug.Log("&&&"+ts);
         if (stateParams.triggerSkill)
         {
             //animator.SetTrigger("triggerOnceAction");

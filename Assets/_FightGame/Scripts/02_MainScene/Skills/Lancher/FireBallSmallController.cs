@@ -8,7 +8,7 @@ public class FireBallSmallController : FireBallController
     {
         Vector3 endPoint = gameObject.transform.position;
         float distance = (endPoint - startPoint).magnitude;
-        //Debug.Log(distance+"      "+range);
+        //Debug.Log(distance + "      " + skillInfo.releaseDistance);
         if (distance > skillInfo.releaseDistance)
         {
             if (gameObject != null) { Destroy(gameObject); }

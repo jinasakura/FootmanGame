@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 public class CheckSkillFinish : StateMachineBehaviour
 {
@@ -41,6 +41,9 @@ public class CheckSkillFinish : StateMachineBehaviour
         else
         {
             role.stateParams.triggerSkill = true;
+            role.ChangeState<SkillState>();
+            //TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            //Debug.Log(ts);
         }
     }
 

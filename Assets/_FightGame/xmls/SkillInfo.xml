@@ -13,7 +13,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -33,7 +33,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -53,7 +53,7 @@
 		<skillType>3</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -73,7 +73,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -111,7 +111,7 @@
 		<healMp>0</healMp>
 		<passive>false</passive>
 		<skillType>2</skillType>
-		<releaseDistance>0</releaseDistance>
+		<releaseDistance>5</releaseDistance>
 		<damageRadius>5</damageRadius>
 		<damagePeople>3</damagePeople>
 		<releaseSpeed>8</releaseSpeed>
@@ -133,7 +133,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -153,7 +153,7 @@
 		<skillType>7</skillType>
 		<releaseDistance>4</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -193,7 +193,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -213,7 +213,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -233,7 +233,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -253,7 +253,7 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
@@ -273,12 +273,32 @@
 		<skillType>1</skillType>
 		<releaseDistance>0</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
+		<damagePeople>1</damagePeople>
 		<releaseSpeed>0</releaseSpeed>
 		<lancherName> </lancherName>
 		<FirePoint>0</FirePoint>
 		<canMove>false</canMove>
 		<loopTimes>1</loopTimes>
+	</level>
+	<level>
+		<id>3006</id>
+		<careerId>3</careerId>
+		<skillName>Spin Attack</skillName>
+		<damageHp>15</damageHp>
+		<level>3</level>
+		<mp>15</mp>
+		<healHp>0</healHp>
+		<healMp>0</healMp>
+		<passive>false</passive>
+		<skillType>6</skillType>
+		<releaseDistance>0</releaseDistance>
+		<damageRadius>0</damageRadius>
+		<damagePeople>1</damagePeople>
+		<releaseSpeed>0</releaseSpeed>
+		<lancherName> </lancherName>
+		<FirePoint>0</FirePoint>
+		<canMove>true</canMove>
+		<loopTimes>3</loopTimes>
 	</level>
 	<level>
 		<id>4001</id>
@@ -290,13 +310,13 @@
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>1</skillType>
-		<releaseDistance>0</releaseDistance>
+		<skillType>2</skillType>
+		<releaseDistance>4.5</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
-		<releaseSpeed>0</releaseSpeed>
-		<lancherName> </lancherName>
-		<FirePoint>0</FirePoint>
+		<damagePeople>1</damagePeople>
+		<releaseSpeed>5.5</releaseSpeed>
+		<lancherName>FireBallSmall</lancherName>
+		<FirePoint>1</FirePoint>
 		<canMove>false</canMove>
 		<loopTimes>1</loopTimes>
 	</level>
@@ -310,13 +330,13 @@
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>1</skillType>
-		<releaseDistance>0</releaseDistance>
+		<skillType>2</skillType>
+		<releaseDistance>5</releaseDistance>
 		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
-		<releaseSpeed>0</releaseSpeed>
-		<lancherName> </lancherName>
-		<FirePoint>0</FirePoint>
+		<damagePeople>1</damagePeople>
+		<releaseSpeed>5.5</releaseSpeed>
+		<lancherName>FireBallSmall</lancherName>
+		<FirePoint>1</FirePoint>
 		<canMove>false</canMove>
 		<loopTimes>1</loopTimes>
 	</level>
@@ -330,13 +350,13 @@
 		<healHp>0</healHp>
 		<healMp>0</healMp>
 		<passive>false</passive>
-		<skillType>1</skillType>
-		<releaseDistance>0</releaseDistance>
-		<damageRadius>0</damageRadius>
-		<damagePeople>0</damagePeople>
-		<releaseSpeed>0</releaseSpeed>
-		<lancherName> </lancherName>
-		<FirePoint>0</FirePoint>
+		<skillType>2</skillType>
+		<releaseDistance>4</releaseDistance>
+		<damageRadius>4</damageRadius>
+		<damagePeople>3</damagePeople>
+		<releaseSpeed>8</releaseSpeed>
+		<lancherName>FireBallLarge</lancherName>
+		<FirePoint>2</FirePoint>
 		<canMove>false</canMove>
 		<loopTimes>1</loopTimes>
 	</level>

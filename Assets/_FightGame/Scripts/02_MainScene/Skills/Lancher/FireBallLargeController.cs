@@ -16,13 +16,13 @@ public class FireBallLargeController : FireBallController {
     {
         if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.EnvironmentLayer))//球落到地上
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius, LayerMask.NameToLayer(SkillRef.EnvironmentLayer));
+            Collider[] colliders = Physics.OverlapSphere(transform.position, skillInfo.damageRadius/*, LayerMask.NameToLayer(SkillRef.EnvironmentLayer)*/);
             //int num = Mathf.Min(colliders.Length, skillInfo.damagePeople);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders.Length == skillInfo.damagePeople) break;
-
-                if (colliders[i].gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer) && colliders[i].gameObject.tag != SkillRef.WeaponTag)
+                //Debug.Log(colliders[i].gameObject.name+"   "+ colliders[i].gameObject.layer);
+                if (colliders[i].gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer)/* && colliders[i].gameObject.tag != SkillRef.WeaponTag*/)
                 {
                     //Debug.Log(colliders[i].name);
                     Rigidbody targetRb = colliders[i].gameObject.GetComponentInParent<Rigidbody>();

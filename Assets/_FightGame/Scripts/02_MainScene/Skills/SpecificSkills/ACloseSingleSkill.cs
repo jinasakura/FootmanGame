@@ -5,7 +5,7 @@ using System;
 /// <summary>
 /// Attack.CloseSingle->普通近战攻击（武器必须接触到对方）
 /// </summary>
-public class ACloseSingleSkill : RoleSkill
+public class ACloseSingleSkill : CloseCombatSkill
 {
 
     //这个地方有个bug，如果没有这个变量，会出现第一次攻击，血量改变一次90；第二次攻击，血量改变两次80、70；
