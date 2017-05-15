@@ -9,7 +9,7 @@ public class StateMachineParams
         isLive = true;
         speed = 0;
         moveVelocity = Vector3.zero;
-        stayState = (int)SkillRef.StayStateType.Idle;
+        stayState = (int)RoleRef.StayStateType.Idle;
         triggerSkill = false;
         skillId = (int)SkillRef.SkillType.TakeDamage;
     }
@@ -77,7 +77,7 @@ public class StateMachineParams
 
     public bool canMove()
     {
-        if (speed > SkillRef.STAY_OFFSET)
+        if (speed > RoleRef.STAY_OFFSET)
         {
             return true;
         }

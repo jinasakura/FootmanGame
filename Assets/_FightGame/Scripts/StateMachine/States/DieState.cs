@@ -10,7 +10,7 @@ public class DieState : RoleState
     public override void HandleParamers(object info)
     {
         base.HandleParamers(info);
-        animator.SetBool(SkillRef.isLive, stateParams.isLive);
+        animator.SetBool(RoleRef.isLive, stateParams.isLive);
     }
 
 

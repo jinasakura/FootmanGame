@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 
@@ -8,18 +9,23 @@ using System.Collections.Generic;
 /// </summary>
 public class InitMainScene : MonoBehaviour {
 
+    private static string RespawnTag = "Respawn";
+    private static string WayPoints = "AIWaypoint";
+
     //摄像机这个prefab改了三遍了
     //为什么放到这里：因为放到controller里我没法（不知道）对prefab在运行时赋值
     [SerializeField]
     private GameObject cameraPrefab;
 
     [SerializeField]
-    private GameObject roleBasePrefab;
+    private GameObject RoleBasePrefab;
+    [SerializeField]
+    private GameObject AIRoleBasePrefab;
 
     [SerializeField]
     private GameObject[] models;
-    [SerializeField]
-    private Transform[] respawns;//测试使用，出生点位置
+
+    private GameObject[] respawns;//测试使用，出生点位置
 
     [SerializeField]
     private GameObject[] lanchers;
@@ -28,8 +34,10 @@ public class InitMainScene : MonoBehaviour {
     void Start ()
     {
         HandleModelInfo();
+        initAIInfo();
         //随机N个地点(随后加上)
         initAllPlayers();
+        
         initAllLanchers();
     }
 
@@ -45,17 +53,34 @@ public class InitMainScene : MonoBehaviour {
     private void initAllPlayers()
     {
         GameObject model = PlayerModel.GetModelByName(LoginUserInfo.modelName);
-        PlayerModel.roleBasePrefab = roleBasePrefab;
+        PlayerModel.roleBasePrefab = RoleBasePrefab;
+        respawns = GameObject.FindGameObjectsWithTag(RespawnTag);
+        //Array.Sort(respawns);
 
-        int i = 0;
         GameObject playerModel;
         PlayerInfo playerInfo;
         GameObject roleBase;
-        foreach (Transform item in respawns)
+        int i = 0;
+        foreach (GameObject item in respawns)
         {
-            roleBase = Instantiate(roleBasePrefab, item.transform.position, item.transform.rotation) as GameObject;
-            playerModel = Instantiate(model, item.transform.position, item.transform.rotation, roleBase.transform) as GameObject;
-            playerInfo = roleBase.GetComponent<PlayerInfo>();
+            if (i == 0)
+            {
+                roleBase = Instantiate(RoleBasePrefab, respawns[i].transform.position, respawns[i].transform.rotation) as GameObject;
+                playerInfo = roleBase.GetComponent<PlayerInfo>();
+                playerInfo.playerName = LoginUserInfo.playerName;
+                //Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
+                roleBase.AddComponent<UserMoveController>();
+            }
+            else
+            {
+                roleBase = Instantiate(AIRoleBasePrefab, respawns[i].transform.position, respawns[i].transform.rotation) as GameObject;
+                playerInfo = roleBase.GetComponent<PlayerInfo>();
+                playerInfo.playerName = "Player AI "+i;
+                roleBase.AddComponent<RoleAIController>();
+            }
+            
+            playerModel = Instantiate(model, respawns[i].transform.position, respawns[i].transform.rotation, roleBase.transform) as GameObject;
+           
             playerInfo.playerId = i;
             playerInfo.modelName = LoginUserInfo.modelName;
             playerInfo.detail = new PlayerDetailInfo();
@@ -64,25 +89,18 @@ public class InitMainScene : MonoBehaviour {
             CareerItem careerLevel = CareerModel.GetLevelItem(playerInfo.detail.careerId, playerInfo.detail.level);
             playerInfo.detail.currentHp = careerLevel.maxHp;
             playerInfo.detail.currentMp = careerLevel.maxMp;
-            if (LoginUserInfo.playerId == playerInfo.playerId)
-            {
-                playerInfo.playerName = LoginUserInfo.playerName;
-                Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
-                roleBase.AddComponent<UserMoveController>();
-            }
-            else
-            {
-                playerInfo.playerName = "Player " + i;
-                roleBase.AddComponent<AIMoveController>();
-            }
 
-            //playersDict[i] = roleBase;
-            //playerInfoDict[playerInfo.playerId] = playerInfo;
             PlayerModel.SetPlayerInfo(playerInfo.playerId, playerInfo);
-
             i++;
         }
         NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.MainSceneIsReady);
+    }
+
+    private void initAIInfo()
+    {
+        AIModel.wayPoints = GameObject.FindGameObjectsWithTag(WayPoints);
+        AIModel.AIRoleBasePrefab = AIRoleBasePrefab;
+
     }
 
     private void initAllLanchers()
@@ -95,5 +113,6 @@ public class InitMainScene : MonoBehaviour {
             }
         }
     }
+
 
 }

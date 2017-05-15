@@ -48,7 +48,7 @@ public class MoveState : RoleState
         base.Exit();
         //这里需要清一下数据，不然实际状态机的状态还是在move，而状态机代码实际已经是静止了
         //目前不知道为什么会残留有数据
-        animator.SetFloat(SkillRef.speed, stateParams.speed);
+        animator.SetFloat(RoleRef.speed, stateParams.speed);
         canMove = false;
         //Debug.Log("停止移动");
     }
@@ -57,8 +57,8 @@ public class MoveState : RoleState
     {
         base.HandleParamers(info);
         if (!stateParams.isLive)
-            animator.SetBool(SkillRef.isLive, stateParams.isLive);
-        animator.SetFloat(SkillRef.speed, stateParams.speed);
+            animator.SetBool(RoleRef.isLive, stateParams.isLive);
+        animator.SetFloat(RoleRef.speed, stateParams.speed);
     }
 
 

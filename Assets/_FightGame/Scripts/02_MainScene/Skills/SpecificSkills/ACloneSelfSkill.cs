@@ -41,7 +41,7 @@ public class ACloneSelfSkill : RoleSkill
                 pInfo.detail.currentHp = careerLevel.maxHp;
                 pInfo.detail.currentMp = careerLevel.maxMp;
 
-                channelPlayer.AddComponent<AIMoveController>();
+                //channelPlayer.AddComponent<AIMoveController>();
                 Destroy(channelPlayer, 5);
 
                 

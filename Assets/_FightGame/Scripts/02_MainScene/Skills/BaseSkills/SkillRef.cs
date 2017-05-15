@@ -18,6 +18,8 @@
     //CureSelf-治愈自己，CureOther-治愈他人（这个人离我的远近？），DefenseSelf-自己加防御，DefenseGroup-防御某范围内一群人
     public enum Passive { CureSelf = 1, CureOther, CureGroup, DefenseSelf, DefenseGroup };
 
+    public enum SkillType { TakeDamage };
+
     public static string WeaponTag = "Weapon";
 
     public static string BodyTag = "Body";
@@ -28,20 +30,7 @@
 
     public static string FirePoint = "FirePoint";
 
+    
 
-    //以下状态机相关
-
-    public static float STAY_OFFSET = 0.001f;//区分站立和走的临界数
-
-    public enum SkillType { TakeDamage };
-
-    public enum StayStateType { Idle, Victory, Upset, Defend };
-
-    public static string isLive = "isLive";
-    public static string stayState = "stayState";
-    public static string skillId = "skillId";
-    public static string speed = "speed";
-    public static string isSkill = "isSkill";
-    public static string triggerSkill = "triggerSkill";
 
 }

@@ -25,11 +25,11 @@ public class FootmanStateMachine : StateMachine
 
     void Start()
     {
-        stateParams = new StateMachineParams();
-        //playerName = GetComponentInParent<PlayerInfo>().playerName;
+        if (stateParams == null) stateParams = new StateMachineParams();
+
         playerInfo = GetComponentInParent<PlayerInfo>();
         playerInfo.detail.OnHPDeductChange += RoleHpDeductChange;
-        //checkTouch = GetComponent<SkillActionFire>();
+
         RoleSkillController skillController = GetComponentInParent<RoleSkillController>();
         if (skillController != null)
         {
@@ -45,22 +45,33 @@ public class FootmanStateMachine : StateMachine
     public void Move(float h, float v)
     {
         //if (onSkill) return;//技能和移动是互斥的,但是千万不能写这，否则就没法转化到其他状态了
+        if (stateParams == null) stateParams = new StateMachineParams();
 
         float tmpH = Mathf.Abs(h);
         float tmpV = Mathf.Abs(v);
-        if((tmpH > SkillRef.STAY_OFFSET && tmpV > SkillRef.STAY_OFFSET) || !onSkill || canMoveSkill)
+        if((tmpH > RoleRef.STAY_OFFSET && tmpV > RoleRef.STAY_OFFSET) || !onSkill || canMoveSkill)
         {
             stateParams.moveVelocity = gameObject.transform.right * h + gameObject.transform.forward * v;
             stateParams.speed = Mathf.Max(tmpH, tmpV);
         }
         else
         {
-            stateParams.speed = 0;
-            stateParams.moveVelocity = Vector3.zero;
-            stateParams.stayState = Convert.ToInt16(SkillRef.StayStateType.Idle);
+            Idle();
         }
         //Debug.Log("---状态机前---playerId->" + playerName + "===speed->" + stateParams.speed);
+    }
 
+    public void Move(Vector3 moveVelocity,float speed=1f)
+    {
+        if (moveVelocity == Vector3.zero)
+        {
+            Idle();
+        }
+        else
+        {
+            stateParams.moveVelocity = moveVelocity;
+            stateParams.speed = speed;
+        }
     }
 
     public override T GetState<T>()
@@ -114,6 +125,13 @@ public class FootmanStateMachine : StateMachine
     public void Live()
     {
         stateParams.isLive = true;
+    }
+
+    private void Idle()
+    {
+        stateParams.speed = 0;
+        stateParams.moveVelocity = Vector3.zero;
+        stateParams.stayState = Convert.ToInt16(RoleRef.StayStateType.Idle);
     }
 
     public void TriggerSkill(int skillId,int loopTimes = 1)
