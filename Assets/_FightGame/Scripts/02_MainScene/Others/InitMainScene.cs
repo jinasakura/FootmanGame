@@ -69,17 +69,20 @@ public class InitMainScene : MonoBehaviour {
                 playerInfo = roleBase.GetComponent<PlayerInfo>();
                 playerInfo.playerName = LoginUserInfo.playerName;
                 //Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
-                roleBase.AddComponent<UserMoveController>();
+                //roleBase.AddComponent<UserMoveController>();
+                playerModel = Instantiate(model, respawns[i].transform.position, respawns[i].transform.rotation, roleBase.transform) as GameObject;
+                ChangeLayer.SetLayerRecursively(playerModel, LayerMask.NameToLayer(SkillRef.PlayersLayer));
             }
             else
             {
                 roleBase = Instantiate(AIRoleBasePrefab, respawns[i].transform.position, respawns[i].transform.rotation) as GameObject;
                 playerInfo = roleBase.GetComponent<PlayerInfo>();
                 playerInfo.playerName = "Player AI "+i;
-                roleBase.AddComponent<RoleAIController>();
+                playerModel = Instantiate(model, respawns[i].transform.position, respawns[i].transform.rotation, roleBase.transform) as GameObject;
+                ChangeLayer.SetLayerRecursively(playerModel, LayerMask.NameToLayer(SkillRef.AILayer));
             }
             
-            playerModel = Instantiate(model, respawns[i].transform.position, respawns[i].transform.rotation, roleBase.transform) as GameObject;
+            
            
             playerInfo.playerId = i;
             playerInfo.modelName = LoginUserInfo.modelName;

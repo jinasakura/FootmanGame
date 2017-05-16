@@ -40,6 +40,7 @@ public class UserCameraController : MonoBehaviour
     {
         playerCamera = Camera.main;
         currentCameraRotationX = playerCamera.transform.localEulerAngles.x;
+        playerCamera.depth = int.MaxValue - 1;
         //currentZ = playerCamera.transform.localPosition.z;
         //currentY = playerCamera.transform.localPosition.y;
     }

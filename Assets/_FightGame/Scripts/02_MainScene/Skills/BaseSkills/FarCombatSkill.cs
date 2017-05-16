@@ -13,7 +13,7 @@ public class FarCombatSkill : RoleSkill {
     public override void init()
     {
         base.init();
-        string lanchPoint = SkillRef.FirePoint + skillInfo.firePoint.ToString();
+        string lanchPoint = SkillRef.FirePointTag + skillInfo.firePoint.ToString();
         if (GameObject.Find(lanchPoint) != null) {
             firePoint = GameObject.Find(lanchPoint).transform;
         }

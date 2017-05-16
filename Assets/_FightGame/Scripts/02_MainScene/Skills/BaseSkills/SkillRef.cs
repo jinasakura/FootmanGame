@@ -24,11 +24,15 @@
 
     public static string BodyTag = "Body";
 
-    public static string PlayersLayer = "Players-Model";
+    public static string FirePointTag = "FirePoint";
+
+    public static string PlayersLayer = "Players";
+
+    public static string AILayer = "AI";
 
     public static string EnvironmentLayer = "Environment";
 
-    public static string FirePoint = "FirePoint";
+    
 
     
 
