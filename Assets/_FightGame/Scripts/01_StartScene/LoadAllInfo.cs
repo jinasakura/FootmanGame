@@ -11,14 +11,16 @@ using System.Collections.Generic;
 public class LoadAllInfo : MonoBehaviour {
 
 
-    public string carrerXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/xmls/CareerInfo.xml";
-    public string skillXMLPath = "C:/Users/Administrator/Desktop/ProjectsFiles/FootmanGame/Assets/_FightGame/xmls/SkillInfo.xml";
+    public string carrerXMLPath;
+    public string skillXMLPath;
+    public string aiXMLPath;
 
 
     void Start()
     {
         HandleCareerXml();
         HandleSkillXml();
+        HandleAIXml();
 
         NotificationCenter.DefaultCenter.PostNotification(this, LoginEvent.DataIsReady);
     }
@@ -85,6 +87,35 @@ public class LoadAllInfo : MonoBehaviour {
             item.canMove = Boolean.Parse(nodeChild.Item(16).InnerText);
             item.loopTimes = Int16.Parse(nodeChild.Item(17).InnerText);
             SkillModel.SetSkillItem(item.careerId, item);
+        }
+    }
+
+    private void HandleAIXml()
+    {
+        XmlDocument doc = new XmlDocument();
+        doc.Load(aiXMLPath);
+
+        XmlNode xn = doc.SelectSingleNode("info");
+        XmlNodeList xnl = xn.ChildNodes;
+
+        //CareerItem[] careers = new CareerItem[xnl.Count];
+        AIType item = null;
+        foreach (XmlNode node in xnl)
+        {
+            XmlElement xe = (XmlElement)node;
+            XmlNodeList nodeChild = xe.ChildNodes;
+            item = new AIType();
+            item.typeId = Int32.Parse(nodeChild.Item(1).InnerText);
+            item.stay = Boolean.Parse(nodeChild.Item(2).InnerText);
+            item.waypointIndex = Int32.Parse(nodeChild.Item(3).InnerText);
+            item.patrolSpeed = float.Parse(nodeChild.Item(4).InnerText);
+            item.chaseSpeed = float.Parse(nodeChild.Item(5).InnerText);
+            item.waypointDistance = float.Parse(nodeChild.Item(6).InnerText);
+            item.warnRadius = float.Parse(nodeChild.Item(7).InnerText);
+            item.patrolGapTime = float.Parse(nodeChild.Item(7).InnerText);
+            item.cameraFar = float.Parse(nodeChild.Item(7).InnerText);
+
+            AIModel.SetAiType(item.typeId, item);
         }
     }
 

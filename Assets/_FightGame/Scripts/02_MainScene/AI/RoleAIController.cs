@@ -3,40 +3,44 @@ using System.Collections;
 
 public class RoleAIController : MonoBehaviour
 {
-    private NavMeshAgent agent;
-    private FootmanStateMachine character;
-
     public enum State
     {
+        IDLE,
         PATROL,
         CHASE
     }
 
-    private State state;
-    private bool alive;
+    protected NavMeshAgent agent;
+    protected FootmanStateMachine character;
+    protected Camera aiCam;
+    protected PlayerInfo playerInfo;
+    protected int aiTypeId;
+    protected AIType aiTypeInfo;
 
-    private int wayPointIndex = 0;
-    [SerializeField]
-    private float patrolSpeed = 0.5f;
-    [SerializeField]
-    private float chaseSpeed = 1f;
+    protected State state;
+    protected bool alive;
 
-    //private GameObject player;
-    private Collider targetCollider;
-    private GameObject target;
+    protected int waypointIndex = 0;
+    protected float patrolSpeed = 0.5f;
+    protected float chaseSpeed = 1f;
 
-    private Camera aiCam;
-    private Plane[] planes;
-    private PlayerInfo playerInfo;
+    protected Collider targetCollider;
+    protected GameObject target;
+
+    protected Plane[] planes;
+
 
     void Start()
+    {
+        init();
+    }
+
+    protected void init()
     {
         agent = GetComponent<NavMeshAgent>();
         character = GetComponentInChildren<FootmanStateMachine>();
         aiCam = GetComponentInChildren<Camera>();
         playerInfo = GetComponent<PlayerInfo>();
-
-        
 
         agent.updatePosition = true;
         agent.updateRotation = true;
@@ -55,6 +59,8 @@ public class RoleAIController : MonoBehaviour
         {
             switch (state)
             {
+                case State.IDLE:
+                    break;
                 case State.PATROL:
                     Patrol();
                     break;
@@ -69,13 +75,13 @@ public class RoleAIController : MonoBehaviour
     private void Patrol()
     {
         agent.speed = patrolSpeed;
-        if (Vector3.Distance(this.transform.position, AIModel.wayPoints[wayPointIndex].transform.position) > 2)
+        if (Vector3.Distance(this.transform.position, AIModel.wayPoints[waypointIndex].transform.position) > 2)
         {
-            agent.SetDestination(AIModel.wayPoints[wayPointIndex].transform.position);
+            agent.SetDestination(AIModel.wayPoints[waypointIndex].transform.position);
             character.Move(agent.desiredVelocity, agent.speed);
             //Debug.Log(playerInfo.playerName+"去目的地");
         }
-        else if (Vector3.Distance(this.transform.position, AIModel.wayPoints[wayPointIndex].transform.position) <= 2)
+        else if (Vector3.Distance(this.transform.position, AIModel.wayPoints[waypointIndex].transform.position) <= 2)
         {
             RandomWaypointIndex();
             //Debug.Log(playerInfo.playerName + "决定哪个目的地");
@@ -109,16 +115,6 @@ public class RoleAIController : MonoBehaviour
         }
     }
 
-    //void CheckForPlayer()
-    //{
-    //    RaycastHit hit;
-    //    Debug.DrawRay(aiCam.transform.position, transform.forward * 10, Color.green);
-    //    if(Physics.Raycast(aiCam.transform.position,transform.forward,out hit, 10))
-    //    {
-    //        state = State.CHASE;
-    //        target = hit.collider.gameObject;
-    //    }
-    //}
 
     void OnTriggerEnter(Collider collider)
     {
@@ -131,7 +127,7 @@ public class RoleAIController : MonoBehaviour
 
     private void RandomWaypointIndex()
     {
-        wayPointIndex = Random.Range(0, AIModel.wayPoints.Length);
+        waypointIndex = Random.Range(0, AIModel.wayPoints.Length);
     }
 
 

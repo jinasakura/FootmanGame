@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<info>
+    <type>
+    	<typeId>1</typeId>
+    	<stay>true</stay>
+    	<waypointIndex>0</waypointIndex>
+    	<patrolSpeed>0.5</patrolSpeed>
+    	<chaseSpeed>0.85</chaseSpeed>
+    	<waypointDistance>2</waypointDistance>
+    	<warnRadius>8</warnRadius>
+    	<patrolGapTime>3</patrolGapTime>
+    	<cameraFar>10</cameraFar>
+    </type>
+    <type>
+    	<typeId>1</typeId>
+    	<stay>true</stay>
+    	<waypointIndex>0</waypointIndex>
+    	<patrolSpeed>0.5</patrolSpeed>
+    	<chaseSpeed>0.85</chaseSpeed>
+    	<waypointDistance>2</waypointDistance>
+    	<warnRadius>8</warnRadius>
+    	<patrolGapTime>3</patrolGapTime>
+    	<cameraFar>10</cameraFar>
+    </type>
+</info>
