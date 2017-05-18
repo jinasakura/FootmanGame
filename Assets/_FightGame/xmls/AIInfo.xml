@@ -8,7 +8,7 @@
 		<chaseSpeed>0</chaseSpeed>
 		<waypointDistance>0</waypointDistance>
 		<warnRadius>8</warnRadius>
-		<patrolGapTime>3</patrolGapTime>
+		<patrolGapTime>10</patrolGapTime>
 		<cameraFar>10</cameraFar>
 	</type>
 	<type>

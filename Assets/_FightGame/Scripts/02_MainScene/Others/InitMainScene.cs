@@ -81,8 +81,6 @@ public class InitMainScene : MonoBehaviour {
                 playerModel = Instantiate(model, respawns[i].transform.position, respawns[i].transform.rotation, roleBase.transform) as GameObject;
                 ChangeLayer.SetLayerRecursively(playerModel, LayerMask.NameToLayer(SkillRef.AILayer));
             }
-            
-            
            
             playerInfo.playerId = i;
             playerInfo.modelName = LoginUserInfo.modelName;

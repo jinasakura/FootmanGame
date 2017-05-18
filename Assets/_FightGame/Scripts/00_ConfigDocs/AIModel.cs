@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class AIType
+public class AITypeItem
 {
     public int typeId;
     public bool stay;
@@ -15,18 +15,18 @@ public class AIType
 }
 
 public class AIModel  {
-    public static Dictionary<int, AIType> aiDict = new Dictionary<int, AIType>();
+    public static Dictionary<int, AITypeItem> aiDict = new Dictionary<int, AITypeItem>();
 
     public static GameObject[] wayPoints;
 
     public static GameObject AIRoleBasePrefab;
 
-    public static void SetAiType(int id,AIType info)
+    public static void SetAiType(int id,AITypeItem info)
     {
         aiDict[id] = info;
     }
 
-    public static AIType GetAiType(int id)
+    public static AITypeItem GetAiTypeInfo(int id)
     {
         return aiDict[id];
     }

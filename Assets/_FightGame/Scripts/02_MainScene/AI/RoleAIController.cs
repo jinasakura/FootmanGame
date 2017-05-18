@@ -3,6 +3,13 @@ using System.Collections;
 
 public class RoleAIController : MonoBehaviour
 {
+    public enum AIType
+    {
+        STAY = 1,
+        PATROL_FIELD,
+        PATROL_CIRCLE
+    }
+
     public enum State
     {
         IDLE,
@@ -12,10 +19,11 @@ public class RoleAIController : MonoBehaviour
 
     protected NavMeshAgent agent;
     protected FootmanStateMachine character;
-    protected Camera aiCam;
+    protected Camera aiCamera;
     protected PlayerInfo playerInfo;
     protected int aiTypeId;
-    protected AIType aiTypeInfo;
+    protected AITypeItem aiTypeInfo;
+    protected SphereCollider aiCollider;//本AI的警戒范围
 
     protected State state;
     protected bool alive;
@@ -23,6 +31,10 @@ public class RoleAIController : MonoBehaviour
     protected int waypointIndex = 0;
     protected float patrolSpeed = 0.5f;
     protected float chaseSpeed = 1f;
+    protected float waypointDistance;
+    protected float warnRadius;
+    protected float patrolGapTime;
+    protected float cameraFar;
 
     protected Collider targetCollider;
     protected GameObject target;
@@ -35,31 +47,33 @@ public class RoleAIController : MonoBehaviour
         init();
     }
 
-    protected void init()
+    virtual protected void init()
     {
         agent = GetComponent<NavMeshAgent>();
         character = GetComponentInChildren<FootmanStateMachine>();
-        aiCam = GetComponentInChildren<Camera>();
+        aiCamera = GetComponentInChildren<Camera>();
         playerInfo = GetComponent<PlayerInfo>();
+        aiCollider = GetComponent<SphereCollider>();
 
         agent.updatePosition = true;
         agent.updateRotation = true;
 
-        state = RoleAIController.State.PATROL;
+        //state = RoleAIController.State.PATROL;
         alive = true;
 
         RandomWaypointIndex();
 
-        StartCoroutine("FSM");
+        
     }
 
-    IEnumerator FSM()
+    protected IEnumerator FSM()
     {
         while (alive)
         {
             switch (state)
             {
                 case State.IDLE:
+                    Idle();
                     break;
                 case State.PATROL:
                     Patrol();
@@ -72,7 +86,12 @@ public class RoleAIController : MonoBehaviour
         }
     }
 
-    private void Patrol()
+    virtual protected void Idle()
+    {
+
+    }
+
+    virtual protected void Patrol()
     {
         agent.speed = patrolSpeed;
         if (Vector3.Distance(this.transform.position, AIModel.wayPoints[waypointIndex].transform.position) > 2)
@@ -92,7 +111,7 @@ public class RoleAIController : MonoBehaviour
         }
     }
 
-    private void Chase()
+    virtual protected void Chase()
     {
         //Debug.Log(playerInfo.playerName + "追击！");
         agent.speed = chaseSpeed;
@@ -100,11 +119,11 @@ public class RoleAIController : MonoBehaviour
         character.Move(agent.desiredVelocity, agent.speed);
     }
 
-    void Update()
+    virtual protected void MakeTargetPlayer()
     {
         if (targetCollider != null)
         {
-            planes = GeometryUtility.CalculateFrustumPlanes(aiCam);
+            planes = GeometryUtility.CalculateFrustumPlanes(aiCamera);
             if (GeometryUtility.TestPlanesAABB(planes, targetCollider.bounds))
             {
                 //Debug.Log(playerInfo.playerName + "看到这个人->" +targetCollider.name);
@@ -115,15 +134,15 @@ public class RoleAIController : MonoBehaviour
         }
     }
 
-
-    void OnTriggerEnter(Collider collider)
+    virtual protected void CheckPlayer(Collider collider)
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer))
         {
-            Debug.Log(playerInfo.playerName + "  " + collider.name);
+            //Debug.Log(playerInfo.playerName + "  " + collider.name);
             targetCollider = collider;
         }
     }
+
 
     private void RandomWaypointIndex()
     {

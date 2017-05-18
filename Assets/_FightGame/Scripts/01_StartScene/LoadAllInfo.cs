@@ -99,21 +99,21 @@ public class LoadAllInfo : MonoBehaviour {
         XmlNodeList xnl = xn.ChildNodes;
 
         //CareerItem[] careers = new CareerItem[xnl.Count];
-        AIType item = null;
+        AITypeItem item = null;
         foreach (XmlNode node in xnl)
         {
             XmlElement xe = (XmlElement)node;
             XmlNodeList nodeChild = xe.ChildNodes;
-            item = new AIType();
-            item.typeId = Int32.Parse(nodeChild.Item(1).InnerText);
-            item.stay = Boolean.Parse(nodeChild.Item(2).InnerText);
-            item.waypointIndex = Int32.Parse(nodeChild.Item(3).InnerText);
-            item.patrolSpeed = float.Parse(nodeChild.Item(4).InnerText);
-            item.chaseSpeed = float.Parse(nodeChild.Item(5).InnerText);
-            item.waypointDistance = float.Parse(nodeChild.Item(6).InnerText);
-            item.warnRadius = float.Parse(nodeChild.Item(7).InnerText);
+            item = new AITypeItem();
+            item.typeId = Int32.Parse(nodeChild.Item(0).InnerText);
+            item.stay = Boolean.Parse(nodeChild.Item(1).InnerText);
+            item.waypointIndex = Int32.Parse(nodeChild.Item(2).InnerText);
+            item.patrolSpeed = float.Parse(nodeChild.Item(3).InnerText);
+            item.chaseSpeed = float.Parse(nodeChild.Item(4).InnerText);
+            item.waypointDistance = float.Parse(nodeChild.Item(5).InnerText);
+            item.warnRadius = float.Parse(nodeChild.Item(6).InnerText);
             item.patrolGapTime = float.Parse(nodeChild.Item(7).InnerText);
-            item.cameraFar = float.Parse(nodeChild.Item(7).InnerText);
+            item.cameraFar = float.Parse(nodeChild.Item(8).InnerText);
 
             AIModel.SetAiType(item.typeId, item);
         }

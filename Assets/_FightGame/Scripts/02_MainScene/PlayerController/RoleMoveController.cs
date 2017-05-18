@@ -47,6 +47,7 @@ public class RoleMoveController : MonoBehaviour
     protected virtual void PerformBodyRotation(float offsetRot)
     {
         Vector3 offset = new Vector3(0f, offsetRot, 0f);
+        Debug.Log(offset);
         //四元数相乘代表什么？
         Quaternion q = rb.rotation * Quaternion.Euler(offset);
         rb.MoveRotation(q);

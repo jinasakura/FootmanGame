@@ -17,23 +17,6 @@ public class UserCameraController : MonoBehaviour
     [SerializeField]
     private float lookSensitivity = 4f;//镜头上下旋转的系数
 
-    //[SerializeField]
-    //private float zLower = -3.37f;
-    //[SerializeField]
-    //private float zUpper = -1.63f;
-    //private float currentZ;
-    //[SerializeField]
-    //private float zSensitivity = 0.5f;
-
-    //[SerializeField]
-    //private float yLower = 1.94f;
-    //[SerializeField]
-    //private float yUpper = 2.97f;
-    //private float currentY;
-    //[SerializeField]
-    //private float ySensitivity = 0.5f;
-
-
     private Camera playerCamera;
 
     void Start()
