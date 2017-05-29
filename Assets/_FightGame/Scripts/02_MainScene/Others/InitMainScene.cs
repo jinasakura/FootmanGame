@@ -9,8 +9,9 @@ using System.Collections.Generic;
 /// </summary>
 public class InitMainScene : MonoBehaviour {
 
-    private static string RespawnTag = "Respawn";
-    private static string WayPoints = "AIWaypoint";
+    private static string RespawnTag = "HeroRespawn";
+    private static string SoliderRespawnTag = "SoliderRespawn";
+    private static string WayPoints = "AIWaypoints";
 
     //摄像机这个prefab改了三遍了
     //为什么放到这里：因为放到controller里我没法（不知道）对prefab在运行时赋值
@@ -37,8 +38,9 @@ public class InitMainScene : MonoBehaviour {
         initAIInfo();
         //随机N个地点(随后加上)
         initAllPlayers();
-        
         initAllLanchers();
+
+        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.MainSceneIsReady);
     }
 
     private void HandleModelInfo()
@@ -94,13 +96,18 @@ public class InitMainScene : MonoBehaviour {
             PlayerModel.SetPlayerInfo(playerInfo.playerId, playerInfo);
             i++;
         }
-        NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.MainSceneIsReady);
+       
     }
 
     private void initAIInfo()
     {
-        AIModel.wayPoints = GameObject.FindGameObjectsWithTag(WayPoints);
-        AIModel.AIRoleBasePrefab = AIRoleBasePrefab;
+        //AIModel.wayPoints = GameObject.FindGameObjectsWithTag(WayPoints);
+        //AIModel.AIRoleBasePrefab = AIRoleBasePrefab;
+        GameObject[] pointArray = GameObject.FindGameObjectsWithTag(WayPoints);
+        foreach (GameObject item in pointArray)
+        {
+            AIModel.SetWaypoints(Int16.Parse(item.name), item);
+        }
 
     }
 

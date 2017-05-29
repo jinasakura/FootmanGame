@@ -110,6 +110,18 @@ public class SkillModel
         return items;
     }
 
+    public static SkillLevelItem FindFirstSkill(int careerId)
+    {
+        List<SkillLevelItem> skills = skillDict[careerId];
+        SkillLevelItem target = null;
+        foreach (SkillLevelItem item in skills)
+        {
+            target = item;
+            break;
+        }
+        return target;
+    }
+
     public static List<SkillLevelItem> GetAllSkillType()
     {
         //SkillLevelItem item = skillDict[careerId];

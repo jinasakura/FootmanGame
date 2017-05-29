@@ -15,7 +15,7 @@ public class UserInfoHandle : MonoBehaviour
     [SerializeField]
     private SimpleColorSlider mpSlider;
 
-    void Awake()
+    void Start()
     {
         NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.MainSceneIsReady);
     }

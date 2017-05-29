@@ -8,6 +8,7 @@ public class PlayerInfo : MonoBehaviour
 {
     public int playerId;
 
+    [SerializeField]
     private string _playerName;
     public string playerName
     {
@@ -24,5 +25,9 @@ public class PlayerInfo : MonoBehaviour
     //public int careerId;
 
     public PlayerDetailInfo detail;
+    //阵营
+    public int camp;
+
+    public Career.Type career;
 
 }

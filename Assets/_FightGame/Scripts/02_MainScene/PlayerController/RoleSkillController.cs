@@ -29,9 +29,14 @@ public class RoleSkillController : MonoBehaviour
         }
     }
 
-    public void ReleaseSkill(NotificationCenter.Notification info)
+    private void ReleaseSkill(NotificationCenter.Notification info)
     {
         int skillId = (int)info.data;
+        HandleSkill(skillId);
+    }
+
+    public void HandleSkill(int skillId)
+    {
         SkillLevelItem skillInfo = SkillModel.GetSkillLevelById(skillId);
         CancelAllSubscriber();
         if (skillInfo.CheckCondition(playerInfo.detail))
@@ -71,16 +76,16 @@ public class RoleSkillController : MonoBehaviour
             skill.skillInfo = skillInfo;
             skill.init();
             skill.SubscribActionFire();
-            Action<int,int> localOnChange = OnSkillTrigger;
+            Action<int, int> localOnChange = OnSkillTrigger;
             if (localOnChange != null)
             {
-                localOnChange(skillInfo.id,skillInfo.loopTimes);
+                localOnChange(skillInfo.id, skillInfo.loopTimes);
             }
             playerInfo.detail.DeductMp(skillInfo.mp);
         }
         else
         {
-            Debug.Log("技能  "+skillInfo.id + "  不符合释放条件");
+            Debug.Log("技能  " + skillInfo.id + "  不符合释放条件");
         }
     }
 

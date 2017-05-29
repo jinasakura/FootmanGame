@@ -25,9 +25,17 @@ public class FootmanStateMachine : StateMachine
 
     void Start()
     {
-        if (stateParams == null) stateParams = new StateMachineParams();
+        CheckStateParams();
 
         playerInfo = GetComponentInParent<PlayerInfo>();
+        if (playerInfo.detail == null)//AI小兵
+        {
+            playerInfo.detail = new PlayerDetailInfo();
+            playerInfo.detail.level = 1;
+            playerInfo.detail.careerId = LoginUserInfo.careerId;
+            playerInfo.detail.currentHp = 100;
+            playerInfo.detail.currentMp = 10000000;
+        }
         playerInfo.detail.OnHPDeductChange += RoleHpDeductChange;
 
         RoleSkillController skillController = GetComponentInParent<RoleSkillController>();
@@ -35,6 +43,11 @@ public class FootmanStateMachine : StateMachine
         {
             skillController.OnSkillTrigger += TriggerSkill;
         }
+    }
+
+    private void CheckStateParams()
+    {
+        if (stateParams == null) stateParams = new StateMachineParams();
     }
 
     void FixedUpdate()
@@ -45,7 +58,7 @@ public class FootmanStateMachine : StateMachine
     public void Move(float h, float v)
     {
         //if (onSkill) return;//技能和移动是互斥的,但是千万不能写这，否则就没法转化到其他状态了
-        if (stateParams == null) stateParams = new StateMachineParams();
+        CheckStateParams();
 
         float tmpH = Mathf.Abs(h);
         float tmpV = Mathf.Abs(v);
@@ -63,6 +76,8 @@ public class FootmanStateMachine : StateMachine
 
     public void Move(Vector3 moveVelocity,float speed=1f)
     {
+        CheckStateParams();
+
         if (moveVelocity == Vector3.zero)
         {
             Idle();
@@ -85,6 +100,7 @@ public class FootmanStateMachine : StateMachine
         return target;
     }
 
+    //这样写不对
     public override void ChangeState<T>()
     {
         if (stateParams.isLive)
@@ -136,8 +152,9 @@ public class FootmanStateMachine : StateMachine
 
     public void TriggerSkill(int skillId,int loopTimes = 1)
     {
+        //Debug.Log("技能" + skillId);
         if (onSkill){ return; }
-        //Debug.Log("技能中……" + skillId);
+        
         stateParams.skillId = skillId;
         stateParams.triggerSkill = true;
         stateParams.totalLoopTimes = loopTimes;

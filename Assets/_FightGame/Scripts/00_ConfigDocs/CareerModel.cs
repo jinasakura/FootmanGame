@@ -7,6 +7,31 @@
 //    public int maxHp;
 //    public int maxMp;
 //}
+public class Career
+{
+    public enum Type { Knight=1,Wizard,Barbarian,Archer };
+
+    public static Career.Type GetCareerType(int type)
+    {
+        Career.Type career = Career.Type.Knight;
+        switch (type)
+        {
+            case 1:
+                career = Career.Type.Knight;
+                break;
+            case 2:
+                career = Career.Type.Wizard;
+                break;
+            case 3:
+                career = Career.Type.Barbarian;
+                break;
+            case 4:
+                career = Career.Type.Archer;
+                break;
+        }
+        return career;
+    }
+}
 
 public class CareerItem
 {

@@ -1,43 +1,54 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class RoleAIController : MonoBehaviour
 {
-    public enum AIType
-    {
-        STAY = 1,
-        PATROL_FIELD,
-        PATROL_CIRCLE
-    }
 
     public enum State
     {
+        NONE,
         IDLE,
         PATROL,
-        CHASE
+        ATTACK
     }
 
     protected NavMeshAgent agent;
     protected FootmanStateMachine character;
     protected Camera aiCamera;
     protected PlayerInfo playerInfo;
-    protected int aiTypeId;
-    protected AITypeItem aiTypeInfo;
-    protected SphereCollider aiCollider;//本AI的警戒范围
+    private RoleSkillController skillController;
+    //protected AITypeItem aiTypeInfo;
+    //protected SphereCollider aiCollider;//本AI的警戒范围
 
-    protected State state;
+    private State _currentState = State.NONE;
+    public State currentState
+    {
+        set
+        {
+            if (value != currentState)
+            {
+                _currentState = value;
+                ChangeState();
+            }
+        }
+        get { return _currentState; }
+    }
     protected bool alive;
 
-    protected int waypointIndex = 0;
-    protected float patrolSpeed = 0.5f;
-    protected float chaseSpeed = 1f;
-    protected float waypointDistance;
-    protected float warnRadius;
-    protected float patrolGapTime;
-    protected float cameraFar;
+    public int[] waypoints;
+    public GameObject[] targets;
+    private int index = 0;
+    public float patrolSpeed = 0.5f;
+    public float chaseSpeed = 1f;
+    //protected float waypointDistance;
+    //protected float warnRadius;
+    //protected float patrolGapTime;
+    //protected float cameraFar;
 
-    protected Collider targetCollider;
+    //protected Collider targetCollider;
     protected GameObject target;
+    private bool gotoDes = false;//是不是到达目的地了
 
     protected Plane[] planes;
 
@@ -53,24 +64,37 @@ public class RoleAIController : MonoBehaviour
         character = GetComponentInChildren<FootmanStateMachine>();
         aiCamera = GetComponentInChildren<Camera>();
         playerInfo = GetComponent<PlayerInfo>();
-        aiCollider = GetComponent<SphereCollider>();
+        skillController = GetComponent<RoleSkillController>();
+        //aiCollider = GetComponent<SphereCollider>();
 
         agent.updatePosition = true;
         agent.updateRotation = true;
 
-        //state = RoleAIController.State.PATROL;
         alive = true;
+        if (AIModel.GetWaypoint(waypoints[index]) != null) { currentState = State.PATROL; }
+        else
+        {
+            currentState = State.IDLE;
+            Invoke("StartPatrol", 3f);
+        }
 
-        RandomWaypointIndex();
-
-        
     }
 
-    protected IEnumerator FSM()
+    private void StartPatrol()
     {
-        while (alive)
+        currentState = State.PATROL;
+    }
+
+    void FixedUpdate()
+    {
+        ChangeState();
+    }
+
+    private void ChangeState()
+    {
+        if (alive)
         {
-            switch (state)
+            switch (currentState)
             {
                 case State.IDLE:
                     Idle();
@@ -78,76 +102,102 @@ public class RoleAIController : MonoBehaviour
                 case State.PATROL:
                     Patrol();
                     break;
-                case State.CHASE:
-                    Chase();
+                case State.ATTACK:
+                    Attack();
                     break;
             }
-            yield return null;
         }
     }
 
-    virtual protected void Idle()
+    private void Idle()
     {
-
+        character.Move(Vector3.zero, 0);
     }
 
-    virtual protected void Patrol()
+    private GameObject des;
+    protected void Patrol()
     {
         agent.speed = patrolSpeed;
-        if (Vector3.Distance(this.transform.position, AIModel.wayPoints[waypointIndex].transform.position) > 2)
+        des = AIModel.GetWaypoint(waypoints[index]);
+        target = targets[index];
+        if (Vector3.Distance(transform.position, des.transform.position) >= 2)
         {
-            agent.SetDestination(AIModel.wayPoints[waypointIndex].transform.position);
+            agent.SetDestination(des.transform.position);
             character.Move(agent.desiredVelocity, agent.speed);
-            //Debug.Log(playerInfo.playerName+"去目的地");
-        }
-        else if (Vector3.Distance(this.transform.position, AIModel.wayPoints[waypointIndex].transform.position) <= 2)
-        {
-            RandomWaypointIndex();
-            //Debug.Log(playerInfo.playerName + "决定哪个目的地");
+            gotoDes = false;
+            //Debug.Log(playerInfo.playerName + "去目的地"+ waypoints[index]);
         }
         else
         {
             character.Move(Vector3.zero, 0);
+            currentState = State.ATTACK;
+            gotoDes = true;
+            if (index == waypoints.Length - 1)
+            {
+                currentState = State.IDLE;
+            }
+            else
+            {
+                index++;
+            }
+
         }
     }
 
-    virtual protected void Chase()
+    void Update()
     {
-        //Debug.Log(playerInfo.playerName + "追击！");
-        agent.speed = chaseSpeed;
-        agent.SetDestination(target.transform.position);
-        character.Move(agent.desiredVelocity, agent.speed);
+        if (currentState == State.ATTACK)
+        {
+            Vector3 fwd = des.transform.forward;
+            fwd.y = 0;
+            transform.rotation = Quaternion.LookRotation(fwd);
+        }
     }
 
-    virtual protected void MakeTargetPlayer()
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (!gotoDes) return;
+    //    if (other.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer))
+    //    {
+    //        planes = GeometryUtility.CalculateFrustumPlanes(aiCamera);
+    //        if (GeometryUtility.TestPlanesAABB(planes, other.bounds))
+    //        {
+    //            Debug.Log(other.name + "进入视线");
+    //            PlayerInfo otherInfo = other.gameObject.GetComponent<PlayerInfo>();
+    //            if (otherInfo != null && otherInfo.camp != playerInfo.camp)
+    //            {
+    //                Debug.Log(other.name + "看着敌人");
+    //                target = other.gameObject;
+    //                transform.LookAt(other.gameObject.transform);
+    //                //currentState = State.ATTACK;
+    //            }
+
+    //        }
+    //    }
+    //}
+
+
+    private float lastTime;
+    private void Attack()
     {
-        if (targetCollider != null)
+        Debug.Log("shi fang ji neng");
+        if (Time.fixedTime - lastTime > 3)
         {
-            planes = GeometryUtility.CalculateFrustumPlanes(aiCamera);
-            if (GeometryUtility.TestPlanesAABB(planes, targetCollider.bounds))
+            PlayerInfo info = target.GetComponent<PlayerInfo>();
+            if (info.detail.currentHp > 0)
             {
-                //Debug.Log(playerInfo.playerName + "看到这个人->" +targetCollider.name);
-                //CheckForPlayer();
-                state = State.CHASE;
-                target = targetCollider.gameObject;
+                //Debug.Log("shi fang ji neng");
+                SkillLevelItem skill = SkillModel.FindFirstSkill((int)playerInfo.career);
+                skillController.HandleSkill(skill.id);
+                lastTime = Time.time;
+            }
+            else
+            {
+                currentState = State.PATROL;
             }
         }
     }
 
-    virtual protected void CheckPlayer(Collider collider)
-    {
-        if (collider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer))
-        {
-            //Debug.Log(playerInfo.playerName + "  " + collider.name);
-            targetCollider = collider;
-        }
-    }
-
-
-    private void RandomWaypointIndex()
-    {
-        waypointIndex = Random.Range(0, AIModel.wayPoints.Length);
-    }
 
 
 }
