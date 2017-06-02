@@ -25,7 +25,7 @@ public class UserInfoHandle : MonoBehaviour
         //Debug.Log("isReady");
         PlayerInfo playerInfo = PlayerModel.GetPlayerInfoInfoById(LoginUserInfo.playerId);
 
-        userName.text = playerInfo.playerName;
+        userName.text = playerInfo.eName;
         SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
         foreach (SimpleColorSlider slider in sliders)
         {
@@ -33,14 +33,14 @@ public class UserInfoHandle : MonoBehaviour
             else mpSlider = slider;
         }
 
-        healthSlider.maxValue = playerInfo.detail.currentHp;
-        mpSlider.maxValue = playerInfo.detail.currentMp;
+        healthSlider.maxValue = playerInfo.currentHp;
+        mpSlider.maxValue = playerInfo.currentMp;
 
-        playerInfo.detail.OnHPAddChange += healthSlider.UpdateCurrentValue;
-        playerInfo.detail.OnHPDeductChange += healthSlider.UpdateCurrentValue;
+        playerInfo.OnHPAddChange += healthSlider.UpdateCurrentValue;
+        playerInfo.OnHPDeductChange += healthSlider.UpdateCurrentValue;
 
-        playerInfo.detail.OnMpAddChange += mpSlider.UpdateCurrentValue;
-        playerInfo.detail.OnMpDeductChange += mpSlider.UpdateCurrentValue;
+        playerInfo.OnMpAddChange += mpSlider.UpdateCurrentValue;
+        playerInfo.OnMpDeductChange += mpSlider.UpdateCurrentValue;
     }
 
 }

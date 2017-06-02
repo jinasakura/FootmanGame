@@ -23,7 +23,7 @@ public class RoleSkillController : MonoBehaviour
     //从哪里收到释放技能的命令（还没释放呢！）
     protected virtual void ReleaseSkillMode()
     {
-        if (playerInfo.playerId == LoginUserInfo.playerId)
+        if (playerInfo.id == LoginUserInfo.playerId)
         {
             NotificationCenter.DefaultCenter.AddObserver(this, MainSceneEvent.ReleaseSkill);
         }
@@ -39,7 +39,7 @@ public class RoleSkillController : MonoBehaviour
     {
         SkillLevelItem skillInfo = SkillModel.GetSkillLevelById(skillId);
         CancelAllSubscriber();
-        if (skillInfo.CheckCondition(playerInfo.detail))
+        if (skillInfo.CheckCondition(playerInfo))
         {
             if (!skillInfo.passive)
             {
@@ -81,7 +81,7 @@ public class RoleSkillController : MonoBehaviour
             {
                 localOnChange(skillInfo.id, skillInfo.loopTimes);
             }
-            playerInfo.detail.DeductMp(skillInfo.mp);
+            playerInfo.DeductMp(skillInfo.mp);
         }
         else
         {
@@ -95,7 +95,7 @@ public class RoleSkillController : MonoBehaviour
         if (target == null)
         {
             target = gameObject.AddComponent<T>();
-            gameObject.name = playerInfo.playerName;
+            gameObject.name = playerInfo.eName;
         }
         return target;
     }

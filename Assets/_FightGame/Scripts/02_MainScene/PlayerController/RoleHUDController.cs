@@ -17,14 +17,14 @@ public class RoleHUDController : MonoBehaviour
             if (slider.name == "HealthSlider") healthSlider = slider;
             else mpSlider = slider;
         }
-        healthSlider.maxValue = playerInfo.detail.currentHp;
-        mpSlider.maxValue = playerInfo.detail.currentMp;
+        healthSlider.maxValue = playerInfo.currentHp;
+        mpSlider.maxValue = playerInfo.currentMp;
 
-        playerInfo.detail.OnHPAddChange += healthSlider.UpdateCurrentValue;
-        playerInfo.detail.OnHPDeductChange += healthSlider.UpdateCurrentValue;
+        playerInfo.OnHPAddChange += healthSlider.UpdateCurrentValue;
+        playerInfo.OnHPDeductChange += healthSlider.UpdateCurrentValue;
 
-        playerInfo.detail.OnMpAddChange += mpSlider.UpdateCurrentValue;
-        playerInfo.detail.OnMpDeductChange += mpSlider.UpdateCurrentValue;
+        playerInfo.OnMpAddChange += mpSlider.UpdateCurrentValue;
+        playerInfo.OnMpDeductChange += mpSlider.UpdateCurrentValue;
     }
 
     

@@ -28,15 +28,6 @@ public class FootmanStateMachine : StateMachine
         CheckStateParams();
 
         playerInfo = GetComponentInParent<PlayerInfo>();
-        if (playerInfo.detail == null)//AI小兵
-        {
-            playerInfo.detail = new PlayerDetailInfo();
-            playerInfo.detail.level = 1;
-            playerInfo.detail.careerId = LoginUserInfo.careerId;
-            playerInfo.detail.currentHp = 100;
-            playerInfo.detail.currentMp = 10000000;
-        }
-        playerInfo.detail.OnHPDeductChange += RoleHpDeductChange;
 
         RoleSkillController skillController = GetComponentInParent<RoleSkillController>();
         if (skillController != null)
@@ -95,7 +86,7 @@ public class FootmanStateMachine : StateMachine
         if (target == null)
         {
             target = gameObject.AddComponent<T>();
-            gameObject.name = playerInfo.playerName+" Model";
+            gameObject.name = playerInfo.id+" Model";
         }
         return target;
     }

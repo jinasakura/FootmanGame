@@ -36,7 +36,7 @@ public class ACloseSingleSkill : CloseCombatSkill
                     {
                         //Debug.Log("Attack   " + isAttack);
                         //playerInfo.detail.DeductMp(skillInfo.mp);
-                        enemyInfo.detail.DeductHp(skillInfo.damageHp);
+                        enemyInfo.DeductHp(skillInfo.damageHp);
                         //role.TakeDamageAction();
                         CloseWeapon();
                         isAttack = true;

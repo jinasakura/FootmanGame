@@ -7,7 +7,8 @@ using System.Collections.Generic;
 /// 这有个大冲突：如果通过Start初始化后，通过instance的public方法访问player数据会被清空
 /// 所以这里的职责只是MainScene初始化，数据存储和访问放到别的地方
 /// </summary>
-public class InitMainScene : MonoBehaviour {
+public class InitMainScene : MonoBehaviour
+{
 
     private static string RespawnTag = "HeroRespawn";
     private static string SoliderRespawnTag = "SoliderRespawn";
@@ -25,19 +26,18 @@ public class InitMainScene : MonoBehaviour {
 
     [SerializeField]
     private GameObject[] models;
-
-    private GameObject[] respawns;//测试使用，出生点位置
+    [SerializeField]
+    private GameObject respawn;
 
     [SerializeField]
     private GameObject[] lanchers;
 
 
-    void Start ()
+    void Start()
     {
         HandleModelInfo();
-        initAIInfo();
-        //随机N个地点(随后加上)
-        initAllPlayers();
+        initUser();
+        //initAIPlayers();
         initAllLanchers();
 
         NotificationCenter.DefaultCenter.PostNotification(this, MainSceneEvent.MainSceneIsReady);
@@ -52,61 +52,42 @@ public class InitMainScene : MonoBehaviour {
         }
     }
 
-    private void initAllPlayers()
+    //这里不初始化AI
+    private void initUser()
     {
         GameObject model = PlayerModel.GetModelByName(LoginUserInfo.modelName);
         PlayerModel.roleBasePrefab = RoleBasePrefab;
-        respawns = GameObject.FindGameObjectsWithTag(RespawnTag);
         //Array.Sort(respawns);
 
         GameObject playerModel;
         PlayerInfo playerInfo;
-        GameObject roleBase;
-        int i = 0;
-        foreach (GameObject item in respawns)
-        {
-            if (i == 0)
-            {
-                roleBase = Instantiate(RoleBasePrefab, respawns[i].transform.position, respawns[i].transform.rotation) as GameObject;
-                playerInfo = roleBase.GetComponent<PlayerInfo>();
-                playerInfo.playerName = LoginUserInfo.playerName;
-                //Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
-                //roleBase.AddComponent<UserMoveController>();
-                playerModel = Instantiate(model, respawns[i].transform.position, respawns[i].transform.rotation, roleBase.transform) as GameObject;
-                ChangeLayer.SetLayerRecursively(playerModel, LayerMask.NameToLayer(SkillRef.PlayersLayer));
-            }
-            else
-            {
-                roleBase = Instantiate(AIRoleBasePrefab, respawns[i].transform.position, respawns[i].transform.rotation) as GameObject;
-                playerInfo = roleBase.GetComponent<PlayerInfo>();
-                playerInfo.playerName = "Player AI "+i;
-                playerModel = Instantiate(model, respawns[i].transform.position, respawns[i].transform.rotation, roleBase.transform) as GameObject;
-                ChangeLayer.SetLayerRecursively(playerModel, LayerMask.NameToLayer(SkillRef.AILayer));
-            }
-           
-            playerInfo.playerId = i;
-            playerInfo.modelName = LoginUserInfo.modelName;
-            playerInfo.detail = new PlayerDetailInfo();
-            playerInfo.detail.careerId = LoginUserInfo.careerId;
-            playerInfo.detail.level = LoginUserInfo.level;
-            CareerItem careerLevel = CareerModel.GetLevelItem(playerInfo.detail.careerId, playerInfo.detail.level);
-            playerInfo.detail.currentHp = careerLevel.maxHp;
-            playerInfo.detail.currentMp = careerLevel.maxMp;
+        GameObject roleBase = Instantiate(RoleBasePrefab, respawn.transform.position, respawn.transform.rotation) as GameObject;
+        playerInfo = roleBase.GetComponent<PlayerInfo>();
+        playerInfo.eName = LoginUserInfo.playerName;
+        //Instantiate(cameraPrefab, cameraPrefab.transform.position, cameraPrefab.transform.rotation, roleBase.transform);
+        //roleBase.AddComponent<UserMoveController>();
+        playerModel = Instantiate(model, respawn.transform.position, respawn.transform.rotation, roleBase.transform) as GameObject;
+        ChangeLayer.SetLayerRecursively(playerModel, LayerMask.NameToLayer(SkillRef.PlayersLayer));
 
-            PlayerModel.SetPlayerInfo(playerInfo.playerId, playerInfo);
-            i++;
-        }
-       
+        playerInfo.id = 1000001;
+        playerInfo.modelName = LoginUserInfo.modelName;
+        playerInfo.careerId = LoginUserInfo.careerId;
+        playerInfo.level = LoginUserInfo.level;
+        CareerItem careerLevel = CareerModel.GetLevelItem(playerInfo.careerId, playerInfo.level);
+        playerInfo.currentHp = careerLevel.maxHp;
+        playerInfo.currentMp = careerLevel.maxMp;
+
+        PlayerModel.SetPlayerInfo(playerInfo.id, playerInfo);
     }
 
-    private void initAIInfo()
+    private void initAIPlayers()
     {
         //AIModel.wayPoints = GameObject.FindGameObjectsWithTag(WayPoints);
         //AIModel.AIRoleBasePrefab = AIRoleBasePrefab;
         GameObject[] pointArray = GameObject.FindGameObjectsWithTag(WayPoints);
         foreach (GameObject item in pointArray)
         {
-            AIModel.SetWaypoints(Int16.Parse(item.name), item);
+            AIModel.SetWaypoints(Int32.Parse(item.name), item);
         }
 
     }

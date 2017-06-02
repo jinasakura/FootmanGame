@@ -19,7 +19,7 @@ public class AUniLancherSkill : FarCombatSkill {
 
             FireBallController controller = ball.GetComponent<FireBallController>();
             controller.skillInfo = skillInfo;
-            controller.playerId = playerInfo.playerId;
+            controller.playerId = playerInfo.id;
             controller.Fire(transform.forward,firePoint.position);
 
         }

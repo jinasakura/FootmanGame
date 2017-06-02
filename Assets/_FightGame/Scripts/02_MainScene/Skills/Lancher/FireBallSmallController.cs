@@ -17,6 +17,7 @@ public class FireBallSmallController : FireBallController
 
     void OnTriggerStay(Collider enemyCollider)
     {
+        Debug.Log("lalalala->"+enemyCollider.gameObject.name);
         if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer))
         {
             GameObject enemy = enemyCollider.gameObject;
@@ -28,7 +29,7 @@ public class FireBallSmallController : FireBallController
                 {
                     //Debug.Log("Attack   " + isAttack);
                     //playerInfo.detail.DeductMp(skillInfo.mp);
-                    enemyInfo.detail.DeductHp(skillInfo.damageHp);
+                    enemyInfo.DeductHp(skillInfo.damageHp);
                     //role.TakeDamageAction();
                     if (gameObject != null) { Destroy(gameObject); }
                 }

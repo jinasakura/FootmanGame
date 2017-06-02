@@ -28,18 +28,17 @@ public class ACloneSelfSkill : RoleSkill
 
                 GameObject model = PlayerModel.GetModelByName(playerInfo.modelName);
                 channelPlayer = Instantiate(PlayerModel.roleBasePrefab, newPlayerPosition, transform.rotation) as GameObject;
-                channelPlayer.gameObject.name = "Player"+playerInfo.playerId.ToString()+ "Channeling";
+                channelPlayer.gameObject.name = "Player"+playerInfo.id.ToString()+ "Channeling";
                 GameObject playerModel = Instantiate(model, newPlayerPosition, transform.rotation, channelPlayer.transform) as GameObject;
                 PlayerInfo pInfo = channelPlayer.GetComponent<PlayerInfo>();
-                pInfo.playerId = playerInfo.playerId;
-                playerInfo.playerName = "Player channeling";
+                pInfo.id = playerInfo.id;
+                playerInfo.eName = "Player channeling";
                 pInfo.modelName = playerInfo.modelName;
-                pInfo.detail = new PlayerDetailInfo();
-                pInfo.detail.careerId = LoginUserInfo.careerId;
-                pInfo.detail.level = LoginUserInfo.level;
-                CareerItem careerLevel = CareerModel.GetLevelItem(pInfo.detail.careerId, pInfo.detail.level);
-                pInfo.detail.currentHp = careerLevel.maxHp;
-                pInfo.detail.currentMp = careerLevel.maxMp;
+                pInfo.careerId = LoginUserInfo.careerId;
+                pInfo.level = LoginUserInfo.level;
+                CareerItem careerLevel = CareerModel.GetLevelItem(pInfo.careerId, pInfo.level);
+                pInfo.currentHp = careerLevel.maxHp;
+                pInfo.currentMp = careerLevel.maxMp;
 
                 //channelPlayer.AddComponent<AIMoveController>();
                 Destroy(channelPlayer, 5);

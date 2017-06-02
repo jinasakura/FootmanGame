@@ -12,8 +12,8 @@ public class PCureSelfSkill : RoleSkill
 
         if (skillFireStart)
         {
-            playerInfo.detail.AddHp(skillInfo.healHp);
-            playerInfo.detail.AddMp(skillInfo.healMp);
+            playerInfo.AddHp(skillInfo.healHp);
+            playerInfo.AddMp(skillInfo.healMp);
             //isAttack = true;
         }
     }

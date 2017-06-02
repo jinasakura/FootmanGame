@@ -53,7 +53,7 @@ public class SkillLevelItem
     //某些技能可能循环多次
     public int loopTimes;
 
-    public bool CheckCondition(PlayerDetailInfo playerRequirement)
+    public bool CheckCondition(PlayerInfo playerRequirement)
     {
         bool use = false;
         if (level <= playerRequirement.level)

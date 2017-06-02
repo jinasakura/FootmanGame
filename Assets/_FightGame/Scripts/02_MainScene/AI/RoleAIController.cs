@@ -180,14 +180,14 @@ public class RoleAIController : MonoBehaviour
     private float lastTime;
     private void Attack()
     {
-        Debug.Log("shi fang ji neng");
+        //Debug.Log("shi fang ji neng");
         if (Time.fixedTime - lastTime > 3)
         {
             PlayerInfo info = target.GetComponent<PlayerInfo>();
-            if (info.detail.currentHp > 0)
+            if (info.currentHp > 0)
             {
                 //Debug.Log("shi fang ji neng");
-                SkillLevelItem skill = SkillModel.FindFirstSkill((int)playerInfo.career);
+                SkillLevelItem skill = SkillModel.FindFirstSkill(playerInfo.careerId);
                 skillController.HandleSkill(skill.id);
                 lastTime = Time.time;
             }
