@@ -4,13 +4,13 @@ using System;
 public class CheckSkillFinish : StateMachineBehaviour
 {
 
-    private FootmanStateMachine role;
+    private PlayerStateMachine role;
     private int skillId;
     //private int loopTimes;
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (role == null) { role = animator.gameObject.GetComponentInParent<FootmanStateMachine>(); }
+        if (role == null) { role = animator.gameObject.GetComponentInParent<PlayerStateMachine>(); }
         role.OnSkillState(true);
         if (role.stateParams.skillId == (int)SkillRef.SkillType.TakeDamage) { return; }
         if (role.stateParams.skillId != skillId)

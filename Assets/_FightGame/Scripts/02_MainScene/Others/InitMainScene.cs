@@ -52,7 +52,7 @@ public class InitMainScene : MonoBehaviour
         }
     }
 
-    //这里不初始化AI
+    //这里只初始化用户
     private void initUser()
     {
         GameObject model = PlayerModel.GetModelByName(LoginUserInfo.modelName);

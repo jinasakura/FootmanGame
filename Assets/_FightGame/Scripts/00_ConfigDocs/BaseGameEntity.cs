@@ -5,6 +5,15 @@ public class BaseGameEntity : MonoBehaviour {
 
     public int id;
 
-    public string eName;
+    private string _eName;
+    public string eName
+    {
+        set
+        {
+            gameObject.name = value;
+            _eName = value;
+        }
+        get { return _eName; }
+    }
 
 }

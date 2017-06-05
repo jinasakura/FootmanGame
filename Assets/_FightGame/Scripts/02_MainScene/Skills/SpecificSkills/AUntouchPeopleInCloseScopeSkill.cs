@@ -29,7 +29,7 @@ public class AUntouchPeopleInCloseScopeSkill : FarCombatSkill
                     PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();
                     if (enemyInfo != null && enemyInfo.id != LoginUserInfo.playerId)
                     {
-                        FootmanStateMachine role = enemy.GetComponent<FootmanStateMachine>();
+                        PlayerStateMachine role = enemy.GetComponent<PlayerStateMachine>();
                         if (role != null)
                         {
                             //float damage = CalculateDamage(role.transform.position);

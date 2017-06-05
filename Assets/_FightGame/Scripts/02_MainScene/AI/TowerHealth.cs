@@ -3,21 +3,20 @@ using System.Collections;
 
 public class TowerHealth : MonoBehaviour {
 
-    private PlayerInfo playerInfo;
+    private ViableEntityInfo playerInfo;
     private SimpleColorSlider healthSlider;
 
     void Start()
     {
-        playerInfo = GetComponent<PlayerInfo>();
+        playerInfo = GetComponent<ViableEntityInfo>();
 
         SimpleColorSlider[] sliders = GetComponentsInChildren<SimpleColorSlider>();
         foreach (SimpleColorSlider slider in sliders)
         {
             if (slider.name == "HealthSlider") healthSlider = slider;
         }
-        healthSlider.maxValue = playerInfo.currentHp = 100;
+        healthSlider.maxValue = playerInfo.currentHp = 200;
 
-        playerInfo.OnHPAddChange += healthSlider.UpdateCurrentValue;
         playerInfo.OnHPDeductChange += healthSlider.UpdateCurrentValue;
 
     }

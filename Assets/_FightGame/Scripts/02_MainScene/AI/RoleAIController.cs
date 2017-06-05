@@ -14,7 +14,7 @@ public class RoleAIController : MonoBehaviour
     }
 
     protected NavMeshAgent agent;
-    protected FootmanStateMachine character;
+    protected PlayerStateMachine character;
     protected Camera aiCamera;
     protected PlayerInfo playerInfo;
     private RoleSkillController skillController;
@@ -61,7 +61,7 @@ public class RoleAIController : MonoBehaviour
     virtual protected void init()
     {
         agent = GetComponent<NavMeshAgent>();
-        character = GetComponentInChildren<FootmanStateMachine>();
+        character = GetComponentInChildren<PlayerStateMachine>();
         aiCamera = GetComponentInChildren<Camera>();
         playerInfo = GetComponent<PlayerInfo>();
         skillController = GetComponent<RoleSkillController>();

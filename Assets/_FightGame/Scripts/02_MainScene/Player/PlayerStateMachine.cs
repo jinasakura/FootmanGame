@@ -9,7 +9,7 @@ using System;
 /// 更重要的一点是，如果state不是MonoBehaviour,那么就只能封装那些变量，这样就不符合原来定的封装原则了
 /// 比如，没法把移动操作包装到MoveState里。
 /// </summary>
-public class FootmanStateMachine : StateMachine
+public class PlayerStateMachine : StateMachine
 {
     private StateMachineParams _stateParams;
     public StateMachineParams stateParams { set; get; }
@@ -86,7 +86,7 @@ public class FootmanStateMachine : StateMachine
         if (target == null)
         {
             target = gameObject.AddComponent<T>();
-            gameObject.name = playerInfo.id+" Model";
+            gameObject.name = playerInfo.eName+" "+playerInfo.id+" Model";
         }
         return target;
     }

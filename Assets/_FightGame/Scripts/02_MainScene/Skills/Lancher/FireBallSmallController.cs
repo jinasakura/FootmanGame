@@ -17,22 +17,15 @@ public class FireBallSmallController : FireBallController
 
     void OnTriggerStay(Collider enemyCollider)
     {
-        Debug.Log("lalalala->"+enemyCollider.gameObject.name);
+        //Debug.Log("lalalala->"+enemyCollider.gameObject.name);
         if (enemyCollider.gameObject.layer == LayerMask.NameToLayer(SkillRef.PlayersLayer))
         {
             GameObject enemy = enemyCollider.gameObject;
-            PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();
+            ViableEntityInfo enemyInfo = enemy.GetComponentInParent<ViableEntityInfo>();
             if (enemyInfo != null)
             {
-                FootmanStateMachine role = enemy.GetComponent<FootmanStateMachine>();
-                if (role != null)
-                {
-                    //Debug.Log("Attack   " + isAttack);
-                    //playerInfo.detail.DeductMp(skillInfo.mp);
-                    enemyInfo.DeductHp(skillInfo.damageHp);
-                    //role.TakeDamageAction();
-                    if (gameObject != null) { Destroy(gameObject); }
-                }
+                enemyInfo.DeductHp(skillInfo.damageHp);
+                if (gameObject != null) { Destroy(gameObject); }
             }
         }
     }

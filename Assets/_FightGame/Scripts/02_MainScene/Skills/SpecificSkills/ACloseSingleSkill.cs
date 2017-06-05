@@ -31,7 +31,7 @@ public class ACloseSingleSkill : CloseCombatSkill
                 PlayerInfo enemyInfo = enemy.GetComponentInParent<PlayerInfo>();
                 if (enemyInfo != null)
                 {
-                    FootmanStateMachine role = enemy.GetComponent<FootmanStateMachine>();
+                    PlayerStateMachine role = enemy.GetComponent<PlayerStateMachine>();
                     if (role != null && !isAttack)
                     {
                         //Debug.Log("Attack   " + isAttack);
